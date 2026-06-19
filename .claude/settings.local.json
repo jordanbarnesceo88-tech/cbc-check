@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(printf \"Thumbs.db\\\\n.DS_Store\\\\nnpm-debug.log*\\\\n*.log\\\\n\")",
+      "Bash(git add *)",
+      "Bash(git commit -q -m 'Baseline: 5 design directions + core_design_v2 \\(verified\\) *)"
+    ]
+  }
+}

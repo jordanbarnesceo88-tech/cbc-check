@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Business Consulting / Bureau</title>
+<!--
+  DIRECTION B — "Bureau" (Swiss Ledger)
+  Light structured redesign in the International Typographic Style.
+  Aesthetic family: Swiss grid / editorial ledger (sharp corners, hairline rules, no shadows, no pills,
+  monospace metadata, enumerated index, single red accent). Completely different from the soft fintech
+  original AND from Direction A's dark editorial register.
+  Type: Archivo (neo-grotesque, full Cyrillic) + JetBrains Mono (metadata). Theme: light, locked.
+  Accent locked: red #d4231a (ties to the brand red). Shape locked: radius 0.
+  Standalone vanilla HTML/CSS/JS. Reveal via IntersectionObserver. No em-dashes in UI copy.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  :root{
+    --paper:#ebedeb; --paper-2:#f6f7f5; --card:#ffffff;
+    --ink:#16181a; --ink-2:#34383c; --muted:#5d646b; --faint:#9aa0a6;
+    --rule:rgba(22,24,26,.15); --rule-2:rgba(22,24,26,.28); --rule-strong:#16181a;
+    --accent:#d4231a; --accent-ink:#ffffff;
+    --grotesk:'Archivo',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --wrap:1280px;
+  }
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--grotesk);
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.45}
+  a{color:inherit;text-decoration:none}
+  img{display:block}
+  input,textarea,button,select{font-family:inherit}
+  textarea{resize:vertical}
+  ::selection{background:var(--accent);color:#fff}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+  .mono{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .accent{color:var(--accent)}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--rule-strong);transition:background .3s}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:20px;height:64px}
+  .bar nav{display:flex;gap:0}
+  .bar nav a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+    padding:6px 16px;border-left:1px solid var(--rule);transition:color .2s,background .2s}
+  .bar nav a:first-child{border-left:0}
+  .bar nav a:hover{color:var(--accent)}
+  .actions{display:flex;align-items:center;gap:12px}
+  .lang{display:flex;border:1px solid var(--rule-strong)}
+  .lang button{font-family:var(--mono);font-size:11px;padding:6px 10px;background:transparent;color:var(--ink);border:0;border-left:1px solid var(--rule);cursor:pointer;transition:.2s}
+  .lang button:first-child{border-left:0}
+  .lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+    text-transform:uppercase;font-weight:500;cursor:pointer;border-radius:0;transition:transform .1s,background .2s,color .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:var(--accent);color:var(--accent-ink);padding:11px 18px;border:0}
+  .btn-primary:hover{background:#b41c14}
+  .btn-ink{background:var(--ink);color:var(--paper);padding:14px 22px;border:0;font-size:13px}
+  .btn-ink:hover{background:var(--accent)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--rule-strong);padding:13px 21px;font-size:13px}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+  /* ---------- hero ---------- */
+  .hero{border-bottom:1px solid var(--rule-strong)}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .hero-top .mono{color:var(--muted)}
+  .hero-top .reg{color:var(--accent)}
+  .hero-main{padding:clamp(34px,6vh,72px) 0 clamp(30px,4vh,52px)}
+  h1{font-family:var(--grotesk);font-weight:800;font-size:clamp(40px,7vw,104px);line-height:.96;letter-spacing:-.03em;margin:0;text-transform:none}
+  .hero-low{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,4vw,60px);align-items:end;
+    margin-top:clamp(26px,4vh,46px);padding-top:26px;border-top:1px solid var(--rule)}
+  .hero-low .sub{font-size:clamp(16px,1.3vw,19px);color:var(--ink-2);line-height:1.5;max-width:46ch;margin:0}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+  .reglist{border:1px solid var(--rule-strong);background:var(--card)}
+  .reglist .rh{display:flex;justify-content:space-between;padding:11px 16px;border-bottom:1px solid var(--rule-strong);background:var(--ink);color:var(--paper)}
+  .reglist .rh .mono{color:var(--paper)}
+  .reglist .rr{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:baseline;padding:13px 16px;border-bottom:1px solid var(--rule)}
+  .reglist .rr:last-child{border-bottom:0}
+  .reglist .rn{font-weight:700;font-size:16px}
+  .reglist .rd{font-size:12px;color:var(--muted)}
+  .reglist .rc{font-family:var(--mono);font-size:11px;color:var(--accent)}
+
+  /* ---------- generic section ---------- */
+  .sec{padding:clamp(56px,8vh,104px) 0;border-bottom:1px solid var(--rule-strong)}
+  .label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:inline-block;margin-bottom:16px}
+  h2{font-family:var(--grotesk);font-weight:800;font-size:clamp(28px,4vw,52px);line-height:1.02;letter-spacing:-.02em;margin:0}
+  .lead{font-size:clamp(16px,1.2vw,18px);color:var(--ink-2);line-height:1.55;max-width:60ch}
+
+  /* sectors ledger strip */
+  .strip{display:grid;grid-template-columns:auto repeat(4,1fr);align-items:stretch}
+  .strip>div{padding:22px 20px;border-left:1px solid var(--rule)}
+  .strip>div:first-child{border-left:0;padding-left:0;display:flex;align-items:center}
+  .strip .sk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .strip .sv{font-weight:700;font-size:clamp(18px,2vw,26px);letter-spacing:-.01em}
+  .strip .si{font-family:var(--mono);font-size:11px;color:var(--faint);display:block;margin-top:6px}
+
+  /* about */
+  .about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:start}
+  .pgrid{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--rule-strong);border-left:1px solid var(--rule);margin-top:28px}
+  .pgrid div{border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 16px}
+  .pgrid .pn{font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+  .pgrid .pv{font-weight:600;font-size:15px;margin-top:8px}
+
+  /* services index table */
+  .svc-h{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:28px}
+  .index{border-top:1px solid var(--rule-strong)}
+  .row{display:grid;grid-template-columns:64px 1.05fr 1.7fr .85fr;gap:clamp(14px,2.4vw,40px);
+    padding:clamp(22px,3vh,34px) 0;border-bottom:1px solid var(--rule);position:relative;transition:background .25s}
+  .row::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--accent);transition:width .25s}
+  .row:hover{background:var(--paper-2)}
+  .row:hover::before{width:3px}
+  .row .rnum{font-family:var(--mono);font-size:13px;color:var(--accent);font-weight:500}
+  .row h3{font-family:var(--grotesk);font-weight:700;font-size:clamp(18px,1.7vw,23px);line-height:1.12;margin:0;letter-spacing:-.01em}
+  .row .rd{font-size:14.5px;color:var(--muted);line-height:1.5;margin:0}
+  .row .rt{font-family:var(--mono);font-size:10.5px;color:var(--faint);line-height:1.7;letter-spacing:.02em}
+
+  /* approach 4-col grid */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--rule)}
+  .steps .st{border-right:1px solid var(--rule);border-top:2px solid var(--ink);padding:24px 18px 30px}
+  .steps .st .stn{font-family:var(--grotesk);font-weight:800;font-size:40px;line-height:1;color:var(--accent);letter-spacing:-.02em}
+  .steps .st h3{font-weight:700;font-size:18px;margin:18px 0 8px;letter-spacing:-.01em}
+  .steps .st p{margin:0;font-size:14px;color:var(--muted);line-height:1.5}
+
+  /* stats */
+  .figs{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--rule)}
+  .figs .fg{border-right:1px solid var(--rule);padding:8px 22px 8px 22px}
+  .figs .fg:first-child{padding-left:0;border-left:0}
+  .figs .fv{font-family:var(--grotesk);font-weight:800;font-size:clamp(44px,5.2vw,80px);line-height:1;letter-spacing:-.03em}
+  .figs .fg:nth-child(4) .fv{color:var(--accent)}
+  .figs .fl{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:16px;max-width:24ch;text-transform:none;letter-spacing:0}
+
+  /* testimonials */
+  .quotes{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--rule-strong)}
+  .quotes figure{margin:0;padding:clamp(26px,3vw,40px);border-right:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .quotes figure:last-child{border-right:0}
+  .quotes .qm{font-family:var(--grotesk);font-weight:800;color:var(--accent);font-size:30px;line-height:1}
+  .quotes blockquote{margin:16px 0 0;font-size:clamp(18px,1.6vw,23px);font-weight:500;line-height:1.4;letter-spacing:-.01em}
+  .quotes figcaption{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule)}
+  .quotes .qn{font-weight:700;font-size:14px}
+  .quotes .qr{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;text-transform:none;letter-spacing:0}
+
+  /* contact */
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule-strong)}
+  .contact .cinfo{padding:clamp(28px,3.5vw,52px) clamp(28px,3.5vw,52px) clamp(28px,3.5vw,52px) 0;border-right:1px solid var(--rule)}
+  .contact .cform{padding:clamp(28px,3.5vw,52px) 0 clamp(28px,3.5vw,52px) clamp(28px,3.5vw,52px)}
+  .cdet{margin-top:30px;border-top:1px solid var(--rule-strong)}
+  .cdet .d{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 0;border-bottom:1px solid var(--rule)}
+  .cdet .dl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .cdet .dv{font-weight:600;font-size:15px}
+  .cdet a.dv:hover{color:var(--accent)}
+  .fld{margin-bottom:18px}
+  label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:8px}
+  .hint{font-size:12.5px;color:var(--faint);margin:8px 0 0}
+  .err{font-size:12.5px;color:var(--accent);font-weight:600;margin:7px 0 0;display:none}
+  .err.show{display:block}
+  input,textarea{width:100%;padding:13px 14px;font-size:15px;color:var(--ink);background:var(--card);
+    border:1px solid var(--rule-strong);border-radius:0;outline:none;transition:border-color .2s,box-shadow .2s}
+  input::placeholder,textarea::placeholder{color:var(--faint)}
+  input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(212,35,26,.18)}
+  textarea{min-height:120px}
+  .sent{display:none;margin-bottom:16px;padding:13px 15px;background:var(--ink);color:var(--paper);font-weight:600;font-size:14px}
+  .sent.show{display:block}
+
+  /* footer */
+  footer{padding:clamp(48px,6vh,76px) 0 30px}
+  .fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:36px 24px;padding-bottom:40px;border-bottom:1px solid var(--rule-strong)}
+  .fgrid h4{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;font-weight:500}
+  .fcol a,.fcol span{display:block;font-size:14px;color:var(--ink-2);margin-bottom:11px;transition:color .2s}
+  .fcol a:hover{color:var(--accent)}
+  .ftag{font-size:14.5px;color:var(--muted);line-height:1.55;max-width:36ch;margin:18px 0 0}
+  .fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:20px}
+  .fbottom span{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:none;letter-spacing:0}
+
+  /* reveal (subtle, low motion) */
+  [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+  [data-reveal].in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    *{scroll-behavior:auto !important}
+    [data-reveal]{opacity:1 !important;transform:none !important;transition:none !important}
+  }
+
+  /* responsive */
+  @media(max-width:980px){
+    .hero-low,.about,.contact{grid-template-columns:1fr}
+    .reglist{order:-1}
+    .row{grid-template-columns:48px 1fr;gap:10px 16px}
+    .row .rd{grid-column:2/3}
+    .row .rt{grid-column:2/3}
+    .steps{grid-template-columns:1fr 1fr}
+    .figs{grid-template-columns:1fr 1fr}
+    .figs .fg{border-top:1px solid var(--rule);padding:20px}
+    .figs .fg:nth-child(odd){border-left:0;padding-left:0}
+    .quotes{grid-template-columns:1fr}
+    .quotes figure{border-right:0}
+    .pgrid{grid-template-columns:1fr 1fr}
+    .fgrid{grid-template-columns:1fr 1fr}
+    .contact .cinfo{border-right:0;padding:0 0 36px;border-bottom:1px solid var(--rule);margin-bottom:36px}
+    .contact .cform{padding:0}
+  }
+  @media(max-width:600px){
+    .bar nav{display:none}
+    .strip{grid-template-columns:1fr 1fr}
+    .strip>div{border-left:0;border-top:1px solid var(--rule)}
+    .steps{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a href="#top" aria-label="Core Business Consulting"><img src="assets/logo-dark.svg" alt="Core Business Consulting" style="height:26px;width:auto"></a>
+    <nav>
+      <a href="#services" data-i18n="navServices">Направления</a>
+      <a href="#approach" data-i18n="navApproach">Подход</a>
+      <a href="#about" data-i18n="navAbout">О компании</a>
+      <a href="#contact" data-i18n="navContact">Контакты</a>
+    </nav>
+    <div class="actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="ru" aria-pressed="true">RU</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-i18n="ctaPrimary">Обсудить задачу</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-top">
+      <span class="mono" data-i18n="heroEyebrow">Платформа комплексной поддержки бизнеса</span>
+      <span class="mono reg" data-i18n="heroReg">Россия / СНГ / Ближний Восток</span>
+    </div>
+    <div class="hero-main">
+      <h1 data-reveal><span data-i18n="h1a">Структурируем, </span><span class="accent" data-i18n="h1b">защищаем</span><span data-i18n="h1c"> и развиваем ваш бизнес</span></h1>
+      <div class="hero-low">
+        <div data-reveal>
+          <p class="sub" data-i18n="heroSub">Стратегическое и операционное сопровождение бизнеса в России, СНГ и на Ближнем Востоке: финансы, право, налоги и риски в одной команде.</p>
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-ink" data-i18n="heroCta1">Обсудить задачу</a>
+            <a href="#services" class="btn btn-ghost" data-i18n="heroCta2">Направления работы</a>
+          </div>
+        </div>
+        <div class="reglist" data-reveal>
+          <div class="rh"><span class="mono" data-i18n="panelTitle">Ключевые юрисдикции</span><span class="mono">03</span></div>
+          <div class="rr"><span class="rn" data-i18n="jurAE">ОАЭ</span><span class="rd" data-i18n="jurAEd">Лицензии и статусы</span><span class="rc">DXB</span></div>
+          <div class="rr"><span class="rn" data-i18n="jurRU">Россия</span><span class="rd" data-i18n="jurRUd">Учёт и структуры</span><span class="rc">RAS</span></div>
+          <div class="rr"><span class="rn" data-i18n="jurKZ">Казахстан</span><span class="rd" data-i18n="jurKZd">Структурирование</span><span class="rc">AIFC</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS -->
+<section style="border-bottom:1px solid var(--rule-strong)">
+  <div class="wrap">
+    <div class="strip" data-reveal>
+      <div><span class="sk" data-i18n="sectorsLabel">Секторы</span></div>
+      <div><span class="sv" data-i18n="sec1">Производство</span></div>
+      <div><span class="sv" data-i18n="sec2">Торговля</span></div>
+      <div><span class="sv" data-i18n="sec3">IT</span></div>
+      <div><span class="sv" data-i18n="sec4">Финансовый сектор</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES (centerpiece index) -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <div class="svc-h" data-reveal>
+      <div>
+        <span class="label" data-i18n="servLabel">Направления работы</span>
+        <h2><span data-i18n="servH1">Шесть направлений. </span><span style="color:var(--faint)" data-i18n="servH2">Одна команда.</span></h2>
+      </div>
+      <span class="mono" style="color:var(--muted);white-space:nowrap" data-i18n="servCount">Индекс 01 / 06</span>
+    </div>
+    <div class="index">
+      <div class="row" data-reveal>
+        <span class="rnum">01</span>
+        <h3 data-i18n="s1t">Бухгалтерское сопровождение</h3>
+        <p class="rd" data-i18n="s1d">Полный цикл бухгалтерских и финансовых процессов: постановка, ведение и восстановление учёта, отчётность по РСБУ и МСФО, казначейство и контроль бюджета.</p>
+        <span class="rt" data-i18n="s1p">РСБУ и МСФО, аудит, учётная политика, налоги</span>
+      </div>
+      <div class="row" data-reveal>
+        <span class="rnum">02</span>
+        <h3 data-i18n="s2t">Право и налоги</h3>
+        <p class="rd" data-i18n="s2d">Юридическое сопровождение от регистрации и корпоративного структурирования до сделок и судебных споров с оптимальной моделью денежных потоков.</p>
+        <span class="rt" data-i18n="s2p">ОАЭ, Россия, Казахстан, лицензии, сделки</span>
+      </div>
+      <div class="row" data-reveal>
+        <span class="rnum">03</span>
+        <h3 data-i18n="s3t">Управление человеческим капиталом</h3>
+        <p class="rd" data-i18n="s3d">Весь спектр HR: кадровое администрирование, подбор, HR-политики и системы мотивации. Прозрачные процессы управления персоналом.</p>
+        <span class="rt" data-i18n="s3p">Кадры, подбор, мотивация, HR-политики</span>
+      </div>
+      <div class="row" data-reveal>
+        <span class="rnum">04</span>
+        <h3 data-i18n="s4t">Оценка инвестиций и консалтинг</h3>
+        <p class="rd" data-i18n="s4d">Независимая оценка компаний, проектов и активов; анализ бизнес-моделей, справедливой стоимости и рекомендации по структуре сделок.</p>
+        <span class="rt" data-i18n="s4p">Активы, бизнес-модели, сделки</span>
+      </div>
+      <div class="row" data-reveal>
+        <span class="rnum">05</span>
+        <h3 data-i18n="s5t">Комплаенс и корпоративные риски</h3>
+        <p class="rd" data-i18n="s5d">Система защиты бизнеса: forensic-расследования, внутренний контроль, предотвращение утечек активов и мониторинг ключевых рисков.</p>
+        <span class="rt" data-i18n="s5p">Forensic, контроль, мониторинг</span>
+      </div>
+      <div class="row" data-reveal>
+        <span class="rnum">06</span>
+        <h3 data-i18n="s6t">Проектное управление</h3>
+        <p class="rd" data-i18n="s6d">Стратегическое и операционное управление проектами любой сложности: от корпоративной стратегии до организационных и технологических решений.</p>
+        <span class="rt" data-i18n="s6p">Стратегия, процессы, внедрение</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap about">
+    <div data-reveal>
+      <span class="label" data-i18n="aboutLabel">О компании</span>
+      <h2 data-i18n="aboutLead">Партнёр, которому доверяют структурирование, защиту и рост бизнеса.</h2>
+    </div>
+    <div data-reveal>
+      <p class="lead" data-i18n="aboutP">Core Business Consulting объединяет локальную экспертизу и международный опыт. Мы выстраиваем индивидуальные решения в управлении, финансах, праве, налогах и рисках: от производства и торговли до IT и финансового сектора.</p>
+      <div class="pgrid">
+        <div><div class="pn">01</div><div class="pv" data-i18n="pr1">Профессионализм</div></div>
+        <div><div class="pn">02</div><div class="pv" data-i18n="pr2">Стабильность</div></div>
+        <div><div class="pn">03</div><div class="pv" data-i18n="pr3">Ясность</div></div>
+        <div><div class="pn">04</div><div class="pv" data-i18n="pr4">Доверие</div></div>
+        <div><div class="pn">05</div><div class="pv" data-i18n="pr5">Прозрачность</div></div>
+        <div><div class="pn">06</div><div class="pv" data-i18n="pr6">Дальновидность</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="sec" id="approach">
+  <div class="wrap">
+    <div data-reveal style="max-width:680px;margin-bottom:40px">
+      <h2 data-i18n="appH">Предсказуемый результат на каждом этапе</h2>
+      <p class="lead" style="margin-top:18px" data-i18n="appSub">Проверенные методологии проектного управления: от диагностики до сопровождения.</p>
+    </div>
+    <div class="steps" data-reveal>
+      <div class="st"><div class="stn">01</div><h3 data-i18n="ap1t">Диагностика</h3><p data-i18n="ap1d">Аудит текущей структуры, финансовой модели и рисков. Фиксируем цели и ограничения.</p></div>
+      <div class="st"><div class="stn">02</div><h3 data-i18n="ap2t">Архитектура</h3><p data-i18n="ap2d">Проектируем корпоративную и налоговую структуру под задачи бизнеса и юрисдикции.</p></div>
+      <div class="st"><div class="stn">03</div><h3 data-i18n="ap3t">Внедрение</h3><p data-i18n="ap3d">Регистрация, лицензии, постановка учёта, процессов и контроля.</p></div>
+      <div class="st"><div class="stn">04</div><h3 data-i18n="ap4t">Сопровождение</h3><p data-i18n="ap4d">Текущий учёт, отчётность, комплаенс и аналитика для управленческих решений.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="figs" data-reveal>
+      <div class="fg"><div class="fv" data-count="14" data-suffix="+">14+</div><div class="fl" data-i18n="st1">лет совокупной экспертизы команды</div></div>
+      <div class="fg"><div class="fv" data-count="3">3</div><div class="fl" data-i18n="st2">ключевые юрисдикции: ОАЭ, Россия, Казахстан</div></div>
+      <div class="fg"><div class="fv" data-count="6">6</div><div class="fl" data-i18n="st3">направлений сопровождения бизнеса</div></div>
+      <div class="fg"><div class="fv" data-count="47.2" data-dec="1" data-suffix="%">47.2%</div><div class="fl" data-i18n="st4">снижение издержек в проектах реструктуризации</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div data-reveal style="max-width:680px;margin-bottom:34px">
+      <h2 data-i18n="tH">Команда, которая говорит на языке цифр</h2>
+    </div>
+    <div class="quotes" data-reveal>
+      <figure>
+        <div class="qm">&ldquo;</div>
+        <blockquote data-i18n="q1">За год Core Business Consulting перестроили нашу группу под две юрисдикции и закрыли давние вопросы по учёту.</blockquote>
+        <figcaption><div class="qn" data-i18n="q1n">Игорь Демидов</div><div class="qr" data-i18n="q1r">Финансовый директор, производственный холдинг, Казань</div></figcaption>
+      </figure>
+      <figure>
+        <div class="qm">&ldquo;</div>
+        <blockquote data-i18n="q2">Регистрация в ОАЭ и постановка комплаенса заняли меньше времени, чем мы планировали. Команда работает с цифрами.</blockquote>
+        <figcaption><div class="qn" data-i18n="q2n">Лейла Аббас</div><div class="qr" data-i18n="q2r">Операционный директор, торговая группа, Дубай</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <div class="contact">
+      <div class="cinfo" data-reveal>
+        <span class="label" data-i18n="contactLabel">Связаться с нами</span>
+        <h2 data-i18n="contactH">Обсудим задачу вашего бизнеса</h2>
+        <p class="lead" style="margin-top:18px" data-i18n="contactP">Мы подготовим индивидуальное предложение под задачи вашего бизнеса.</p>
+        <div class="cdet">
+          <div class="d"><span class="dl" data-i18n="cdEmail">Email</span><a class="dv" href="mailto:info@cbc.com">info@cbc.com</a></div>
+          <div class="d"><span class="dl" data-i18n="cdJur">Юрисдикции</span><span class="dv" data-i18n="cdJurV">ОАЭ, Россия, Казахстан</span></div>
+          <div class="d"><span class="dl" data-i18n="cdReg">Регионы</span><span class="dv" data-i18n="cdRegV">Россия, СНГ, Ближний Восток</span></div>
+        </div>
+      </div>
+      <div class="cform" data-reveal>
+        <form id="cform" novalidate>
+          <div class="sent" id="sent" data-i18n="sentMsg">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
+          <div class="fld">
+            <label for="f_name" data-i18n="fName">Имя</label>
+            <input id="f_name" name="name" type="text" placeholder="Иван Петров" data-ph="Иван Петров">
+            <p class="err" id="e_name" data-i18n="errName">Укажите имя</p>
+          </div>
+          <div class="fld">
+            <label for="f_company" data-i18n="fComp">Компания</label>
+            <input id="f_company" name="company" type="text" placeholder="ООО «Компания»" data-ph="ООО «Компания»">
+            <p class="hint" data-i18n="fCompH">Необязательно</p>
+          </div>
+          <div class="fld">
+            <label for="f_email" data-i18n="fEmail">Email</label>
+            <input id="f_email" name="email" type="email" placeholder="name@company.com" data-ph="name@company.com">
+            <p class="err" id="e_email" data-i18n="errEmail">Укажите корректный email</p>
+          </div>
+          <div class="fld">
+            <label for="f_msg" data-i18n="fMsg">Задача</label>
+            <textarea id="f_msg" name="message" placeholder="Опишите задачу и сроки" data-ph="Опишите задачу и сроки"></textarea>
+            <p class="err" id="e_msg" data-i18n="errMsg">Опишите задачу</p>
+          </div>
+          <button type="submit" class="btn btn-ink" style="width:100%;justify-content:center;padding:16px" data-i18n="fSend">Отправить запрос</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img src="assets/logo-dark.svg" alt="Core Business Consulting" style="height:32px;width:auto">
+        <p class="ftag" data-i18n="ftTag">Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке.</p>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navServices">Направления</h4>
+        <a href="#services" data-i18n="ftS1">Бухгалтерия</a>
+        <a href="#services" data-i18n="ftS2">Право и налоги</a>
+        <a href="#services" data-i18n="ftS3">HR</a>
+        <a href="#services" data-i18n="ftS4">Инвестиции</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navAbout">Компания</h4>
+        <a href="#about" data-i18n="navAbout">О компании</a>
+        <a href="#approach" data-i18n="navApproach">Подход</a>
+        <a href="#contact" data-i18n="navContact">Контакты</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navContact">Контакты</h4>
+        <a href="mailto:info@cbc.com">info@cbc.com</a>
+        <span data-i18n="ftAddr">Адрес по запросу</span>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>ООО «Core Business Consulting»</span>
+      <span data-i18n="ftRights">© 2026 Core Business Consulting. Все права защищены.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var EN = {
+    navServices:"Services", navApproach:"Approach", navAbout:"About", navContact:"Contacts",
+    ctaPrimary:"Discuss your task",
+    heroEyebrow:"Integrated business support platform", heroReg:"Russia / CIS / Middle East",
+    h1a:"We structure, ", h1b:"protect", h1c:" and grow your business",
+    heroSub:"Strategic and operational support for businesses across Russia, the CIS and the Middle East: finance, law, tax and risk in one team.",
+    heroCta1:"Discuss your task", heroCta2:"Explore services",
+    panelTitle:"Key jurisdictions",
+    jurAE:"UAE", jurAEd:"Licences and statuses",
+    jurRU:"Russia", jurRUd:"Accounting and structures",
+    jurKZ:"Kazakhstan", jurKZd:"Structuring",
+    sectorsLabel:"Sectors", sec1:"Manufacturing", sec2:"Trade", sec3:"IT", sec4:"Financial services",
+    servLabel:"What we do", servH1:"Six disciplines. ", servH2:"One team.", servCount:"Index 01 / 06",
+    aboutLabel:"About", aboutLead:"The partner businesses trust to structure, protect and grow.",
+    aboutP:"Core Business Consulting combines local expertise with international experience. We build tailored solutions across management, finance, law, tax and risk: from manufacturing and trade to IT and financial services.",
+    pr1:"Professionalism", pr2:"Stability", pr3:"Clarity", pr4:"Trust", pr5:"Transparency", pr6:"Foresight",
+    s1t:"Accounting & finance", s1d:"The full cycle of accounting and finance: setup, maintenance and restoration of records, RAS and IFRS reporting, treasury and budget control.", s1p:"RAS & IFRS, audit, accounting policy, tax",
+    s2t:"Law & tax", s2d:"Legal support from incorporation and corporate structuring to transactions and litigation, with an optimal cash-flow model.", s2p:"UAE, Russia, Kazakhstan, licences, deals",
+    s3t:"Human capital", s3d:"The full HR spectrum: personnel administration, recruitment, HR policy and incentive systems. Transparent people processes.", s3p:"Admin, recruitment, incentives, HR policy",
+    s4t:"Investment & valuation", s4d:"Independent valuation of companies, projects and assets; analysis of business models, fair value and deal-structure recommendations.", s4p:"Assets, business models, deals",
+    s5t:"Compliance & risk", s5d:"A business-protection system: forensic investigations, internal control, asset-leakage prevention and monitoring of key risks.", s5p:"Forensic, control, monitoring",
+    s6t:"Project management", s6d:"Strategic and operational management of projects of any complexity: from corporate strategy to organisational and technology rollouts.", s6p:"Strategy, process, rollout",
+    appH:"A predictable outcome at every stage", appSub:"Proven project-management methodologies: from diagnostics to ongoing support.",
+    ap1t:"Diagnostics", ap1d:"Audit of the current structure, financial model and risks. We agree on goals and constraints.",
+    ap2t:"Architecture", ap2d:"We design the corporate and tax structure around the business and its jurisdictions.",
+    ap3t:"Implementation", ap3d:"Incorporation, licences, accounting setup, processes and controls.",
+    ap4t:"Ongoing support", ap4d:"Day-to-day accounting, reporting, compliance and analytics for management decisions.",
+    st1:"years of combined team expertise", st2:"key jurisdictions: UAE, Russia, Kazakhstan", st3:"business-support disciplines", st4:"cost reduction in restructuring projects",
+    tH:"A team that speaks the language of numbers",
+    q1:"Within a year Core Business Consulting rebuilt our group across two jurisdictions and closed long-standing accounting issues.",
+    q1n:"Igor Demidov", q1r:"CFO, manufacturing group, Kazan",
+    q2:"Incorporation in the UAE and setting up compliance took less time than we planned. The team works with numbers.",
+    q2n:"Leyla Abbas", q2r:"COO, trading group, Dubai",
+    contactLabel:"Get in touch", contactH:"Let's discuss your business", contactP:"We'll prepare a tailored proposal for your specific objectives.",
+    cdEmail:"Email", cdJur:"Jurisdictions", cdJurV:"UAE, Russia, Kazakhstan", cdReg:"Regions", cdRegV:"Russia, CIS, Middle East",
+    fName:"Name", fComp:"Company", fCompH:"Optional", fEmail:"Email", fMsg:"Your task", fSend:"Send request",
+    errName:"Please enter your name", errEmail:"Please enter a valid email", errMsg:"Please describe your task",
+    sentMsg:"Thank you! We'll be in touch shortly.",
+    ftTag:"Integrated business support across Russia, the CIS and the Middle East.",
+    ftS1:"Accounting", ftS2:"Law & tax", ftS3:"HR", ftS4:"Investment",
+    ftAddr:"Address on request", ftRights:"© 2026 Core Business Consulting. All rights reserved."
+  };
+  var RU = {};
+  var phEN = { "Иван Петров":"John Smith", "ООО «Компания»":"Your company", "name@company.com":"name@company.com", "Опишите задачу и сроки":"Describe your task and timeline" };
+
+  function applyLang(l){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k = el.getAttribute('data-i18n');
+      if(l==='en'){ if(!(k in RU)) RU[k] = el.textContent; if(EN[k]!=null) el.textContent = EN[k]; }
+      else if(k in RU){ el.textContent = RU[k]; }
+    });
+    document.querySelectorAll('[data-ph]').forEach(function(el){
+      var base = el.getAttribute('data-ph');
+      el.placeholder = (l==='en' && phEN[base]) ? phEN[base] : base;
+    });
+    document.querySelectorAll('.lang button').forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang')===l ? 'true':'false');
+    });
+    document.documentElement.lang = l;
+  }
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
+  });
+
+  function runCount(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var dec = parseInt(el.getAttribute('data-dec')||'0',10);
+    var suf = el.getAttribute('data-suffix')||'';
+    if(reduce){ el.textContent = target.toFixed(dec)+suf; return; }
+    var start=null, dur=1300;
+    function tick(t){ if(!start) start=t; var p=Math.min(1,(t-start)/dur);
+      var e=1-Math.pow(1-p,3); el.textContent=(target*e).toFixed(dec)+suf;
+      if(p<1) requestAnimationFrame(tick); else el.textContent=target.toFixed(dec)+suf; }
+    requestAnimationFrame(tick);
+  }
+
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in');
+          en.target.querySelectorAll('[data-count]').forEach(runCount);
+          io.unobserve(en.target);
+        }
+      });
+    },{threshold:.15, rootMargin:'0px 0px -6% 0px'});
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
+    document.querySelectorAll('[data-count]').forEach(runCount);
+  }
+
+  var form = document.getElementById('cform');
+  if(form){
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var name=form.name.value.trim(), email=form.email.value.trim(), msg=form.message.value.trim();
+      var ok=true;
+      function mark(id,bad){ document.getElementById(id).classList.toggle('show',bad); if(bad) ok=false; }
+      mark('e_name', !name);
+      mark('e_email', !email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
+      mark('e_msg', !msg);
+      if(!ok) return;
+      document.getElementById('sent').classList.add('show');
+      form.reset();
+    });
+  }
+
+  applyLang('ru');
+})();
+</script>
+</body>
+</html>

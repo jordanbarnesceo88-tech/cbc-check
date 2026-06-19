@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#f6f6f8;color:#011821;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    font-family:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+    font-feature-settings:'cv11';
+    --paper:#f6f6f8;--card:#ffffff;--ink:#011821;--carbon:#12161e;--slate:#7c7f88;
+    --mist:#e3e4e8;--fog:#a9acb6;--graphite:#3b3e47;--indigo:#111a4a;--accent:#f40000;
+    --teal:#167e6c;--cyan:#c1e8ef;--mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sh-card:rgba(17,26,74,0.1) 0px 1px 3px 0px,rgba(17,26,74,0.05) 0px 1px 0px 0px,rgba(255,255,255,0.5) 0px 1px 0px 0px inset,rgba(255,255,255,0.5) 0px 1px 4px 0px inset;
+    --sh-float:rgba(0,0,0,0.02) 0px 40px 32px 0px,rgba(0,0,0,0.03) 0px 22px 18px 0px,rgba(0,0,0,0.03) 0px 12px 10px 0px,rgba(0,0,0,0.04) 0px 7px 5px 0px,rgba(0,0,0,0.07) 0px 3px 2px 0px;
+    --sh-btn:rgba(0,0,0,0.05) 0px 4px 8px 0px,rgba(0,0,0,0.1) 0px 2px 4px 0px,rgba(0,0,0,0.1) 0px 1px 1px 0px}
+  ::selection{background:#011821;color:#fff}
+  @media print{ [data-reveal],[data-stagger-item],[data-hero-eyebrow],[data-hero-h1],[data-hero-sub],[data-hero-cta],[data-hero-side]{opacity:1 !important;transform:none !important;clip-path:none !important} }
+  a{color:inherit;text-decoration:none}
+  input,textarea,button,select{font-family:inherit}
+  textarea{resize:vertical}
+  @media(max-width:1024px){
+    [data-hero]{grid-template-columns:1fr !important}
+    [data-hero-side]{order:-1}
+    [data-bento]{grid-template-columns:1fr 1fr !important}
+    [data-bento] > *{grid-column:auto !important;grid-row:auto !important}
+    [data-about]{grid-template-columns:1fr !important}
+  }
+  @media(max-width:680px){
+    [data-nav]{display:none !important}
+    [data-bento]{grid-template-columns:1fr !important}
+    [data-stats]{grid-template-columns:1fr 1fr !important}
+    [data-testi]{grid-template-columns:1fr !important}
+    [data-contact]{grid-template-columns:1fr !important}
+    [data-footer-grid]{grid-template-columns:1fr 1fr !important}
+    [data-cta-row]{flex-direction:column !important;align-items:stretch !important}
+    [data-h1]{font-size:clamp(40px,12vw,56px) !important}
+    [data-jurcard]{position:static !important;margin-top:16px !important;width:auto !important}
+  }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</helmet>
+
+<div ref="{{ rootRef }}" style="position:relative;width:100%;overflow-x:hidden;background:var(--paper);color:var(--ink)">
+
+  <!-- scroll progress -->
+  <div style="position:fixed;top:0;left:0;height:2px;width:100%;z-index:130;background:transparent;pointer-events:none">
+    <div data-progress style="height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;will-change:transform"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header data-header style="position:sticky;top:0;z-index:120;padding:20px 0;border-bottom:1px solid transparent;transition:padding .35s cubic-bezier(.16,1,.3,1),background .35s ease,border-color .35s ease,backdrop-filter .35s ease">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="display:flex;align-items:center;flex:0 0 auto"><img src="assets/logo-dark.svg" alt="Core Business Consulting" style="height:30px;width:auto;display:block"></a>
+      <nav data-nav style="display:flex;align-items:center;gap:32px">
+        <a href="#services" data-i18n="navServices" style="font-size:14px;font-weight:400;color:var(--carbon);padding-bottom:3px;background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .4s cubic-bezier(.16,1,.3,1),color .25s" style-hover="background-size:100% 1px;color:var(--ink)">Направления</a>
+        <a href="#approach" data-i18n="navApproach" style="font-size:14px;font-weight:400;color:var(--carbon);padding-bottom:3px;background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .4s cubic-bezier(.16,1,.3,1),color .25s" style-hover="background-size:100% 1px;color:var(--ink)">Подход</a>
+        <a href="#about" data-i18n="navAbout" style="font-size:14px;font-weight:400;color:var(--carbon);padding-bottom:3px;background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .4s cubic-bezier(.16,1,.3,1),color .25s" style-hover="background-size:100% 1px;color:var(--ink)">О компании</a>
+        <a href="#contact" data-i18n="navContact" style="font-size:14px;font-weight:400;color:var(--carbon);padding-bottom:3px;background-image:linear-gradient(var(--ink),var(--ink));background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;transition:background-size .4s cubic-bezier(.16,1,.3,1),color .25s" style-hover="background-size:100% 1px;color:var(--ink)">Контакты</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:14px;flex:0 0 auto">
+        <div style="display:flex;align-items:center;border:1px solid var(--mist);border-radius:8px;overflow:hidden;height:34px">
+          <button data-lang-btn="ru" onClick="{{ toRu }}" style="height:100%;padding:0 11px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.04em;background:var(--ink);color:#fff;border:0;cursor:pointer;transition:background .25s,color .25s">RU</button>
+          <button data-lang-btn="en" onClick="{{ toEn }}" style="height:100%;padding:0 11px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.04em;background:transparent;color:var(--ink);border:0;cursor:pointer;transition:background .25s,color .25s">EN</button>
+        </div>
+        <a href="#contact" data-i18n="ctaPrimary" style="display:inline-flex;align-items:center;gap:8px;padding:11px 18px;background:var(--indigo);color:#fff;font-size:14px;font-weight:500;border-radius:8px;cursor:pointer;box-shadow:var(--sh-card);transition:box-shadow .3s,transform .12s" style-hover="box-shadow:var(--sh-btn)" style-active="transform:translateY(1px)">Обсудить задачу <span style="opacity:.8">→</span></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" style="scroll-margin-top:90px;padding:clamp(48px,8vh,96px) 0 clamp(56px,9vh,104px)">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-hero style="display:grid;grid-template-columns:1.12fr 1fr;gap:clamp(36px,5vw,72px);align-items:center">
+        <div>
+          <div data-hero-eyebrow style="margin-bottom:26px">
+            <span data-i18n="heroEyebrow" style="display:inline-block;font-family:var(--mono);font-size:11px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px">Платформа комплексной поддержки бизнеса</span>
+          </div>
+          <h1 data-hero-h1 data-h1 style="margin:0;font-size:clamp(46px,6vw,76px);font-weight:300;line-height:1.04;letter-spacing:-.03em;color:var(--ink)">
+            <span data-i18n="h1a">Структурируем, </span><span data-i18n="h1accent" style="color:var(--accent)">защищаем</span><span data-i18n="h1b" style="color:var(--fog)"> и развиваем ваш бизнес</span>
+          </h1>
+          <p data-hero-sub data-i18n="heroSub" style="margin:28px 0 0;max-width:54ch;font-size:clamp(17px,1.4vw,19px);font-weight:400;line-height:1.55;color:var(--slate)">Стратегическое и операционное сопровождение компаний в России, странах СНГ и на Ближнем Востоке — управление, финансы, право, налоги и риски в одной команде.</p>
+          <div data-hero-cta style="margin-top:34px">
+            <div data-cta-row style="display:flex;gap:12px;align-items:center">
+              <a href="#contact" data-i18n="heroCta1" style="display:inline-flex;align-items:center;gap:9px;padding:15px 26px;background:var(--indigo);color:#fff;font-size:15px;font-weight:500;border-radius:8px;cursor:pointer;box-shadow:var(--sh-card);transition:box-shadow .3s,transform .12s" style-hover="box-shadow:var(--sh-btn)" style-active="transform:translateY(1px)">Обсудить задачу <span style="opacity:.8">→</span></a>
+              <a href="#services" data-i18n="heroCta2" style="display:inline-flex;align-items:center;gap:8px;padding:15px 24px;background:transparent;color:var(--ink);font-size:15px;font-weight:500;border-radius:8px;border:1px solid var(--mist);cursor:pointer;transition:border-color .3s,color .3s" style-hover="border-color:var(--fog);color:var(--indigo)">Направления работы <span style="opacity:.55">›</span></a>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:30px;padding-top:24px;border-top:1px solid var(--mist)">
+              <span data-i18n="heroTrust1" style="font-size:13px;font-weight:500;color:var(--ink)">Россия · СНГ · Ближний Восток</span>
+              <span data-i18n="heroTrust2" style="font-size:13px;color:var(--slate)">Локальная экспертиза и международный опыт</span>
+            </div>
+          </div>
+        </div>
+
+        <div data-hero-side style="position:relative">
+          <div style="position:relative;border:1px solid var(--mist);border-radius:8px;background:var(--card);box-shadow:var(--sh-float);overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--mist)">
+              <span style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--slate);text-transform:uppercase">global · atlas</span>
+              <span style="display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--teal)"><span style="width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block"></span>live</span>
+            </div>
+            <div style="position:relative;height:clamp(300px,42vh,420px);background:#fbfbfc">
+              <canvas data-worldmap data-map-variant="light" style="display:block;width:100%;height:100%"></canvas>
+            </div>
+          </div>
+
+          <div data-jurcard style="position:absolute;left:-18px;bottom:-22px;width:248px;background:var(--card);border:1px solid var(--mist);border-radius:8px;box-shadow:var(--sh-float);padding:16px 18px">
+            <div data-i18n="heroJurLabel" style="font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:12px">Ключевые юрисдикции</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--mist)">
+              <span style="display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#d65620;display:inline-block"></span><span data-i18n="jurAE" style="font-size:14px;font-weight:500;color:var(--ink)">ОАЭ</span></span>
+              <span data-i18n="jurAEn" style="font-size:11.5px;color:var(--slate);text-align:right">Лицензии, статусы</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--mist)">
+              <span style="display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#4575cd;display:inline-block"></span><span data-i18n="jurRU" style="font-size:14px;font-weight:500;color:var(--ink)">Россия</span></span>
+              <span data-i18n="jurRUn" style="font-size:11.5px;color:var(--slate);text-align:right">Учёт, структуры</span>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-top:1px solid var(--mist)">
+              <span style="display:inline-flex;align-items:center;gap:8px"><span style="width:7px;height:7px;border-radius:50%;background:#44b48b;display:inline-block"></span><span data-i18n="jurKZ" style="font-size:14px;font-weight:500;color:var(--ink)">Казахстан</span></span>
+              <span data-i18n="jurKZn" style="font-size:11.5px;color:var(--slate);text-align:right">Структурирование</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS / TRUST STRIP -->
+  <section style="padding:0 0 clamp(24px,4vh,40px)">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:22px clamp(20px,3vw,36px);display:flex;align-items:center;gap:clamp(20px,4vw,48px);flex-wrap:wrap;justify-content:space-between">
+        <span data-i18n="stripLabel" style="font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);flex:0 0 auto">Сектора, с которыми мы работаем</span>
+        <div style="display:flex;align-items:center;gap:clamp(16px,3vw,40px);flex-wrap:wrap">
+          <span data-i18n="strip1" style="font-size:15px;font-weight:500;color:var(--carbon)">Производство</span>
+          <span data-i18n="strip2" style="font-size:15px;font-weight:500;color:var(--carbon)">Торговля</span>
+          <span data-i18n="strip3" style="font-size:15px;font-weight:500;color:var(--carbon)">IT</span>
+          <span data-i18n="strip4" style="font-size:15px;font-weight:500;color:var(--carbon)">Финансовый сектор</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="scroll-margin-top:90px;padding:clamp(64px,10vh,112px) 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="display:flex;align-items:center;justify-content:space-between;gap:20px;padding-bottom:26px;border-bottom:1px solid var(--mist)">
+        <span data-i18n="aboutLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px">О компании</span>
+        <span data-i18n="aboutTag" style="font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--slate)">/ Кто мы</span>
+      </div>
+      <div data-about style="display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(36px,5vw,72px);margin-top:clamp(36px,6vh,60px);align-items:start">
+        <h2 data-reveal data-i18n="aboutLead" style="margin:0;font-size:clamp(28px,3.2vw,44px);font-weight:300;line-height:1.12;letter-spacing:-.02em;color:var(--ink)">Партнёр, которому доверяют структурирование, защиту и рост бизнеса.</h2>
+        <div data-reveal>
+          <p data-i18n="aboutP" style="margin:0;font-size:clamp(16px,1.3vw,18px);line-height:1.62;color:var(--slate);max-width:60ch">Core Business Consulting объединяет локальную экспертизу и международный опыт. Мы выстраиваем индивидуальные решения в управлении, финансах, праве, налогах и рисках — от производства и торговли до IT и финансового сектора.</p>
+          <div style="margin-top:28px">
+            <div data-i18n="valLabel" style="font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);margin-bottom:14px">Принципы</div>
+            <div data-stagger style="display:flex;flex-wrap:wrap;gap:8px">
+              <span data-stagger-item data-i18n="val1" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Профессионализм</span>
+              <span data-stagger-item data-i18n="val2" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Стабильность</span>
+              <span data-stagger-item data-i18n="val3" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Ясность</span>
+              <span data-stagger-item data-i18n="val4" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Доверие</span>
+              <span data-stagger-item data-i18n="val5" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Прозрачность</span>
+              <span data-stagger-item data-i18n="val6" style="font-size:13.5px;font-weight:500;color:var(--carbon);padding:8px 14px;border:1px solid var(--mist);border-radius:8px;background:var(--card)">Дальновидность</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="scroll-margin-top:90px;padding:clamp(72px,11vh,128px) 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:clamp(32px,5vh,52px)">
+        <div style="max-width:720px">
+          <span data-i18n="servLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px;margin-bottom:20px">Направления работы</span>
+          <h2 data-i18n="servH" style="margin:0;font-size:clamp(30px,4vw,54px);font-weight:300;line-height:1.06;letter-spacing:-.025em;color:var(--ink)">Шесть направлений. <span style="color:var(--fog)">Одна команда.</span></h2>
+          <p data-i18n="servSub" style="margin:20px 0 0;font-size:clamp(16px,1.2vw,18px);line-height:1.6;color:var(--slate);max-width:64ch">Комплексное сопровождение: бухгалтерия и финансы, право и налоги, инвестиции, комплаенс, HR и проектное управление.</p>
+        </div>
+        <span style="font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--slate)">01 — 06</span>
+      </div>
+
+      <div data-bento data-stagger style="display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:1fr;gap:16px">
+        <!-- flagship -->
+        <article data-stagger-item style="grid-column:1/6;grid-row:1/3;background:var(--indigo);color:#fff;border-radius:8px;padding:clamp(28px,2.4vw,40px);display:flex;flex-direction:column;justify-content:space-between;min-height:320px;box-shadow:var(--sh-card)">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#8a90c0">01</span>
+            <span style="font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.12);padding:5px 10px;border-radius:9999px">Core</span>
+          </div>
+          <div>
+            <h3 data-i18n="s1t" style="margin:0;font-size:clamp(24px,2.2vw,32px);font-weight:300;line-height:1.08;letter-spacing:-.02em">Бухгалтерское сопровождение</h3>
+            <p data-i18n="s1d" style="margin:16px 0 0;font-size:15px;line-height:1.6;color:#c7caec;max-width:42ch">Полный цикл бухгалтерских и финансовых процессов: постановка, ведение и восстановление учёта, отчётность по РСБУ и МСФО, казначейство и контроль бюджета.</p>
+            <p data-i18n="s1p" style="margin:20px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:#9095c4">РСБУ и МСФО · Аудит · Учётная политика · Налоги</p>
+          </div>
+        </article>
+
+        <article data-stagger-item style="grid-column:6/13;grid-row:1/2;background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,2vw,34px);display:flex;gap:24px;align-items:flex-start;box-shadow:var(--sh-card)">
+          <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fog);flex:0 0 auto;padding-top:4px">02</span>
+          <div>
+            <h3 data-i18n="s2t" style="margin:0;font-size:clamp(21px,1.8vw,26px);font-weight:400;letter-spacing:-.015em;color:var(--ink)">Право и налоги</h3>
+            <p data-i18n="s2d" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--slate);max-width:62ch">Юридическое сопровождение от регистрации и корпоративного структурирования до сделок и судебных споров — с оптимальной моделью денежных потоков.</p>
+            <p data-i18n="s2p" style="margin:16px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--slate)">ОАЭ · Россия · Казахстан · Лицензии · Сделки · Споры</p>
+          </div>
+        </article>
+
+        <article data-stagger-item style="grid-column:6/13;grid-row:2/3;background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,2vw,34px);display:flex;gap:24px;align-items:flex-start;box-shadow:var(--sh-card)">
+          <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fog);flex:0 0 auto;padding-top:4px">03</span>
+          <div>
+            <h3 data-i18n="s3t" style="margin:0;font-size:clamp(21px,1.8vw,26px);font-weight:400;letter-spacing:-.015em;color:var(--ink)">Управление человеческим капиталом</h3>
+            <p data-i18n="s3d" style="margin:12px 0 0;font-size:15px;line-height:1.6;color:var(--slate);max-width:62ch">Весь спектр HR: кадровое администрирование, подбор, HR-политики и системы мотивации — прозрачные процессы управления персоналом.</p>
+            <p data-i18n="s3p" style="margin:16px 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--slate)">Кадры · Подбор · Мотивация · HR-политики</p>
+          </div>
+        </article>
+
+        <article data-stagger-item style="grid-column:1/5;grid-row:3/4;background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,2vw,32px);display:flex;flex-direction:column;min-height:230px;box-shadow:var(--sh-card)">
+          <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fog)">04</span>
+          <h3 data-i18n="s4t" style="margin:18px 0 0;font-size:clamp(20px,1.7vw,24px);font-weight:400;letter-spacing:-.015em;color:var(--ink)">Оценка инвестиций и консалтинг</h3>
+          <p data-i18n="s4d" style="margin:12px 0 14px;font-size:14.5px;line-height:1.58;color:var(--slate)">Независимая оценка компаний, проектов и активов; анализ бизнес-моделей, справедливой стоимости и рекомендации по структуре сделок.</p>
+          <p data-i18n="s4p" style="margin:auto 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--slate)">Активы · Бизнес-модели · Сделки</p>
+        </article>
+
+        <article data-stagger-item style="grid-column:5/9;grid-row:3/4;background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,2vw,32px);display:flex;flex-direction:column;min-height:230px;box-shadow:var(--sh-card)">
+          <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fog)">05</span>
+          <h3 data-i18n="s5t" style="margin:18px 0 0;font-size:clamp(20px,1.7vw,24px);font-weight:400;letter-spacing:-.015em;color:var(--ink)">Комплаенс и корпоративные риски</h3>
+          <p data-i18n="s5d" style="margin:12px 0 14px;font-size:14.5px;line-height:1.58;color:var(--slate)">Система защиты бизнеса: forensic-расследования, внутренний контроль, предотвращение утечек активов и мониторинг ключевых рисков.</p>
+          <p data-i18n="s5p" style="margin:auto 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--slate)">Forensic · Контроль · Мониторинг</p>
+        </article>
+
+        <article data-stagger-item style="grid-column:9/13;grid-row:3/4;background:var(--card);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,2vw,32px);display:flex;flex-direction:column;min-height:230px;box-shadow:var(--sh-card)">
+          <span style="font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--fog)">06</span>
+          <h3 data-i18n="s6t" style="margin:18px 0 0;font-size:clamp(20px,1.7vw,24px);font-weight:400;letter-spacing:-.015em;color:var(--ink)">Проектное управление</h3>
+          <p data-i18n="s6d" style="margin:12px 0 14px;font-size:14.5px;line-height:1.58;color:var(--slate)">Стратегическое и операционное управление проектами любой сложности: от корпоративной стратегии до внедрения организационных и технологических решений.</p>
+          <p data-i18n="s6p" style="margin:auto 0 0;font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--slate)">Стратегия · Процессы · Внедрение</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section id="approach" style="scroll-margin-top:90px;background:var(--card);border-top:1px solid var(--mist);border-bottom:1px solid var(--mist);padding:clamp(72px,11vh,128px) 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="max-width:720px;margin-bottom:clamp(40px,7vh,68px)">
+        <span data-i18n="appLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px;margin-bottom:20px">Подход</span>
+        <h2 data-i18n="appH" style="margin:0;font-size:clamp(30px,3.8vw,52px);font-weight:300;line-height:1.06;letter-spacing:-.025em;color:var(--ink)">Предсказуемый результат на каждом этапе</h2>
+        <p data-i18n="appSub" style="margin:20px 0 0;font-size:clamp(16px,1.2vw,18px);line-height:1.6;color:var(--slate)">Проверенные методологии проектного управления — от диагностики до сопровождения.</p>
+      </div>
+
+      <div data-approach style="position:relative">
+        <div style="position:absolute;left:23px;top:14px;bottom:14px;width:1.5px;background:var(--mist)"></div>
+        <svg viewBox="0 0 2 1000" preserveAspectRatio="none" style="position:absolute;left:23px;top:14px;bottom:14px;width:1.5px;overflow:visible">
+          <path data-draw d="M1 0 L1 1000" fill="none" stroke="#f40000" stroke-width="1.5" vector-effect="non-scaling-stroke"></path>
+        </svg>
+        <div data-stagger style="position:relative;z-index:1">
+          <div data-stagger-item style="display:grid;grid-template-columns:48px 1fr;gap:clamp(20px,2.5vw,40px);align-items:start;padding-bottom:clamp(36px,5.5vh,60px)">
+            <div style="width:48px;height:48px;border:1px solid var(--mist);border-radius:50%;background:var(--card);display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--indigo);position:relative;z-index:2">01</div>
+            <div style="padding-top:6px">
+              <h3 data-i18n="p1t" style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:300;letter-spacing:-.02em;color:var(--ink)">Диагностика</h3>
+              <p data-i18n="p1d" style="margin:10px 0 0;font-size:15.5px;line-height:1.6;color:var(--slate);max-width:58ch">Аудит текущей структуры, финансовой модели и рисков. Фиксируем цели и ограничения.</p>
+            </div>
+          </div>
+          <div data-stagger-item style="display:grid;grid-template-columns:48px 1fr;gap:clamp(20px,2.5vw,40px);align-items:start;padding-bottom:clamp(36px,5.5vh,60px)">
+            <div style="width:48px;height:48px;border:1px solid var(--mist);border-radius:50%;background:var(--card);display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--indigo);position:relative;z-index:2">02</div>
+            <div style="padding-top:6px">
+              <h3 data-i18n="p2t" style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:300;letter-spacing:-.02em;color:var(--ink)">Архитектура</h3>
+              <p data-i18n="p2d" style="margin:10px 0 0;font-size:15.5px;line-height:1.6;color:var(--slate);max-width:58ch">Проектируем корпоративную и налоговую структуру под задачи бизнеса и юрисдикции.</p>
+            </div>
+          </div>
+          <div data-stagger-item style="display:grid;grid-template-columns:48px 1fr;gap:clamp(20px,2.5vw,40px);align-items:start;padding-bottom:clamp(36px,5.5vh,60px)">
+            <div style="width:48px;height:48px;border:1px solid var(--mist);border-radius:50%;background:var(--card);display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--indigo);position:relative;z-index:2">03</div>
+            <div style="padding-top:6px">
+              <h3 data-i18n="p3t" style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:300;letter-spacing:-.02em;color:var(--ink)">Внедрение</h3>
+              <p data-i18n="p3d" style="margin:10px 0 0;font-size:15.5px;line-height:1.6;color:var(--slate);max-width:58ch">Регистрация, лицензии, постановка учёта, процессов и контроля.</p>
+            </div>
+          </div>
+          <div data-stagger-item style="display:grid;grid-template-columns:48px 1fr;gap:clamp(20px,2.5vw,40px);align-items:start">
+            <div style="width:48px;height:48px;border:1px solid var(--accent);border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-family:var(--mono);font-size:13px;position:relative;z-index:2">04</div>
+            <div style="padding-top:6px">
+              <h3 data-i18n="p4t" style="margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:300;letter-spacing:-.02em;color:var(--ink)">Сопровождение</h3>
+              <p data-i18n="p4d" style="margin:10px 0 0;font-size:15.5px;line-height:1.6;color:var(--slate);max-width:58ch">Текущий учёт, отчётность, комплаенс и аналитика для управленческих решений.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section style="position:relative;background:var(--indigo);color:#fff;padding:clamp(64px,10vh,116px) 0;overflow:hidden">
+    <canvas data-worldmap data-map-variant="dark" style="position:absolute;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none"></canvas>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="margin-bottom:clamp(36px,6vh,60px)">
+        <span data-i18n="statLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#cdeef4;background:rgba(193,232,239,.14);padding:6px 12px;border-radius:9999px">В цифрах</span>
+      </div>
+      <div data-stats data-stagger style="display:grid;grid-template-columns:repeat(4,1fr);gap:0">
+        <div data-stagger-item style="padding:0 clamp(18px,2vw,32px);border-left:1px solid rgba(255,255,255,.16)">
+          <div data-count="14" data-suffix="+" data-dec="0" style="font-size:clamp(48px,5.6vw,80px);font-weight:300;letter-spacing:-.03em;line-height:1">14+</div>
+          <p data-i18n="st1l" style="margin:14px 0 0;font-size:14.5px;line-height:1.5;color:#b8bce0;max-width:24ch">лет совокупной экспертизы команды</p>
+        </div>
+        <div data-stagger-item style="padding:0 clamp(18px,2vw,32px);border-left:1px solid rgba(255,255,255,.16)">
+          <div data-count="3" data-dec="0" style="font-size:clamp(48px,5.6vw,80px);font-weight:300;letter-spacing:-.03em;line-height:1">3</div>
+          <p data-i18n="st2l" style="margin:14px 0 0;font-size:14.5px;line-height:1.5;color:#b8bce0;max-width:24ch">ключевые юрисдикции — ОАЭ, Россия, Казахстан</p>
+        </div>
+        <div data-stagger-item style="padding:0 clamp(18px,2vw,32px);border-left:1px solid rgba(255,255,255,.16)">
+          <div data-count="6" data-dec="0" style="font-size:clamp(48px,5.6vw,80px);font-weight:300;letter-spacing:-.03em;line-height:1">6</div>
+          <p data-i18n="st3l" style="margin:14px 0 0;font-size:14.5px;line-height:1.5;color:#b8bce0;max-width:24ch">направлений сопровождения бизнеса</p>
+        </div>
+        <div data-stagger-item style="padding:0 clamp(18px,2vw,32px);border-left:1px solid rgba(255,255,255,.16)">
+          <div data-count="47.2" data-suffix="%" data-dec="1" style="font-size:clamp(48px,5.6vw,80px);font-weight:300;letter-spacing:-.03em;line-height:1;color:#ff6a4d">47.2%</div>
+          <p data-i18n="st4l" style="margin:14px 0 0;font-size:14.5px;line-height:1.5;color:#b8bce0;max-width:24ch">снижение издержек в проектах реструктуризации</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="padding:clamp(72px,11vh,128px) 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-reveal style="margin-bottom:clamp(36px,6vh,60px);max-width:720px">
+        <span data-i18n="tLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px;margin-bottom:20px">Отзывы</span>
+        <h2 data-i18n="tH" style="margin:0;font-size:clamp(28px,3.4vw,46px);font-weight:300;line-height:1.08;letter-spacing:-.02em;color:var(--ink)">Команда, которая говорит на языке цифр</h2>
+      </div>
+      <div data-testi data-stagger style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,44px)">
+        <figure data-stagger-item style="margin:0;display:flex;flex-direction:column;gap:20px">
+          <span style="font-size:52px;line-height:.4;color:var(--fog);font-weight:300">&ldquo;</span>
+          <blockquote data-i18n="q1" style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.5;font-weight:400;letter-spacing:-.01em;color:var(--ink)">За год Core Business Consulting перестроили нашу группу под две юрисдикции и закрыли давние вопросы по учёту. Отчётность по МСФО теперь приходит в срок.</blockquote>
+          <figcaption style="margin-top:auto;padding-top:18px;border-top:1px solid var(--mist)">
+            <div data-i18n="q1n" style="font-size:15px;font-weight:500;color:var(--ink)">Игорь Демидов</div>
+            <div data-i18n="q1r" style="font-size:13px;color:var(--slate);margin-top:3px">Финансовый директор, производственный холдинг — Казань</div>
+          </figcaption>
+        </figure>
+        <figure data-stagger-item style="margin:0;display:flex;flex-direction:column;gap:20px">
+          <span style="font-size:52px;line-height:.4;color:var(--fog);font-weight:300">&ldquo;</span>
+          <blockquote data-i18n="q2" style="margin:0;font-size:clamp(18px,1.6vw,22px);line-height:1.5;font-weight:400;letter-spacing:-.01em;color:var(--ink)">Регистрация в ОАЭ и постановка комплаенса заняли меньше времени, чем мы планировали. Команда работает с цифрами, а не с общими словами.</blockquote>
+          <figcaption style="margin-top:auto;padding-top:18px;border-top:1px solid var(--mist)">
+            <div data-i18n="q2n" style="font-size:15px;font-weight:500;color:var(--ink)">Лейла Аббас</div>
+            <div data-i18n="q2r" style="font-size:13px;color:var(--slate);margin-top:3px">Операционный директор, торговая группа — Дубай</div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="scroll-margin-top:90px;background:var(--card);border-top:1px solid var(--mist);padding:clamp(72px,11vh,128px) 0">
+    <div style="max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-contact style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:start">
+        <div data-reveal>
+          <span data-i18n="contactLabel" style="display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--cyan);padding:6px 12px;border-radius:9999px;margin-bottom:20px">Связаться с нами</span>
+          <h2 data-i18n="contactH" style="margin:0;font-size:clamp(32px,4.2vw,58px);font-weight:300;line-height:1.04;letter-spacing:-.025em;color:var(--ink)">Обсудим задачу вашего бизнеса</h2>
+          <p data-i18n="contactP" style="margin:22px 0 0;font-size:clamp(16px,1.3vw,19px);line-height:1.6;color:var(--slate);max-width:46ch">Мы подготовим индивидуальное предложение под задачи вашего бизнеса.</p>
+          <div style="margin-top:34px;border-top:1px solid var(--mist)">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--mist)">
+              <span data-i18n="cdEmailL" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)">Email</span>
+              <a href="/cdn-cgi/l/email-protection#deb7b0b8b19ebdbcbdf0bba6bfb3aeb2bb" style="font-size:16px;font-weight:500;color:var(--ink)" style-hover="color:var(--accent)"><span class="__cf_email__" data-cfemail="84edeae2ebc4e7e6e7aae1fce5e9f4e8e1">[email&#160;protected]</span></a>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--mist)">
+              <span data-i18n="cdJurL" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)">Юрисдикции</span>
+              <span data-i18n="cdJurV" style="font-size:16px;font-weight:500;color:var(--ink)">ОАЭ · Россия · Казахстан</span>
+            </div>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:15px 0;border-bottom:1px solid var(--mist)">
+              <span data-i18n="cdRegL" style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--slate)">Регионы</span>
+              <span data-i18n="cdRegV" style="font-size:16px;font-weight:500;color:var(--ink)">Россия · СНГ · Ближний Восток</span>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal style="background:var(--paper);border:1px solid var(--mist);border-radius:8px;padding:clamp(24px,3vw,38px)">
+          <form onSubmit="{{ onSubmit }}" novalidate="true">
+            <div style="margin-bottom:18px">
+              <label for="cbc_name" data-i18n="fNameL" style="display:block;font-size:13px;font-weight:500;margin-bottom:7px;color:var(--ink)">Имя</label>
+              <input id="cbc_name" name="cbc_name" type="text" data-i18n-ph="name" placeholder="Иван Петров" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--mist);border-radius:8px;background:var(--card);outline:none;color:var(--ink);transition:border-color .2s,box-shadow .2s" style-focus="border-color:var(--indigo);box-shadow:0 0 0 3px rgba(17,26,74,.08)">
+              <p data-i18n="fNameH" style="margin:7px 0 0;font-size:12.5px;color:var(--slate)">Как к вам обращаться</p>
+              <sc-if value="{{ errName }}" hint-placeholder-val="{{ false }}"><p data-i18n="errName" style="margin:6px 0 0;font-size:12.5px;font-weight:500;color:var(--accent)">Укажите имя</p></sc-if>
+            </div>
+            <div style="margin-bottom:18px">
+              <label for="cbc_company" data-i18n="fCompL" style="display:block;font-size:13px;font-weight:500;margin-bottom:7px;color:var(--ink)">Компания</label>
+              <input id="cbc_company" name="cbc_company" type="text" data-i18n-ph="company" placeholder="ООО «Компания»" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--mist);border-radius:8px;background:var(--card);outline:none;color:var(--ink);transition:border-color .2s,box-shadow .2s" style-focus="border-color:var(--indigo);box-shadow:0 0 0 3px rgba(17,26,74,.08)">
+              <p data-i18n="fCompH" style="margin:7px 0 0;font-size:12.5px;color:var(--slate)">Необязательно</p>
+            </div>
+            <div style="margin-bottom:18px">
+              <label for="cbc_email" data-i18n="fEmailL" style="display:block;font-size:13px;font-weight:500;margin-bottom:7px;color:var(--ink)">Email</label>
+              <input id="cbc_email" name="cbc_email" type="email" data-i18n-ph="email" placeholder="name@company.com" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--mist);border-radius:8px;background:var(--card);outline:none;color:var(--ink);transition:border-color .2s,box-shadow .2s" style-focus="border-color:var(--indigo);box-shadow:0 0 0 3px rgba(17,26,74,.08)">
+              <p data-i18n="fEmailH" style="margin:7px 0 0;font-size:12.5px;color:var(--slate)">Для ответа и предложения</p>
+              <sc-if value="{{ errEmailReq }}" hint-placeholder-val="{{ false }}"><p data-i18n="errEmailReq" style="margin:6px 0 0;font-size:12.5px;font-weight:500;color:var(--accent)">Укажите email</p></sc-if>
+              <sc-if value="{{ errEmailFmt }}" hint-placeholder-val="{{ false }}"><p data-i18n="errEmailFmt" style="margin:6px 0 0;font-size:12.5px;font-weight:500;color:var(--accent)">Проверьте формат email</p></sc-if>
+            </div>
+            <div style="margin-bottom:20px">
+              <label for="cbc_message" data-i18n="fMsgL" style="display:block;font-size:13px;font-weight:500;margin-bottom:7px;color:var(--ink)">Задача</label>
+              <textarea id="cbc_message" name="cbc_message" rows="4" data-i18n-ph="message" placeholder="Опишите задачу…" style="width:100%;padding:12px 14px;font-size:15px;border:1px solid var(--mist);border-radius:8px;background:var(--card);outline:none;color:var(--ink);transition:border-color .2s,box-shadow .2s;min-height:108px" style-focus="border-color:var(--indigo);box-shadow:0 0 0 3px rgba(17,26,74,.08)"></textarea>
+              <p data-i18n="fMsgH" style="margin:7px 0 0;font-size:12.5px;color:var(--slate)">Коротко опишите задачу и сроки</p>
+              <sc-if value="{{ errMsg }}" hint-placeholder-val="{{ false }}"><p data-i18n="errMsg" style="margin:6px 0 0;font-size:12.5px;font-weight:500;color:var(--accent)">Опишите задачу</p></sc-if>
+            </div>
+            <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+              <div data-i18n="sentMsg" style="margin-bottom:16px;padding:13px 14px;background:var(--indigo);color:#fff;font-size:14px;font-weight:500;border-radius:8px">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
+            </sc-if>
+            <button type="submit" data-i18n="fSend" style="width:100%;padding:15px 24px;background:var(--indigo);color:#fff;font-size:15px;font-weight:500;border-radius:8px;border:0;cursor:pointer;box-shadow:var(--sh-card);transition:box-shadow .3s,transform .12s" style-hover="box-shadow:var(--sh-btn)" style-active="transform:translateY(1px)">Отправить запрос</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="position:relative;background:var(--indigo);color:#fff;padding:clamp(60px,9vh,100px) 0 34px;overflow:hidden">
+    <canvas data-worldmap data-map-variant="dark" style="position:absolute;left:0;right:0;bottom:0;height:55%;width:100%;opacity:.4;pointer-events:none"></canvas>
+    <div style="position:relative;max-width:1200px;margin:0 auto;padding:0 clamp(22px,5vw,48px)">
+      <div data-footer-grid style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px 24px;padding-bottom:clamp(40px,6vh,64px);border-bottom:1px solid rgba(255,255,255,.16)">
+        <div>
+          <img src="assets/logo-light.svg" alt="Core Business Consulting" style="height:36px;width:auto;display:block">
+          <p data-i18n="ftTag" style="margin:22px 0 0;font-size:15px;line-height:1.6;color:#b8bce0;max-width:38ch">Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке.</p>
+        </div>
+        <div>
+          <div data-i18n="navServices" style="font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#8a90c0;margin-bottom:16px">Направления</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="#services" data-i18n="ftS1" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Бухгалтерия</a>
+            <a href="#services" data-i18n="ftS2" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Право и налоги</a>
+            <a href="#services" data-i18n="ftS3" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">HR</a>
+            <a href="#services" data-i18n="ftS4" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Инвестиции</a>
+            <a href="#services" data-i18n="ftS5" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Комплаенс</a>
+            <a href="#services" data-i18n="ftS6" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Проекты</a>
+          </div>
+        </div>
+        <div>
+          <div data-i18n="navAbout" style="font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#8a90c0;margin-bottom:16px">Компания</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="#about" data-i18n="navAbout" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">О компании</a>
+            <a href="#approach" data-i18n="navApproach" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Подход</a>
+            <a href="#contact" data-i18n="navContact" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff">Контакты</a>
+          </div>
+        </div>
+        <div>
+          <div data-i18n="navContact" style="font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:#8a90c0;margin-bottom:16px">Контакты</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <a href="/cdn-cgi/l/email-protection#4e272028210e2d2c2d602b362f233e222b" style="font-size:14px;color:#d4d6ee;transition:color .2s" style-hover="color:#fff"><span class="__cf_email__" data-cfemail="eb82858d84ab888988c58e938a869b878e">[email&#160;protected]</span></a>
+            <span data-i18n="ftAddr" style="font-size:14px;color:#8a90c0">Адрес — по запросу</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:22px">
+        <span style="font-size:13px;color:#8a90c0">ООО «Core Business Consulting»</span>
+        <span data-i18n="ftRights" style="font-size:13px;color:#8a90c0">© 2026 Core Business Consulting. Все права защищены.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.rootRef = React.createRef();
+    this._ru = {};
+    this.state = { lang: 'ru', errors: {}, sent: false };
+    this.EN = {
+      navServices:"Services", navApproach:"Approach", navAbout:"About", navContact:"Contacts",
+      ctaPrimary:"Discuss your task",
+      heroEyebrow:"Integrated business support platform",
+      h1a:"We structure, ", h1accent:"protect", h1b:" and grow your business",
+      heroSub:"Strategic and operational support for companies across Russia, the CIS and the Middle East — management, finance, law, tax and risk under one roof.",
+      heroCta1:"Discuss your task", heroCta2:"Explore services",
+      heroTrust1:"Russia · CIS · Middle East", heroTrust2:"Local expertise, international experience",
+      heroJurLabel:"Key jurisdictions",
+      jurAE:"UAE", jurAEn:"Licences, statuses",
+      jurRU:"Russia", jurRUn:"Accounting, structures",
+      jurKZ:"Kazakhstan", jurKZn:"Structuring",
+      stripLabel:"Sectors we work with",
+      strip1:"Manufacturing", strip2:"Trade", strip3:"IT", strip4:"Financial services",
+      aboutLabel:"About", aboutTag:"/ Who we are",
+      aboutLead:"The partner businesses trust to structure, protect and grow.",
+      aboutP:"Core Business Consulting combines local expertise with international experience. We build tailored solutions across management, finance, law, tax and risk — from manufacturing and trade to IT and financial services.",
+      valLabel:"Principles",
+      val1:"Professionalism", val2:"Stability", val3:"Clarity", val4:"Trust", val5:"Transparency", val6:"Foresight",
+      servLabel:"Services", servH:"Six disciplines. <span style=\"color:var(--fog)\">One team.</span>",
+      servSub:"End-to-end support: accounting and finance, law and tax, investment, compliance, HR and project management.",
+      s1t:"Accounting & finance",
+      s1d:"The full cycle of accounting and finance: setup, maintenance and restoration of records, RAS and IFRS reporting, treasury and budget control.",
+      s1p:"RAS & IFRS · Audit · Accounting policy · Tax",
+      s2t:"Law & tax",
+      s2d:"Legal support from incorporation and corporate structuring to transactions and litigation — with an optimal cash-flow model.",
+      s2p:"UAE · Russia · Kazakhstan · Licences · Deals · Disputes",
+      s3t:"Human capital",
+      s3d:"The full HR spectrum: personnel administration, recruitment, HR policy and incentive systems — transparent people processes.",
+      s3p:"Admin · Recruitment · Incentives · HR policy",
+      s4t:"Investment & valuation",
+      s4d:"Independent valuation of companies, projects and assets; analysis of business models, fair value and deal-structure recommendations.",
+      s4p:"Assets · Business models · Deals",
+      s5t:"Compliance & risk",
+      s5d:"A business-protection system: forensic investigations, internal control, asset-leakage prevention and monitoring of key risks.",
+      s5p:"Forensic · Control · Monitoring",
+      s6t:"Project management",
+      s6d:"Strategic and operational management of projects of any complexity: from corporate strategy to organisational and technology rollouts.",
+      s6p:"Strategy · Process · Rollout",
+      appLabel:"Approach", appH:"A predictable outcome at every stage",
+      appSub:"Proven project-management methodologies — from diagnostics to ongoing support.",
+      p1t:"Diagnostics", p1d:"Audit of the current structure, financial model and risks. We agree on goals and constraints.",
+      p2t:"Architecture", p2d:"We design the corporate and tax structure around the business and its jurisdictions.",
+      p3t:"Implementation", p3d:"Incorporation, licences, accounting setup, processes and controls.",
+      p4t:"Ongoing support", p4d:"Day-to-day accounting, reporting, compliance and analytics for management decisions.",
+      statLabel:"By the numbers",
+      st1l:"years of combined team expertise",
+      st2l:"key jurisdictions — UAE, Russia, Kazakhstan",
+      st3l:"business-support disciplines",
+      st4l:"cost reduction in restructuring projects",
+      tLabel:"Clients", tH:"A team that speaks the language of numbers",
+      q1:"Within a year Core Business Consulting rebuilt our group across two jurisdictions and closed long-standing accounting issues. IFRS reporting now arrives on time.",
+      q1n:"Igor Demidov", q1r:"CFO, manufacturing group — Kazan",
+      q2:"Incorporation in the UAE and setting up compliance took less time than we planned. The team works with numbers, not generalities.",
+      q2n:"Leyla Abbas", q2r:"COO, trading group — Dubai",
+      contactLabel:"Get in touch", contactH:"Let's discuss your business",
+      contactP:"We'll prepare a tailored proposal for your specific objectives.",
+      cdEmailL:"Email", cdJurL:"Jurisdictions", cdJurV:"UAE · Russia · Kazakhstan",
+      cdRegL:"Regions", cdRegV:"Russia · CIS · Middle East",
+      fNameL:"Name", fNameH:"How should we address you",
+      fCompL:"Company", fCompH:"Optional",
+      fEmailL:"Email", fEmailH:"For our reply and proposal",
+      fMsgL:"Your task", fMsgH:"Briefly describe your task and timeline",
+      fSend:"Send request",
+      errName:"Please enter your name", errEmailReq:"Please enter your email",
+      errEmailFmt:"Check the email format", errMsg:"Please describe your task",
+      sentMsg:"Thank you! We'll be in touch shortly.",
+      ftTag:"Integrated business support across Russia, the CIS and the Middle East.",
+      ftS1:"Accounting", ftS2:"Law & tax", ftS3:"HR", ftS4:"Investment", ftS5:"Compliance", ftS6:"Projects",
+      ftAddr:"Address — on request",
+      ftRights:"© 2026 Core Business Consulting. All rights reserved."
+    };
+    this._htmlKeys = { servH: true };
+    this.PH = { name:"John Smith", company:"Your company", email:"name@company.com", message:"Describe your task…" };
+
+    // Halftone world atlas — continents as circle clusters on a 160x80 lon/lat grid.
+    this.CONTINENTS = [
+      [26,14,7],[33,16,7],[22,22,7],[30,22,8],[26,29,5],[33,30,4],[20,30,3],
+      [33,36,3],[36,39,3],
+      [46,9,5],[50,12,3],
+      [42,44,4],[44,48,5],[45,54,4],[44,60,3],[42,64,2],
+      [76,16,2],[82,17,4],[86,15,3],[78,19,3],[88,19,3],
+      [84,33,5],[88,30,4],[86,39,6],[88,46,5],[86,52,3],[84,56,2],
+      [94,30,4],[97,33,3],
+      [98,20,6],[106,18,7],[114,16,7],[122,18,8],[132,17,8],[140,15,6],[146,20,5],
+      [108,30,5],[110,34,3],
+      [120,34,4],[124,38,3],[128,36,3],[118,40,2],[122,43,2],
+      [148,24,2],[150,27,2],
+      [140,58,6],[146,60,4],[136,60,3],[152,66,2]
+    ];
+    this.GRAD = [
+      [0.00,[214,86,32]],[0.14,[159,122,238]],[0.32,[69,117,205]],
+      [0.50,[113,210,240]],[0.68,[68,180,139]],[0.85,[244,223,105]],[1.00,[244,223,105]]
+    ];
+  }
+
+  renderVals(){
+    const e = this.state.errors;
+    return {
+      rootRef: this.rootRef,
+      toRu: () => this.setLang('ru'),
+      toEn: () => this.setLang('en'),
+      onSubmit: (ev) => this.onSubmit(ev),
+      errName: !!e.name,
+      errEmailReq: e.email === 'req',
+      errEmailFmt: e.email === 'format',
+      errMsg: !!e.message,
+      sent: this.state.sent
+    };
+  }
+
+  componentDidMount(){
+    this.applyLang('ru');
+    this.boot();
+    this.initMaps();
+  }
+
+  componentWillUnmount(){
+    if (this._gt) clearTimeout(this._gt);
+    if (this._gt3) clearTimeout(this._gt3);
+    if (this._safety) clearTimeout(this._safety);
+    if (this._mapResize) { try { window.removeEventListener('resize', this._mapResize); } catch(e){} }
+    if (this._mrt) clearTimeout(this._mrt);
+    if (this._scroller && this._onScroll) {
+      const tgt = this._scroller === window ? window : this._scroller;
+      try { tgt.removeEventListener('scroll', this._onScroll); } catch(e) {}
+      try { window.removeEventListener('resize', this._onScroll); } catch(e) {}
+    }
+    if (this._io) { try { this._io.disconnect(); } catch(e) {} }
+    if (this._tweens) this._tweens.forEach(t => { try { t.kill(); } catch(e) {} });
+  }
+
+  /* ---------- Halftone world atlas ---------- */
+  initMaps(){
+    const root = this.rootRef.current;
+    if (!root) return;
+    this._maps = Array.from(root.querySelectorAll('[data-worldmap]'));
+    const draw = () => this._maps.forEach(c => { try { this.drawMap(c); } catch(e){} });
+    draw();
+    requestAnimationFrame(draw);
+    this._mapResize = () => { if (this._mrt) clearTimeout(this._mrt); this._mrt = setTimeout(draw, 150); };
+    window.addEventListener('resize', this._mapResize, { passive: true });
+  }
+
+  gradColor(t){
+    const g = this.GRAD;
+    t = Math.max(0, Math.min(1, t));
+    for (let i = 0; i < g.length - 1; i++){
+      if (t >= g[i][0] && t <= g[i+1][0]){
+        const span = (g[i+1][0] - g[i][0]) || 1;
+        const f = (t - g[i][0]) / span;
+        const a = g[i][1], b = g[i+1][1];
+        return [Math.round(a[0]+(b[0]-a[0])*f), Math.round(a[1]+(b[1]-a[1])*f), Math.round(a[2]+(b[2]-a[2])*f)];
+      }
+    }
+    return g[g.length-1][1];
+  }
+
+  isLand(gx, gy){
+    const C = this.CONTINENTS;
+    for (let i = 0; i < C.length; i++){
+      const dx = gx - C[i][0], dy = gy - C[i][1];
+      if (dx*dx + dy*dy <= C[i][2]*C[i][2]) return true;
+    }
+    return false;
+  }
+
+  drawMap(cv){
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if (!w || !h) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    cv.width = Math.round(w * dpr);
+    cv.height = Math.round(h * dpr);
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    const dark = cv.dataset.mapVariant === 'dark';
+    const step = 7, r = 1.7;
+    // map area: keep 2:1 atlas aspect, centered
+    const mapW = w, mapH = w / 2;
+    const offY = (h - mapH) / 2;
+
+    for (let y = 0; y < h; y += step){
+      for (let x = 0; x < w; x += step){
+        // normalized position within the atlas band
+        const u = x / w;                 // 0..1 lon
+        const v = (y - offY) / mapH;     // 0..1 lat (may be <0 or >1 = ocean margins)
+        const inBand = v >= 0 && v <= 1;
+        const gx = u * 160, gy = v * 80;
+        const land = inBand && this.isLand(gx, gy);
+        let alpha;
+        if (land) alpha = dark ? 0.92 : 0.8;
+        else alpha = dark ? 0.13 : 0.06;
+        if (!land && ((x + y) % (step*2) !== 0)) continue; // thin out ocean
+        const t = (u + (1 - Math.max(0, Math.min(1, v)))) / 2;
+        const c = this.gradColor(t);
+        ctx.beginPath();
+        ctx.fillStyle = 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + alpha + ')';
+        ctx.arc(x, y, land ? r : r*0.78, 0, 6.2832);
+        ctx.fill();
+      }
+    }
+  }
+
+  findScroller(el){
+    let node = el.parentElement;
+    while (node && node !== document.body && node !== document.documentElement) {
+      const s = getComputedStyle(node);
+      if (/(auto|scroll|overlay)/.test(s.overflowY + ' ' + s.overflow) && node.scrollHeight > node.clientHeight + 4) return node;
+      node = node.parentElement;
+    }
+    return window;
+  }
+
+  setLang(l){
+    if (this.state.lang === l) return;
+    this.setState({ lang: l });
+    this.applyLang(l);
+  }
+
+  applyLang(l){
+    const root = this.rootRef.current;
+    if (!root) return;
+    root.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.dataset.i18n;
+      const html = this._htmlKeys[k];
+      if (l === 'en') {
+        if (!(k in this._ru)) this._ru[k] = html ? el.innerHTML : el.textContent;
+        if (this.EN[k] != null) { if (html) el.innerHTML = this.EN[k]; else el.textContent = this.EN[k]; }
+      } else if (k in this._ru) {
+        if (html) el.innerHTML = this._ru[k]; else el.textContent = this._ru[k];
+      }
+    });
+    root.querySelectorAll('[data-i18n-ph]').forEach(el => {
+      const k = el.dataset.i18nPh, key = 'ph_' + k;
+      if (l === 'en') {
+        if (!(key in this._ru)) this._ru[key] = el.getAttribute('placeholder') || '';
+        if (this.PH[k] != null) el.setAttribute('placeholder', this.PH[k]);
+      } else if (key in this._ru) {
+        el.setAttribute('placeholder', this._ru[key]);
+      }
+    });
+    root.querySelectorAll('[data-lang-btn]').forEach(b => {
+      const on = b.dataset.langBtn === l;
+      b.style.background = on ? 'var(--ink)' : 'transparent';
+      b.style.color = on ? '#fff' : 'var(--ink)';
+    });
+    try { document.documentElement.lang = l; } catch(err) {}
+  }
+
+  onSubmit(ev){
+    ev.preventDefault();
+    const f = ev.target;
+    const val = n => (f.elements[n] ? f.elements[n].value.trim() : '');
+    const name = val('cbc_name'), email = val('cbc_email'), msg = val('cbc_message');
+    const errs = {};
+    if (!name) errs.name = true;
+    if (!email) errs.email = 'req';
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) errs.email = 'format';
+    if (!msg) errs.message = true;
+    if (Object.keys(errs).length) { this.setState({ errors: errs, sent: false }); return; }
+    this.setState({ errors: {}, sent: true });
+    f.reset();
+  }
+
+  boot(){
+    const root = this.rootRef.current;
+    if (!root) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = () => {
+      if (window.gsap) {
+        try { this.initMotion(root, reduce); } catch(err) { console.warn('motion init failed', err); }
+      } else {
+        this._gt = setTimeout(start, 90);
+      }
+    };
+    start();
+  }
+
+  initMotion(root, reduce){
+    const gsap = window.gsap;
+    const ease = 'power3.out';
+    const sel = s => Array.from(root.querySelectorAll(s));
+    const one = s => root.querySelector(s);
+    this._tweens = [];
+    const track = t => { this._tweens.push(t); return t; };
+
+    const scroller = this.findScroller(root);
+    this._scroller = scroller;
+
+    if (!reduce) {
+      const h = one('[data-hero-h1]');
+      const fades = ['[data-hero-eyebrow]','[data-hero-sub]','[data-hero-cta]','[data-hero-side]'].map(one).filter(Boolean);
+      gsap.set(fades, { opacity: 0, y: 18 });
+      if (h) gsap.set(h, { clipPath: 'inset(0 0 100% 0)', y: 14 });
+      const tl = track(gsap.timeline({ defaults: { ease } }));
+      if (h) tl.to(h, { clipPath: 'inset(0 0 0% 0)', y: 0, duration: 0.95 }, 0.05);
+      const eb = one('[data-hero-eyebrow]'); if (eb) tl.to(eb, { opacity: 1, y: 0, duration: 0.5 }, 0);
+      const sd = one('[data-hero-side]'); if (sd) tl.to(sd, { opacity: 1, y: 0, duration: 0.8 }, 0.32);
+      const sb = one('[data-hero-sub]'); if (sb) tl.to(sb, { opacity: 1, y: 0, duration: 0.6 }, 0.5);
+      const ct = one('[data-hero-cta]'); if (ct) tl.to(ct, { opacity: 1, y: 0, duration: 0.55 }, 0.62);
+    }
+
+    const reveals = sel('[data-reveal]');
+    const groups = sel('[data-stagger]');
+    const counts = sel('[data-count]');
+    const fmtOf = el => {
+      const dec = parseInt(el.dataset.dec || '0', 10), suf = el.dataset.suffix || '';
+      return v => v.toFixed(dec) + suf;
+    };
+    const doneR = new Set(), doneC = new Set();
+    const revealEl = el => {
+      if (doneR.has(el)) return; doneR.add(el);
+      if (el.hasAttribute('data-stagger')) track(gsap.to(el.querySelectorAll('[data-stagger-item]'), { opacity: 1, y: 0, duration: 0.6, ease, stagger: 0.08, overwrite: 'auto' }));
+      else track(gsap.to(el, { opacity: 1, y: 0, duration: 0.7, ease, overwrite: 'auto' }));
+    };
+    const runCount = el => {
+      if (doneC.has(el)) return; doneC.add(el);
+      const fmt = fmtOf(el), o = { v: 0 };
+      track(gsap.to(o, { v: parseFloat(el.dataset.count), duration: 1.5, ease, onUpdate: () => { el.textContent = fmt(o.v); } }));
+    };
+    const revealAllNow = () => { reveals.forEach(revealEl); groups.forEach(revealEl); counts.forEach(runCount); };
+    this._revealAllNow = revealAllNow;
+
+    if (reduce) {
+      counts.forEach(el => { el.textContent = fmtOf(el)(parseFloat(el.dataset.count)); });
+    } else {
+      gsap.set(reveals, { opacity: 0, y: 26 });
+      groups.forEach(g => gsap.set(g.querySelectorAll('[data-stagger-item]'), { opacity: 0, y: 22 }));
+      counts.forEach(el => { el.textContent = fmtOf(el)(0); });
+    }
+
+    const path = one('[data-draw]'), app = one('[data-approach]');
+    let pathLen = 0;
+    if (path) { pathLen = path.getTotalLength(); path.style.strokeDasharray = pathLen; path.style.strokeDashoffset = reduce ? 0 : pathLen; }
+
+    const bar = one('[data-progress]');
+    const header = one('[data-header]');
+    let headerState = null;
+    const getScroll = () => {
+      if (scroller === window) {
+        const de = document.scrollingElement || document.documentElement;
+        return { top: window.scrollY || de.scrollTop || 0, max: Math.max(1, (de.scrollHeight || 0) - window.innerHeight) };
+      }
+      return { top: scroller.scrollTop, max: Math.max(1, scroller.scrollHeight - scroller.clientHeight) };
+    };
+    const checkReveals = () => {
+      if (reduce) return;
+      const vh = window.innerHeight, m = vh * 0.9;
+      reveals.forEach(el => { if (!doneR.has(el) && el.getBoundingClientRect().top < m) revealEl(el); });
+      groups.forEach(el => { if (!doneR.has(el) && el.getBoundingClientRect().top < m) revealEl(el); });
+      counts.forEach(el => { if (!doneC.has(el) && el.getBoundingClientRect().top < m) runCount(el); });
+    };
+    const update = () => {
+      const s = getScroll();
+      if (bar) bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, s.top / s.max)) + ')';
+      if (header) {
+        const c = s.top > 60;
+        if (c !== headerState) {
+          headerState = c;
+          header.style.paddingTop = c ? '13px' : '20px';
+          header.style.paddingBottom = c ? '13px' : '20px';
+          header.style.background = c ? 'rgba(246,246,248,0.82)' : 'rgba(246,246,248,0)';
+          header.style.backdropFilter = c ? 'saturate(180%) blur(14px)' : 'none';
+          header.style.webkitBackdropFilter = c ? 'saturate(180%) blur(14px)' : 'none';
+          header.style.borderBottomColor = c ? 'var(--mist)' : 'transparent';
+        }
+      }
+      if (path && app && !reduce) {
+        const rb = app.getBoundingClientRect(), vh = window.innerHeight;
+        const startY = vh * 0.62, endY = vh * 0.72;
+        const denom = Math.max(1, rb.height + startY - endY);
+        let p = Math.min(1, Math.max(0, (startY - rb.top) / denom));
+        path.style.strokeDashoffset = pathLen * (1 - p);
+      }
+      checkReveals();
+    };
+
+    let ticking = false;
+    this._onScroll = () => {
+      if (this._safety) { clearTimeout(this._safety); this._safety = null; }
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => { update(); ticking = false; });
+    };
+    const tgt = scroller === window ? window : scroller;
+    tgt.addEventListener('scroll', this._onScroll, { passive: true });
+    window.addEventListener('resize', this._onScroll, { passive: true });
+
+    update();
+    requestAnimationFrame(update);
+    this._gt3 = setTimeout(update, 350);
+    if (!reduce) this._safety = setTimeout(revealAllNow, 1800);
+  }
+}
+</script>
+</body>
+</html>
