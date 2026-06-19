@@ -1,0 +1,61 @@
+/* ============================================================
+   CORE DESIGN v2 — components.css
+   Reusable chrome: progress meter, header/nav/lang, buttons,
+   form controls, footer.
+   ============================================================ */
+
+/* progress (a meter, not a decorative highlight) */
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;
+  background:var(--red);z-index:120;will-change:transform}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;
+  border-bottom:1px solid transparent}
+header.scrolled{background:rgba(255,255,255,.82);backdrop-filter:saturate(140%) blur(16px);
+  -webkit-backdrop-filter:saturate(140%) blur(16px);border-bottom-color:var(--hair)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:24px;height:76px}
+header.scrolled .bar{height:64px}
+.bar nav{display:flex;gap:30px}
+.bar nav a{font-size:14px;color:var(--muted);transition:color .25s;cursor:pointer;position:relative}
+.bar nav a::after{content:"";position:absolute;left:0;bottom:-7px;width:7px;height:7px;background:var(--red);
+  opacity:0;transform:scale(.4);transition:opacity .25s,transform .25s}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a:hover::after{opacity:1;transform:scale(1)}
+.actions{display:flex;align-items:center;gap:14px}
+.lang{display:flex;border:1px solid var(--hair);overflow:hidden}
+.lang button{font-family:var(--mono);font-size:11px;padding:7px 11px;background:transparent;color:var(--muted);border:0;cursor:pointer;transition:.25s}
+.lang button[aria-pressed="true"]{background:var(--ink);color:#fff}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;cursor:pointer;border:0;
+  transition:transform .12s ease,box-shadow .3s ease,background .25s,color .25s,border-color .25s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--red);color:#fff;padding:13px 22px;font-weight:700}
+.btn-primary:hover{background:var(--red-2);box-shadow:0 10px 26px -10px rgba(244,0,0,.55)}
+.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--hair);padding:13px 21px}
+.btn-ghost:hover{border-color:var(--red);color:var(--red)}
+.btn-lg{padding:16px 30px;font-size:15px}
+
+/* form controls */
+.fld{margin-bottom:18px}
+label{display:block;font-size:13px;font-weight:600;margin-bottom:8px}
+.hint{font-size:12.5px;color:var(--faint);margin:8px 0 0}
+.err{font-size:12.5px;color:var(--red);font-weight:600;margin:7px 0 0;display:none}
+.err.show{display:block}
+input,textarea{width:100%;padding:13px 15px;font-size:15px;color:var(--ink);background:var(--canvas);
+  border:1px solid var(--hair);border-radius:0;outline:none;transition:border-color .2s,box-shadow .2s}
+input::placeholder,textarea::placeholder{color:var(--faint)}
+input:focus,textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(244,0,0,.14)}
+textarea{min-height:120px}
+.sent{display:none;margin-bottom:16px;padding:14px 16px;background:var(--ink);color:#fff;font-weight:600;font-size:14px}
+.sent.show{display:block}
+
+/* footer (black structural anchor) */
+footer{padding:clamp(52px,7vh,84px) 0 36px;background:var(--ink);color:#fff}
+.fgrid{display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:40px 24px;padding-bottom:48px;border-bottom:1px solid var(--on-dark-line)}
+.fgrid h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-dark-faint);margin:0 0 16px;font-weight:500}
+.fcol a,.fcol span{display:block;font-size:14px;color:var(--on-dark-muted);margin-bottom:11px;transition:color .2s}
+.fcol a:hover{color:var(--red)}
+.ftag{font-size:14.5px;color:var(--on-dark-muted);line-height:1.55;max-width:36ch;margin:18px 0 0}
+.fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:22px}
+.fbottom span{font-family:var(--mono);font-size:11px;color:var(--on-dark-faint)}

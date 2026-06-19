@@ -1,0 +1,20 @@
+/* ============================================================
+   CORE DESIGN v2 — responsive.css
+   Breakpoint overrides. Loaded last so it wins the cascade.
+   ============================================================ */
+@media(max-width:900px){
+  .hero-grid,.about,.appr,.contact{grid-template-columns:1fr}
+  .hero-visual{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  .quotes{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .htrack{flex-direction:column;padding:40px clamp(20px,5vw,56px) 56px}
+  .panel{flex:0 0 auto;min-height:0}
+  .htrack .end{flex:0 0 auto}
+}
+@media(max-width:600px){
+  .bar nav{display:none}
+  .stats{grid-template-columns:1fr 1fr}
+  .principles{grid-template-columns:1fr}
+  .hero-inner{padding-top:104px}
+}
