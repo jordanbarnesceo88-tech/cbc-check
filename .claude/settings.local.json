@@ -9,7 +9,8 @@
       "Bash(git commit -q -m 'Baseline: 5 design directions + core_design_v2 \\(verified\\) *)",
       "Bash(git commit -q -m 'core_v2 step 1: split CSS into cascade-ordered partials *)",
       "Bash(git commit -q -m 'core_v2 step 2: replace hand-rolled icons with Phosphor \\(CDN\\) *)",
-      "Bash(git commit -q -m 'core_v2 step 3: 3D cubes assemble on load and on scroll *)"
+      "Bash(git commit -q -m 'core_v2 step 3: 3D cubes assemble on load and on scroll *)",
+      "Bash(git commit -q -m 'core_v2 step 4: working form submission flow + states *)"
     ]
   }
 }

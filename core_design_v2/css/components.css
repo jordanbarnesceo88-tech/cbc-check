@@ -49,6 +49,9 @@ input:focus,textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(244
 textarea{min-height:120px}
 .sent{display:none;margin-bottom:16px;padding:14px 16px;background:var(--ink);color:#fff;font-weight:600;font-size:14px}
 .sent.show{display:block}
+.form-err{display:none;margin-bottom:16px;padding:14px 16px;background:var(--canvas);border:1px solid var(--red);color:var(--red);font-weight:600;font-size:14px}
+.form-err.show{display:block}
+.btn[disabled]{opacity:.6;cursor:progress}
 
 /* footer (black structural anchor) */
 footer{padding:clamp(52px,7vh,84px) 0 36px;background:var(--ink);color:#fff}

@@ -45,6 +45,7 @@
     fName:"Name", fComp:"Company", fCompH:"Optional", fEmail:"Email", fMsg:"Your task", fSend:"Send request",
     errName:"Please enter your name", errEmail:"Please enter a valid email", errMsg:"Please describe your task",
     sentMsg:"Thank you! We'll be in touch shortly.",
+    formError:"Could not send your request. Please try again or email info@cbc.com.",
     ftTag:"Integrated business support across Russia, the CIS and the Middle East.",
     ftS1:"Accounting", ftS2:"Law & tax", ftS3:"HR", ftS4:"Investment",
     ftAddr:"Address on request", ftRights:"© 2026 Core Business Consulting. All rights reserved."
@@ -84,6 +85,14 @@
     gsap.to(o,{v:target,duration:1.5,ease:'power2.out',onUpdate:function(){ el.textContent=o.v.toFixed(dec)+suf; }});
   }
 
+  /* contact form: validation + real submission.
+     Set FORM_ENDPOINT to your Formspree/Getform/own POST URL to go live.
+     Empty string = demo mode (validates + shows success without a network call). */
+  var FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
+  var FORM_T = {
+    ru:{ sending:'Отправка…', error:'Не удалось отправить запрос. Попробуйте ещё раз или напишите на info@cbc.com.' },
+    en:{ sending:'Sending…',  error:'Could not send your request. Please try again or email info@cbc.com.' }
+  };
   var form = document.getElementById('cform');
   if(form){
     form.addEventListener('submit', function(ev){
@@ -94,9 +103,25 @@
       mark('e_name', !name);
       mark('e_email', !email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email));
       mark('e_msg', !msg);
+      var sent=document.getElementById('sent'), errBox=document.getElementById('formErr');
+      sent.classList.remove('show'); errBox.classList.remove('show');
       if(!ok) return;
-      document.getElementById('sent').classList.add('show');
-      form.reset();
+
+      var lang = (document.documentElement.lang==='en') ? 'en' : 'ru';
+
+      if(!FORM_ENDPOINT){ sent.classList.add('show'); form.reset(); return; } // demo mode
+
+      var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
+      btn.disabled = true; btn.textContent = FORM_T[lang].sending;
+      fetch(FORM_ENDPOINT, {
+        method:'POST',
+        headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+        body: JSON.stringify({ name:name, company:form.company.value.trim(), email:email, message:msg })
+      })
+      .then(function(r){ if(!r.ok) throw new Error('http '+r.status); })
+      .then(function(){ sent.classList.add('show'); form.reset(); })
+      .catch(function(){ errBox.textContent = FORM_T[lang].error; errBox.classList.add('show'); })
+      .finally(function(){ btn.disabled=false; btn.textContent=label; });
     });
   }
 
