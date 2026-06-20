@@ -34,6 +34,7 @@
     ap2t:"Architecture", ap2d:"We design the corporate and tax structure around the business and its jurisdictions.",
     ap3t:"Implementation", ap3d:"Incorporation, licences, accounting setup, processes and controls.",
     ap4t:"Ongoing support", ap4d:"Day-to-day accounting, reporting, compliance and analytics for management decisions.",
+    ap5t:"Optimization", ap5d:"Continuous process improvement, efficiency control and long-term business sustainability.",
     st1:"years of combined team expertise", st2:"key jurisdictions: UAE, Russia, Kazakhstan", st3:"business-support disciplines", st4:"cost reduction in restructuring projects",
     tH:"A team that speaks the language of numbers",
     q1:"Within a year Core Business Consulting rebuilt our group across two jurisdictions and closed long-standing accounting issues.",
@@ -182,11 +183,17 @@
     var fill = document.getElementById('tlfill');
     if(fill){
       gsap.fromTo(fill,{ scaleY:0 },{ scaleY:1, ease:'none',
-        scrollTrigger:{ trigger:'#timeline', start:'top 72%', end:'bottom 78%', scrub:0.6 } });
+        scrollTrigger:{ trigger:'#timeline', start:'top 72%', end:'bottom 82%', scrub:0.6 } });
     }
+    // each step reveals: dot pops in, number/title/body slide in, step activates as the red fill reaches it
     gsap.utils.toArray('#approach .tstep').forEach(function(s){
-      ScrollTrigger.create({ trigger:s, start:'top 70%',
-        onEnter:function(){ s.classList.add('active'); }, onLeaveBack:function(){ s.classList.remove('active'); } });
+      var dot=s.querySelector('.tdot'), body=[s.querySelector('h3'), s.querySelector('p')];
+      gsap.set(dot,{ scale:.5, opacity:0 });
+      gsap.set(body,{ opacity:0, x:-26 });
+      gsap.timeline({ scrollTrigger:{ trigger:s, start:'top 80%',
+          onEnter:function(){ s.classList.add('active'); }, onLeaveBack:function(){ s.classList.remove('active'); } } })
+        .to(dot,{ scale:1, opacity:1, duration:.5, ease:'back.out(1.7)' })
+        .to(body,{ opacity:1, x:0, duration:.6, ease:'power3.out', stagger:.08 }, '-=0.3');
     });
 
     /* marquee (single, seamless) */
@@ -206,6 +213,10 @@
         gsap.to(layer,{ yPercent:-22*d*4, ease:'none',
           scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
       });
+
+      // approach: timeline column drifts against the static heading for depth
+      gsap.to('#approach .timeline',{ yPercent:-9, ease:'none',
+        scrollTrigger:{ trigger:'#approach', start:'top bottom', end:'bottom top', scrub:true } });
 
       var track = document.getElementById('htrack');
       var section = document.getElementById('services');
