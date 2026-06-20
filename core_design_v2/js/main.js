@@ -303,12 +303,10 @@
       }
     }
     function frame(){
-      spin += 0.0017;
-      mx += (tx-mx)*0.05; my += (ty-my)*0.05;
-      group.rotation.y = spin + mx*0.55;
-      group.rotation.x = my*0.4;
-      var scatter = 1 + (1 - state.a*(1-state.d))*3; // spin faster while dispersed
-      for(var k=0;k<group.children.length;k++){ var o=group.children[k]; o.rotation.x += o.userData.spin[0]*scatter; o.rotation.y += o.userData.spin[1]*scatter; }
+      spin += 0.0010; // slow, deliberate group rotation (no per-cube spin -> calmer, architectural)
+      mx += (tx-mx)*0.04; my += (ty-my)*0.04;
+      group.rotation.y = spin + mx*0.5;
+      group.rotation.x = -0.12 + my*0.28; // fixed 3/4 tilt + gentle pointer parallax
       applyPositions();
       renderer.render(scene, camera);
       raf = requestAnimationFrame(frame);
