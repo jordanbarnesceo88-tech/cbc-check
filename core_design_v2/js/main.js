@@ -215,16 +215,19 @@
           scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
       });
 
-      // approach: timeline column drifts against the static heading for depth
-      gsap.to('#approach .timeline',{ yPercent:-9, ease:'none',
-        scrollTrigger:{ trigger:'#approach', start:'top bottom', end:'bottom top', scrub:true } });
+      // approach: each step drifts at a slightly different rate (parallax depth against the sticky heading)
+      gsap.utils.toArray('#approach .tstep').forEach(function(s,i){
+        gsap.to(s,{ yPercent:(i%2 ? 8 : -8), ease:'none',
+          scrollTrigger:{ trigger:'#approach', start:'top bottom', end:'bottom top', scrub:true } });
+      });
 
       var track = document.getElementById('htrack');
       var section = document.getElementById('services');
       var getDist = function(){ return track.scrollWidth - window.innerWidth + (window.innerWidth*0.06); };
       gsap.to(track,{ x:function(){ return -getDist(); }, ease:'none',
         scrollTrigger:{ trigger:section, start:'top top', end:function(){ return '+='+getDist(); },
-          pin:true, scrub:1, anticipatePin:1, invalidateOnRefresh:true } });
+          pin:true, scrub:1, anticipatePin:1, invalidateOnRefresh:true,
+          refreshPriority:1 } }); // refresh this pin before downstream triggers so their positions account for the pin-spacer
 
       var mag = document.getElementById('magnet');
       if(mag){

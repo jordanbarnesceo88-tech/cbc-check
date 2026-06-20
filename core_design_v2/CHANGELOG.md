@@ -29,6 +29,7 @@ If a change ever looks wrong in the browser, tell me which step and I will roll 
 | R3 | `core_v2 refine 3: richer approach timeline` | Added a 5th step (Optimization); per-step reveal (dot pop + slide), step activates as the red fill reaches it; timeline column parallax (desktop). |
 | R4 | `core_v2 refine 4: add Privacy + Terms pages and footer legal links` | New bilingual single-column legal pages (`privacy.html`, `terms.html`, `css/legal.css`, `js/legal.js`); footer on every page links to them. |
 | R5 | `core_v2 refine 5: responsiveness across screen sizes` | Breakpoints at 900 / 600 / 480 / 360 (tablet stack, phone header fit, stats + footer collapse, smaller hero headline). Legal pages now also load `responsive.css`. |
+| R6 | `core_v2 refine 6: fix + strengthen timeline scroll effect` | The timeline triggers sat after the pinned services section and never fired (stale positions). Fixed with `refreshPriority` on the pin. Added a sticky heading + per-step parallax so scrolling clearly drives the timeline (fill scrubs, steps activate, steps drift). Asset links now carry `?v=` cache-busting. |
 
 ## Notes for going live
 - **Form endpoint:** open `js/main.js`, set `var FORM_ENDPOINT = '...'` to your Formspree/Getform/own POST URL. Leave empty to keep demo mode.
