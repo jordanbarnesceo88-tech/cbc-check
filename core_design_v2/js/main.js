@@ -255,30 +255,56 @@
       obj.position.set(d.p[0], d.p[1], d.p[2]);
       obj.rotation.set(d.r[0], d.r[1], d.r[2]);
       obj.userData.spin = [ (Math.random()-0.5)*0.003, (Math.random()-0.5)*0.003, 0 ];
+      // home = assembled formation; away = dispersed/exploded start
+      obj.userData.home = { x:d.p[0], y:d.p[1], z:d.p[2] };
+      obj.userData.away = { x:d.p[0]*2.6 + (Math.random()-0.5)*3.5, y:d.p[1]*2.6 + (Math.random()-0.5)*3.5, z:d.p[2]*2.0 - 2.5 - Math.random()*3 };
       group.add(obj);
     });
 
     var spin=0, mx=0, my=0, tx=0, ty=0, raf=null;
+    // assemble-on-scroll state: a = entrance assemble (0->1 on load); d = disperse (0->1 as the hero scrolls away)
+    var state = { a: (reduce || !window.gsap) ? 1 : 0, d: 0 };
     window.addEventListener('pointermove', function(e){
       tx = (e.clientX/window.innerWidth - 0.5);
       ty = (e.clientY/window.innerHeight - 0.5);
     });
+    function applyPositions(){
+      var net = state.a * (1 - state.d);
+      for(var k=0;k<group.children.length;k++){
+        var o=group.children[k], h=o.userData.home, a=o.userData.away;
+        o.position.x = a.x + (h.x-a.x)*net;
+        o.position.y = a.y + (h.y-a.y)*net;
+        o.position.z = a.z + (h.z-a.z)*net;
+      }
+    }
     function frame(){
       spin += 0.0017;
       mx += (tx-mx)*0.05; my += (ty-my)*0.05;
       group.rotation.y = spin + mx*0.55;
       group.rotation.x = my*0.4;
-      group.children.forEach(function(o){ o.rotation.x += o.userData.spin[0]; o.rotation.y += o.userData.spin[1]; });
+      var scatter = 1 + (1 - state.a*(1-state.d))*3; // spin faster while dispersed
+      for(var k=0;k<group.children.length;k++){ var o=group.children[k]; o.rotation.x += o.userData.spin[0]*scatter; o.rotation.y += o.userData.spin[1]*scatter; }
+      applyPositions();
       renderer.render(scene, camera);
       raf = requestAnimationFrame(frame);
     }
     function resize(){
       var w = wrap.clientWidth, h = wrap.clientHeight; if(w<2||h<2) return;
       camera.aspect = w/h; camera.updateProjectionMatrix(); renderer.setSize(w, h, false);
-      renderer.render(scene, camera);
+      if(reduce){ applyPositions(); renderer.render(scene, camera); }
     }
     window.addEventListener('resize', resize);
-    if(reduce){ renderer.render(scene, camera); } else { frame(); }
+    if(reduce){ applyPositions(); renderer.render(scene, camera); }
+    else {
+      frame();
+      if(window.gsap){
+        gsap.to(state,{ a:1, duration:1.4, ease:'power3.out', delay:0.15 });   // assemble on load
+        if(window.ScrollTrigger){
+          gsap.to(state,{ d:1, ease:'none',                                     // disperse as hero leaves; re-assemble scrolling up
+            scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
+        }
+      }
+    }
   }
 
   /* ---------------- boot ---------------- */
