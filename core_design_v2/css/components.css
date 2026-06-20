@@ -62,5 +62,8 @@ footer{padding:clamp(52px,7vh,84px) 0 36px;background-color:var(--ink);color:#ff
 .fcol a,.fcol span{display:block;font-size:14px;color:var(--on-dark-muted);margin-bottom:11px;transition:color .2s}
 .fcol a:hover{color:var(--red)}
 .ftag{font-size:14.5px;color:var(--on-dark-muted);line-height:1.55;max-width:36ch;margin:18px 0 0}
-.fbottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:22px}
+.fbottom{display:flex;align-items:center;justify-content:space-between;gap:16px 28px;flex-wrap:wrap;padding-top:22px}
 .fbottom span{font-family:var(--mono);font-size:11px;color:var(--on-dark-faint)}
+.flegal{display:flex;gap:22px;flex-wrap:wrap}
+.flegal a{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--on-dark-muted);transition:color .2s}
+.flegal a:hover{color:var(--red)}

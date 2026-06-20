@@ -13,7 +13,8 @@
       "Bash(git commit -q -m 'core_v2 step 4: working form submission flow + states *)",
       "Bash(git commit -q -m 'core_v2 refine 1: carry the ledger grid across all sections *)",
       "Bash(git commit -q -m 'core_v2 refine 2: calmer hero 3D \\(taste\\) *)",
-      "Bash(git commit -q -m 'core_v2 refine 3: richer approach timeline \\(ui-ux-pro\\) *)"
+      "Bash(git commit -q -m 'core_v2 refine 3: richer approach timeline \\(ui-ux-pro\\) *)",
+      "Bash(git commit -q -m 'core_v2 refine 4: add Privacy + Terms pages and footer legal links *)"
     ]
   }
 }

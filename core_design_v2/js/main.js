@@ -49,7 +49,8 @@
     formError:"Could not send your request. Please try again or email info@cbc.com.",
     ftTag:"Integrated business support across Russia, the CIS and the Middle East.",
     ftS1:"Accounting", ftS2:"Law & tax", ftS3:"HR", ftS4:"Investment",
-    ftAddr:"Address on request", ftRights:"© 2026 Core Business Consulting. All rights reserved."
+    ftAddr:"Address on request", ftRights:"© 2026 Core Business Consulting. All rights reserved.",
+    legalPrivacy:"Privacy Policy", legalTerms:"Terms of Use"
   };
   var RU = {};
   var phEN = { "Иван Петров":"John Smith", "ООО «Компания»":"Your company", "name@company.com":"name@company.com", "Опишите задачу и сроки":"Describe your task and timeline" };
