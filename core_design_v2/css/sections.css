@@ -60,7 +60,7 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .principles .pv{font-weight:600;font-size:15.5px;margin-top:8px}
 
 /* services horizontal */
-#services{background:var(--canvas)}
+#services{background:transparent}
 .svc-head{padding:clamp(64px,9vh,110px) 0 0}
 .svc-head .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .htrack-wrap{position:relative}
@@ -88,8 +88,10 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .htrack .end{flex:0 0 clamp(220px,24vw,320px);display:flex;flex-direction:column;justify-content:center;gap:20px;padding:30px}
 .htrack .end h3{font-size:clamp(22px,2vw,28px);font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
 
-/* approach — box timeline */
-#approach{background:var(--band)}
+/* approach — box timeline (band + grid so the motif carries) */
+#approach{background-color:var(--band);
+  background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);
+  background-size:64px 64px}
 .appr{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(36px,5vw,72px);align-items:start}
 .timeline{position:relative;padding-left:64px}
 .tl-track{position:absolute;left:21px;top:6px;bottom:6px;width:6px;background:var(--hair)}
@@ -122,7 +124,7 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .quote .qr{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.02em}
 
 /* contact */
-#contact{background:var(--canvas)}
+#contact{background:transparent}
 .contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:start}
 .cdet{margin-top:30px;border-top:1px solid var(--hair)}
 .cdet .d{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--hair)}

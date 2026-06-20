@@ -3,8 +3,11 @@
    Element defaults, layout utilities, reveal base, reduced motion.
    ============================================================ */
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--canvas);color:var(--ink);font-family:var(--sans);line-height:1.5;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip}
+body{margin:0;background-color:var(--canvas);color:var(--ink);font-family:var(--sans);line-height:1.5;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip;
+  /* site-wide ledger grid (the hero motif, carried everywhere) */
+  background-image:linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);
+  background-size:64px 64px;background-position:0 0}
 a{color:inherit;text-decoration:none}
 img{display:block}
 input,textarea,button,select{font-family:inherit}
