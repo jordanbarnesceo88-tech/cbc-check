@@ -21,6 +21,8 @@
     aboutLead:"The partner businesses trust to structure, protect and grow.",
     aboutP:"Core Business Consulting combines local expertise with international experience. We build tailored solutions across management, finance, law, tax and risk: from manufacturing and trade to IT and financial services.",
     pr1:"Professionalism", pr2:"Stability", pr3:"Transparency", pr4:"Foresight",
+    pr1d:"Deep expertise in every engagement.", pr2d:"Predictable processes and outcomes.",
+    pr3d:"Clear decisions and honest reporting.", pr4d:"Decisions built for the years ahead.",
     servLabel:"What we do", servH1:"Six disciplines. ", servH2:"One team.", scrollHint:"Scroll",
     s1t:"Accounting & finance", s1d:"The full cycle of accounting and finance: records, RAS and IFRS reporting, treasury and budget control.", s1p:"RAS & IFRS, audit, tax",
     s2t:"Law & tax", s2d:"Legal support from incorporation and structuring to transactions and disputes, with an optimal cash-flow model.", s2p:"UAE, Russia, Kazakhstan, deals",
@@ -179,6 +181,14 @@
     gsap.utils.toArray('[data-count]').forEach(function(el){
       ScrollTrigger.create({ trigger:el, start:'top 88%', once:true, onEnter:function(){ runCount(el); } });
     });
+
+    /* principles: staggered reveal of the value cards */
+    var principleCells = gsap.utils.toArray('.principles .principle');
+    if(principleCells.length){
+      gsap.set(principleCells,{ opacity:0, y:22 });
+      ScrollTrigger.create({ trigger:'.principles', start:'top 85%', once:true,
+        onEnter:function(){ gsap.to(principleCells,{ opacity:1, y:0, duration:.6, ease:'power3.out', stagger:.09 }); } });
+    }
 
     /* box timeline: red fill box scales down the track + step boxes activate */
     var fill = document.getElementById('tlfill');

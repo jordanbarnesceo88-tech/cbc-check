@@ -30,6 +30,7 @@ If a change ever looks wrong in the browser, tell me which step and I will roll 
 | R4 | `core_v2 refine 4: add Privacy + Terms pages and footer legal links` | New bilingual single-column legal pages (`privacy.html`, `terms.html`, `css/legal.css`, `js/legal.js`); footer on every page links to them. |
 | R5 | `core_v2 refine 5: responsiveness across screen sizes` | Breakpoints at 900 / 600 / 480 / 360 (tablet stack, phone header fit, stats + footer collapse, smaller hero headline). Legal pages now also load `responsive.css`. |
 | R6 | `core_v2 refine 6: fix + strengthen timeline scroll effect` | The timeline triggers sat after the pinned services section and never fired (stale positions). Fixed with `refreshPriority` on the pin. Added a sticky heading + per-step parallax so scrolling clearly drives the timeline (fill scrubs, steps activate, steps drift). Asset links now carry `?v=` cache-busting. |
+| R7 | `core_v2 refine 7: upgrade principles into value cards (ui-ux-pro)` | Bare number+word becomes a value card: Phosphor icon, index number, value, one-line benefit. Hover shows a red box-accent + red icon; cards stagger-reveal on scroll. Contained the horizontal pan track (`overflow-x:clip`) to remove a reported (non-scrolling) width overflow. Assets bumped to `?v=3`. |
 
 ## Notes for going live
 - **Form endpoint:** open `js/main.js`, set `var FORM_ENDPOINT = '...'` to your Formspree/Getform/own POST URL. Leave empty to keep demo mode.
