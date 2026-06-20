@@ -1,7 +1,11 @@
 /* ============================================================
    CORE DESIGN v2 — responsive.css
-   Breakpoint overrides. Loaded last so it wins the cascade.
+   Breakpoint overrides, loaded last so it wins the cascade.
+   Scale: full layout > 900 (desktop incl. horizontal services pin),
+          stacked 768-900 (tablet), phone <= 600, small phone <= 480.
    ============================================================ */
+
+/* tablet + below: stack 2-col layouts, hide the 3D hero canvas */
 @media(max-width:900px){
   .hero-grid,.about,.appr,.contact{grid-template-columns:1fr}
   .hero-visual{display:none}
@@ -11,10 +15,34 @@
   .htrack{flex-direction:column;padding:40px clamp(20px,5vw,56px) 56px}
   .panel{flex:0 0 auto;min-height:0}
   .htrack .end{flex:0 0 auto}
+  .hero-inner{padding-top:112px}
+  .appr{gap:clamp(28px,5vw,48px)}
 }
+
+/* large phone */
 @media(max-width:600px){
   .bar nav{display:none}
-  .stats{grid-template-columns:1fr 1fr}
   .principles{grid-template-columns:1fr}
   .hero-inner{padding-top:104px}
+  .timeline{padding-left:56px}
+  .tdot{left:-56px;width:42px;height:42px}
+}
+
+/* small phone */
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .fgrid{grid-template-columns:1fr;gap:30px}
+  .fbottom{justify-content:flex-start}
+  .bar{gap:10px}
+  header .actions{gap:9px}
+  .btn-primary{padding:10px 14px;font-size:12.5px}
+  h1{font-size:clamp(30px,8.5vw,40px)}
+  .hero-sub{font-size:16px}
+  .panel{padding:24px}
+}
+
+/* very small */
+@media(max-width:360px){
+  .btn-primary{padding:9px 12px;font-size:12px}
+  .bar{gap:8px}
 }
