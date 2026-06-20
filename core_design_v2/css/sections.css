@@ -73,7 +73,6 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel:hover::after{width:16px;height:16px}
 .panel .pnum{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:500}
 .panel .picon{width:46px;height:46px;display:grid;place-items:center;margin:20px 0 22px;background:var(--band);border:1px solid var(--hair)}
-.panel .picon svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:1.6}
 .panel .picon i{font-size:24px;color:var(--ink);line-height:1}
 .panel h3{margin:0;font-size:clamp(20px,1.9vw,25px);font-weight:700;letter-spacing:-.015em;line-height:1.14}
 .panel .pd{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
@@ -84,7 +83,6 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel.flagship .pd{color:var(--on-dark-muted)}
 .panel.flagship .pt{color:var(--on-dark-faint);border-top-color:var(--on-dark-line)}
 .panel.flagship .picon{background:rgba(255,255,255,.08);border-color:var(--on-dark-line)}
-.panel.flagship .picon svg{stroke:#fff}
 .panel.flagship .picon i{color:#fff}
 .panel.flagship:hover{border-color:var(--red);box-shadow:0 18px 40px -22px rgba(0,0,0,.7)}
 .htrack .end{flex:0 0 clamp(220px,24vw,320px);display:flex;flex-direction:column;justify-content:center;gap:20px;padding:30px}
