@@ -20,7 +20,8 @@
       "Read(//c/Users/a.pashko/.claude/skills/ui-ux-pro-max/**)",
       "Bash(python scripts/search.py \"feature value cards hover micro-interaction minimal\" --domain style -n 3)",
       "Bash(python scripts/search.py \"card hover feedback cursor reveal stagger\" --domain ux -n 5)",
-      "Bash(git commit -q -m 'core_v2 refine 7: upgrade principles into value cards \\(ui-ux-pro\\) *)"
+      "Bash(git commit -q -m 'core_v2 refine 7: upgrade principles into value cards \\(ui-ux-pro\\) *)",
+      "Bash(git commit -q -m 'core_v2 refine 8: unify grid + principle hover reveal \\(taste\\) *)"
     ]
   }
 }
