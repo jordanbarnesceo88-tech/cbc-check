@@ -15,7 +15,6 @@ textarea{resize:vertical}
 ::selection{background:var(--red);color:#fff}
 
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(20px,5vw,56px)}
-.mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
 .accent{color:var(--red)}
 
 /* box-mark: the core red box highlight (replaces thin rules) */

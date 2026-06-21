@@ -9,7 +9,7 @@
   --ink:#000000; --canvas:#ffffff; --red:#f40000; --red-2:#cf0000;
   --hair:#d4d4d4; --band:#f4f4f4;
   --muted:#595959; --faint:#737373;
-  --on-dark:#ffffff; --on-dark-muted:rgba(255,255,255,.66); --on-dark-faint:rgba(255,255,255,.46); --on-dark-line:rgba(255,255,255,.16);
+  --on-dark-muted:rgba(255,255,255,.66); --on-dark-faint:rgba(255,255,255,.46); --on-dark-line:rgba(255,255,255,.16);
   --sans:'Onest',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
   --wrap:1240px;

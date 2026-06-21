@@ -15,7 +15,6 @@
     h1l1:"We structure,", h1acc:"protect", h1l2b:" and grow", h1l3:"your business",
     heroSub:"Strategic and operational support for businesses across Russia, the CIS and the Middle East: finance, law, tax and risk in one team.",
     heroCta1:"Discuss your task", heroCta2:"Explore services",
-    hsJur:"jurisdictions", hsDir:"disciplines", hsYears:"years of expertise",
     sec1:"Manufacturing", sec2:"Trade", sec3:"IT", sec4:"Financial services",
     sec1b:"Manufacturing", sec2b:"Trade", sec3b:"IT", sec4b:"Financial services",
     aboutLead:"The partner businesses trust to structure, protect and grow.",
@@ -23,7 +22,7 @@
     pr1:"Professionalism", pr2:"Stability", pr3:"Transparency", pr4:"Foresight",
     pr1d:"Deep expertise in every engagement.", pr2d:"Predictable processes and outcomes.",
     pr3d:"Clear decisions and honest reporting.", pr4d:"Decisions built for the years ahead.",
-    servLabel:"What we do", servH1:"Six disciplines. ", servH2:"One team.", scrollHint:"Scroll",
+    servLabel:"What we do", servH1:"Six disciplines. ", servH2:"One team.",
     s1t:"Accounting & finance", s1d:"The full cycle of accounting and finance: records, RAS and IFRS reporting, treasury and budget control.", s1p:"RAS & IFRS, audit, tax",
     s2t:"Law & tax", s2d:"Legal support from incorporation and structuring to transactions and disputes, with an optimal cash-flow model.", s2p:"UAE, Russia, Kazakhstan, deals",
     s3t:"Human capital", s3d:"The full HR spectrum: personnel administration, recruitment, HR policy and incentive systems. Transparent processes.", s3p:"Admin, recruitment, incentives",
@@ -93,10 +92,7 @@
      Set FORM_ENDPOINT to your Formspree/Getform/own POST URL to go live.
      Empty string = demo mode (validates + shows success without a network call). */
   var FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/xxxxxxx'
-  var FORM_T = {
-    ru:{ sending:'Отправка…', error:'Не удалось отправить запрос. Попробуйте ещё раз или напишите на info@cbc.com.' },
-    en:{ sending:'Sending…',  error:'Could not send your request. Please try again or email info@cbc.com.' }
-  };
+  var SENDING = { ru:'Отправка…', en:'Sending…' }; // the #formErr text is localized via the formError i18n key
   var form = document.getElementById('cform');
   if(form){
     form.addEventListener('submit', function(ev){
@@ -116,7 +112,7 @@
       if(!FORM_ENDPOINT){ sent.classList.add('show'); form.reset(); return; } // demo mode
 
       var btn = form.querySelector('button[type="submit"]'); var label = btn.textContent;
-      btn.disabled = true; btn.textContent = FORM_T[lang].sending;
+      btn.disabled = true; btn.textContent = SENDING[lang];
       fetch(FORM_ENDPOINT, {
         method:'POST',
         headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
@@ -124,7 +120,7 @@
       })
       .then(function(r){ if(!r.ok) throw new Error('http '+r.status); })
       .then(function(){ sent.classList.add('show'); form.reset(); })
-      .catch(function(){ errBox.textContent = FORM_T[lang].error; errBox.classList.add('show'); })
+      .catch(function(){ errBox.classList.add('show'); })
       .finally(function(){ btn.disabled=false; btn.textContent=label; });
     });
   }
@@ -219,12 +215,6 @@
 
     /* desktop-only: hero parallax + horizontal services hijack + magnetic CTA */
     gsap.matchMedia().add('(min-width: 901px)', function(){
-      gsap.utils.toArray('#hero [data-par]').forEach(function(layer){
-        var d = parseFloat(layer.getAttribute('data-par'))||0.3;
-        gsap.to(layer,{ yPercent:-22*d*4, ease:'none',
-          scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
-      });
-
       // approach: each step drifts at a slightly different rate (parallax depth against the sticky heading)
       gsap.utils.toArray('#approach .tstep').forEach(function(s,i){
         gsap.to(s,{ yPercent:(i%2 ? 8 : -8), ease:'none',
@@ -304,14 +294,13 @@
       }
       obj.position.set(d.p[0], d.p[1], d.p[2]);
       obj.rotation.set(d.r[0], d.r[1], d.r[2]);
-      obj.userData.spin = [ (Math.random()-0.5)*0.003, (Math.random()-0.5)*0.003, 0 ];
       // home = assembled formation; away = dispersed/exploded start
       obj.userData.home = { x:d.p[0], y:d.p[1], z:d.p[2] };
       obj.userData.away = { x:d.p[0]*2.6 + (Math.random()-0.5)*3.5, y:d.p[1]*2.6 + (Math.random()-0.5)*3.5, z:d.p[2]*2.0 - 2.5 - Math.random()*3 };
       group.add(obj);
     });
 
-    var spin=0, mx=0, my=0, tx=0, ty=0, raf=null;
+    var spin=0, mx=0, my=0, tx=0, ty=0;
     // assemble-on-scroll state: a = entrance assemble (0->1 on load); d = disperse (0->1 as the hero scrolls away)
     var state = { a: (reduce || !window.gsap) ? 1 : 0, d: 0 };
     window.addEventListener('pointermove', function(e){
@@ -334,7 +323,7 @@
       group.rotation.x = -0.12 + my*0.28; // fixed 3/4 tilt + gentle pointer parallax
       applyPositions();
       renderer.render(scene, camera);
-      raf = requestAnimationFrame(frame);
+      requestAnimationFrame(frame);
     }
     function resize(){
       var w = wrap.clientWidth, h = wrap.clientHeight; if(w<2||h<2) return;
