@@ -22,7 +22,10 @@
       "Bash(python scripts/search.py \"card hover feedback cursor reveal stagger\" --domain ux -n 5)",
       "Bash(git commit -q -m 'core_v2 refine 7: upgrade principles into value cards \\(ui-ux-pro\\) *)",
       "Bash(git commit -q -m 'core_v2 refine 8: unify grid + principle hover reveal \\(taste\\) *)",
-      "Bash(git commit -q -m 'core_v2 refine 9: review + refactor \\(dead code, robustness\\) *)"
+      "Bash(git commit -q -m 'core_v2 refine 9: review + refactor \\(dead code, robustness\\) *)",
+      "WebSearch",
+      "Bash(curl -s --max-time 20 \"https://cdn.jsdelivr.net/npm/@tabler/icons@3.31.0/icons/outline/calculator.svg\")",
+      "Bash(git commit -q -m 'core_v2 refine 10: animated draw-on line icons \\(Tabler\\) *)"
     ]
   }
 }

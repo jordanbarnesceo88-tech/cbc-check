@@ -46,8 +46,8 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .principles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:26px}
 .principles .principle{background:var(--canvas);padding:22px 20px 24px;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .principles .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.principles .picon-sm{width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--hair)}
-.principles .picon-sm i{font-size:20px;line-height:1;color:var(--ink)}
+.principles .picon-sm{width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--hair);color:var(--ink)}
+.principles .picon-sm .aicon{width:20px;height:20px}
 .principles .pn{font-family:var(--mono);font-size:12px;color:var(--faint)}
 .principles .pv{font-weight:700;font-size:17px;letter-spacing:-.01em}
 /* description stays hidden, fades + rises in on hover; always shown where hover is unavailable (touch) */
@@ -69,8 +69,10 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel:hover{border-color:var(--ink);transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(0,0,0,.4)}
 .panel:hover::after{width:16px;height:16px}
 .panel .pnum{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:500}
-.panel .picon{width:46px;height:46px;display:grid;place-items:center;margin:20px 0 22px;background:var(--band);border:1px solid var(--hair)}
-.panel .picon i{font-size:24px;color:var(--ink);line-height:1}
+.panel .picon{width:46px;height:46px;display:grid;place-items:center;margin:20px 0 22px;background:var(--band);border:1px solid var(--hair);color:var(--ink)}
+/* animated line icons (Tabler paths, drawn on via JS) */
+.aicon{display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.panel .picon .aicon{width:24px;height:24px}
 .panel h3{margin:0;font-size:clamp(20px,1.9vw,25px);font-weight:700;letter-spacing:-.015em;line-height:1.14}
 .panel .pd{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
 .panel .pt{margin:auto 0 0;padding-top:18px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.02em;border-top:1px solid var(--hair)}
@@ -79,8 +81,7 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel.flagship h3{color:#fff}
 .panel.flagship .pd{color:var(--on-dark-muted)}
 .panel.flagship .pt{color:var(--on-dark-faint);border-top-color:var(--on-dark-line)}
-.panel.flagship .picon{background:rgba(255,255,255,.08);border-color:var(--on-dark-line)}
-.panel.flagship .picon i{color:#fff}
+.panel.flagship .picon{background:rgba(255,255,255,.08);border-color:var(--on-dark-line);color:#fff}
 .panel.flagship:hover{border-color:var(--red);box-shadow:0 18px 40px -22px rgba(0,0,0,.7)}
 .htrack .end{flex:0 0 clamp(220px,24vw,320px);display:flex;flex-direction:column;justify-content:center;gap:20px;padding:30px}
 .htrack .end h3{font-size:clamp(22px,2vw,28px);font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}

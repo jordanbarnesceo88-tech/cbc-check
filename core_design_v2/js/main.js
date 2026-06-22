@@ -344,9 +344,45 @@
     }
   }
 
+  /* ---------------- animated line icons (Tabler stroke paths, drawn on in view + hover replay) ---------------- */
+  function setupAnimIcons(){
+    var icons = Array.prototype.slice.call(document.querySelectorAll('.aicon'));
+    if(!icons.length) return;
+    icons.forEach(function(svg){
+      svg._shapes = [];
+      svg.querySelectorAll('path,circle,line,polyline,polygon,rect,ellipse').forEach(function(sh){
+        var len = 0; try { len = sh.getTotalLength(); } catch(e){}
+        if(len > 0.5){ sh.style.strokeDasharray = len; sh._len = len; svg._shapes.push(sh); }
+      });
+    });
+    if(reduce) return; // leave icons fully drawn
+
+    function draw(svg){
+      svg._shapes.forEach(function(sh,i){
+        sh.style.transition = 'none';
+        sh.style.strokeDashoffset = sh._len;
+        sh.getBoundingClientRect(); // force reflow so the transition replays
+        sh.style.transition = 'stroke-dashoffset .55s cubic-bezier(.16,1,.3,1) ' + (i*0.06) + 's';
+        sh.style.strokeDashoffset = '0';
+      });
+    }
+    icons.forEach(function(svg){ svg._shapes.forEach(function(sh){ sh.style.strokeDashoffset = sh._len; }); }); // undraw
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ draw(e.target); io.unobserve(e.target); } });
+      }, { threshold:0.35 });
+      icons.forEach(function(svg){ io.observe(svg); });
+    } else { icons.forEach(draw); }
+    document.querySelectorAll('.panel, .principles .principle').forEach(function(card){
+      var svg = card.querySelector('.aicon'); if(!svg) return;
+      card.addEventListener('pointerenter', function(){ draw(svg); });
+    });
+  }
+
   /* ---------------- boot ---------------- */
   initMotion();
   initBoxes();
+  setupAnimIcons();
   // ScrollTrigger pin needs its measurements re-armed after late layout (web fonts, 3D canvas sizing).
   // A single load/fonts.ready refresh proved unreliable on this heavier page, so re-arm on a short cascade.
   function refreshST(){ if(window.ScrollTrigger){ ScrollTrigger.refresh(); } }
