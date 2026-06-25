@@ -37,7 +37,8 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/core_design_v2/\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/core_design_v2/index.html\")",
-      "Bash(git commit -q -m 'Add deploy config: netlify.toml \\(publish=core_design_v2\\) + root index.html redirect *)"
+      "Bash(git commit -q -m 'Add deploy config: netlify.toml \\(publish=core_design_v2\\) + root index.html redirect *)",
+      "Bash(git commit -q -m 'fix: services pin overlapping About section on deploy \\(font-reflow stale pin start\\) *)"
     ]
   }
 }

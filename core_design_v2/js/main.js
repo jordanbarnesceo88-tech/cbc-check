@@ -226,7 +226,7 @@
       var getDist = function(){ return track.scrollWidth - window.innerWidth + (window.innerWidth*0.06); };
       gsap.to(track,{ x:function(){ return -getDist(); }, ease:'none',
         scrollTrigger:{ trigger:section, start:'top top', end:function(){ return '+='+getDist(); },
-          pin:true, scrub:1, anticipatePin:1, invalidateOnRefresh:true,
+          pin:true, scrub:1, invalidateOnRefresh:true,
           refreshPriority:1 } }); // refresh this pin before downstream triggers so their positions account for the pin-spacer
 
       var mag = document.getElementById('magnet');
@@ -388,4 +388,14 @@
   function refreshST(){ if(window.ScrollTrigger){ ScrollTrigger.refresh(); } }
   window.addEventListener('load', refreshST);
   [200, 700, 1500, 2800].forEach(function(t){ setTimeout(refreshST, t); });
+  // Re-arm on any document-height change (late web-font reflow grows the About section; without this the
+  // services pin can keep an early start and overlap the previous section). Debounced.
+  if(!reduce && window.ResizeObserver && window.ScrollTrigger){
+    var _ph = document.documentElement.scrollHeight, _prt;
+    new ResizeObserver(function(){
+      var h = document.documentElement.scrollHeight;
+      if(Math.abs(h - _ph) < 2) return; _ph = h;
+      clearTimeout(_prt); _prt = setTimeout(refreshST, 120);
+    }).observe(document.body);
+  }
 })();
