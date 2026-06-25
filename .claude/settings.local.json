@@ -25,7 +25,19 @@
       "Bash(git commit -q -m 'core_v2 refine 9: review + refactor \\(dead code, robustness\\) *)",
       "WebSearch",
       "Bash(curl -s --max-time 20 \"https://cdn.jsdelivr.net/npm/@tabler/icons@3.31.0/icons/outline/calculator.svg\")",
-      "Bash(git commit -q -m 'core_v2 refine 10: animated draw-on line icons \\(Tabler\\) *)"
+      "Bash(git commit -q -m 'core_v2 refine 10: animated draw-on line icons \\(Tabler\\) *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git push *)",
+      "Bash(gh auth *)",
+      "Bash(gh --version)",
+      "Bash(:)",
+      "Bash(git commit -q -m 'Add .nojekyll so GitHub Pages serves files verbatim \\(legacy .dc files use {{ }}\\) *)",
+      "Bash(curl -s --max-time 20 https://api.github.com/repos/jordanbarnesceo88-tech/cbc-check)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/core_design_v2/\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/core_design_v2/index.html\")",
+      "Bash(git commit -q -m 'Add deploy config: netlify.toml \\(publish=core_design_v2\\) + root index.html redirect *)"
     ]
   }
 }
