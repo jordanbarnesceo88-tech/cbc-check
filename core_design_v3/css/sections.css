@@ -1,0 +1,113 @@
+/* ============================================================
+   CORE DESIGN v3 — "Blackout" — sections.css
+   Hero (mosaic canvas), outlined marquee, about + principle index,
+   sticky-stack services, big-numeral approach, stats, quotes, contact.
+   ============================================================ */
+
+/* section scaffold */
+section{position:relative}
+.sec{padding:clamp(72px,11vh,132px) 0}
+.label{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.label::before{content:"";width:11px;height:11px;background:var(--red);flex:0 0 auto}
+h2{margin:0;font-family:var(--disp);font-weight:600;font-size:clamp(24px,3.2vw,42px);line-height:1.12;letter-spacing:-.01em;color:var(--text)}
+.lead{font-size:clamp(16px,1.25vw,18px);color:var(--muted);line-height:1.62;max-width:60ch}
+
+/* ---------- hero ---------- */
+#hero{position:relative;min-height:100dvh;display:flex;align-items:center;overflow:hidden;isolation:isolate}
+#mosaic{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero-inner{position:relative;z-index:1;width:100%;padding:120px 0 64px}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:30px}
+h1{margin:0;font-family:var(--disp);font-weight:600;font-size:clamp(30px,4.6vw,58px);line-height:1.08;letter-spacing:-.01em;max-width:20ch;color:var(--text)}
+h1 .line{display:block;overflow:hidden;padding-bottom:.06em}
+h1 .line-in{display:block;will-change:transform}
+.hero-sub{margin:28px 0 0;max-width:50ch;font-size:clamp(16px,1.35vw,19px);color:var(--muted);line-height:1.65}
+.hero-cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:36px}
+
+/* ---------- sectors marquee (outlined display type on a black band) ---------- */
+.marquee{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:26px 0;background:var(--band)}
+.marquee-track{display:flex;white-space:nowrap;will-change:transform}
+.marquee-track span{font-family:var(--disp);font-size:clamp(26px,3.4vw,48px);font-weight:600;letter-spacing:.01em;
+  padding:0 34px;display:inline-flex;align-items:center;gap:34px;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.75)}
+@supports not (-webkit-text-stroke:1px #fff){ .marquee-track span{color:rgba(255,255,255,.85)} }
+.marquee-track span::after{content:"";width:10px;height:10px;background:var(--red)}
+
+/* ---------- about + principle index ---------- */
+.about{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,72px);align-items:start}
+.principles{margin-top:26px;border-top:1px solid var(--hair-2)}
+.principle{display:grid;grid-template-columns:56px 1fr;gap:8px 18px;padding:20px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.principle .pn{font-family:var(--mono);font-size:12px;color:var(--red)}
+.principle .pv{font-family:var(--disp);font-weight:500;font-size:clamp(15px,1.4vw,18px);color:var(--text)}
+.principle .pdesc{grid-column:2/3;margin:0;font-size:13.5px;color:var(--muted);line-height:1.55}
+
+/* ---------- services: sticky stack ---------- */
+#services{padding-top:clamp(64px,9vh,110px)}
+.svc-head{margin-bottom:clamp(32px,5vh,52px)}
+.stack{position:relative}
+.stack-card{min-height:min(76vh,640px);background:var(--panel);border:1px solid var(--hair);padding:clamp(26px,3.4vw,48px);
+  display:flex;flex-direction:column;will-change:transform;transform-origin:center top}
+.stack-card:nth-child(even){background:var(--panel-2)}
+.stack-card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto}
+.stack-card .pnum{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:500}
+.stack-card .picon{width:52px;height:52px;display:grid;place-items:center;border:1px solid var(--hair-2);color:var(--text)}
+.stack-card h3{margin:26px 0 0;font-family:var(--disp);font-weight:600;font-size:clamp(20px,2.6vw,34px);line-height:1.14;letter-spacing:-.01em;max-width:18ch}
+.stack-card .pd{margin:18px 0 0;font-size:clamp(14.5px,1.15vw,16.5px);color:var(--muted);line-height:1.6;max-width:56ch}
+.stack-card .pt{margin:auto 0 0;padding-top:20px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.02em;border-top:1px solid var(--hair)}
+/* flagship 01 = the inverted structural anchor: a white card on the black site */
+.stack-card.anchor{background:#fff;border-color:#fff;color:var(--on-light)}
+.stack-card.anchor h3{color:var(--on-light)}
+.stack-card.anchor .pd{color:var(--on-light-muted)}
+.stack-card.anchor .pt{color:var(--on-light-muted);border-top-color:var(--on-light-hair)}
+.stack-card.anchor .picon{border-color:var(--on-light-hair);color:var(--on-light)}
+
+/* animated line icons (Tabler paths, drawn on by JS) */
+.aicon{display:block;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;width:26px;height:26px}
+
+/* ---------- approach: giant swapping numeral ---------- */
+#approach{background:rgba(255,255,255,.025)}
+.appr{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(36px,5vw,72px);align-items:start}
+.appr-left{position:sticky;top:110px;align-self:start}
+.big-num{font-family:var(--disp);font-weight:700;font-size:clamp(120px,17vw,230px);line-height:.92;margin-top:26px;
+  color:transparent;-webkit-text-stroke:2px var(--red);user-select:none}
+@supports not (-webkit-text-stroke:2px red){ .big-num{color:var(--red)} }
+.asteps{border-top:1px solid var(--hair-2)}
+.astep{position:relative;padding:clamp(24px,3.4vh,36px) 0 clamp(24px,3.4vh,36px) 34px;border-bottom:1px solid var(--hair)}
+.astep::before{content:"";position:absolute;left:0;top:calc(clamp(24px,3.4vh,36px) + 7px);width:12px;height:12px;
+  background:transparent;border:1px solid var(--hair-2);transition:background .3s,border-color .3s}
+.astep.active::before{background:var(--red);border-color:var(--red)}
+.astep h3{margin:0;font-family:var(--disp);font-weight:500;font-size:clamp(17px,1.8vw,22px);color:var(--muted);transition:color .3s}
+.astep.active h3{color:var(--text)}
+.astep p{margin:10px 0 0;font-size:15px;color:var(--muted);line-height:1.6;max-width:54ch}
+
+/* ---------- stats (pure-black band) ---------- */
+#stats{background-color:var(--band);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+  background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:64px 64px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--hair)}
+.stat{background:var(--band);padding:clamp(28px,4vh,46px) clamp(18px,2vw,30px);position:relative}
+.stat .sv{font-family:var(--disp);font-weight:600;font-size:clamp(34px,4.2vw,58px);letter-spacing:0;line-height:1;color:var(--text)}
+.stat.key .sv{color:var(--red)}
+.stat.key::before{content:"";position:absolute;top:18px;right:18px;width:14px;height:14px;background:var(--red)}
+.stat p{margin:16px 0 0;font-size:13.5px;color:var(--muted);line-height:1.5;max-width:24ch}
+
+/* ---------- testimonials (asymmetric pair) ---------- */
+.quotes{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,3vw,44px);align-items:start}
+.quote{border:1px solid var(--hair);padding:clamp(26px,3vw,42px);background:var(--panel);position:relative}
+.quote+.quote{margin-top:clamp(40px,8vh,96px);background:var(--panel-2)}
+.quote::before{content:"";position:absolute;top:0;left:0;width:0;height:4px;background:var(--red);transition:width .4s cubic-bezier(.16,1,.3,1)}
+.quote.in::before{width:46px}
+.quote blockquote{margin:0;font-size:clamp(17px,1.6vw,22px);font-weight:500;line-height:1.5;letter-spacing:-.01em;color:var(--text)}
+.quote figcaption{margin-top:22px;padding-top:18px;border-top:1px solid var(--hair)}
+.quote .qn{font-weight:700;font-size:15px}
+.quote .qr{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:5px;letter-spacing:.02em}
+
+/* ---------- contact ---------- */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,72px);align-items:start}
+.cdet{margin-top:30px;border-top:1px solid var(--hair)}
+.cdet .d{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--hair)}
+.cdet .dl{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.cdet .dv{font-weight:600;font-size:15.5px}
+.cdet a.dv:hover{color:var(--red-2)}
+.form-card{border:1px solid var(--hair);padding:clamp(24px,3vw,38px);background:var(--panel)}

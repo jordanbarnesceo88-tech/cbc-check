@@ -1,2 +1,6 @@
 [build]
-  publish = "core_design_v2"
+  # Publish the repo root so both design versions deploy side by side:
+  #   /               -> redirects to /core_design_v2/ (current live design)
+  #   /core_design_v2 -> the current core design
+  #   /core_design_v3 -> the new "Blackout" version for review
+  publish = "."

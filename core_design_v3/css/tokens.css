@@ -1,0 +1,18 @@
+/* ============================================================
+   CORE DESIGN v3 — "Blackout" — tokens.css
+   The corporate system inverted: off-black canvas, pure-black
+   structural bands, white type, red rationed exactly as before.
+   Type voice: Unbounded (display) + Golos Text (body), full Cyrillic.
+   ============================================================ */
+*{box-sizing:border-box}
+:root{
+  --canvas:#0b0b0d; --panel:#101014; --panel-2:#060608; --band:#000000;
+  --text:#f5f5f4; --muted:#a6a6a4; --faint:#7b7b79;
+  --hair:rgba(255,255,255,.13); --hair-2:rgba(255,255,255,.24);
+  --red:#f40000; --red-2:#ff2b1a;
+  --on-light:#000000; --on-light-muted:#4d4d4d; --on-light-hair:rgba(0,0,0,.16);
+  --sans:'Golos Text',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;
+  --disp:'Unbounded',var(--sans);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --wrap:1240px;
+}

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Business Consulting / Blackout</title>
+<meta name="description" content="Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке: финансы, право, налоги и риски в одной команде.">
+<!--
+  CORE DESIGN v3 — "Blackout"
+  A completely new pass over core_design_v2: the same brand system (black / red #F40000 /
+  white / gray), content and IA, inverted onto an off-black canvas with pure-black bands.
+  New voice + motion DNA:
+    - Unbounded (display) + Golos Text (body), full Cyrillic
+    - grid-aligned flickering mosaic canvas in the hero (2D, no Three.js)
+    - sticky-STACK services (cards pile on scroll) instead of the horizontal hijack
+    - approach with a giant outlined numeral that swaps as steps pass
+    - outlined-type sectors marquee, count-up stats, draw-on Tabler icons (carried over)
+  RU default + EN toggle. prefers-reduced-motion and no-JS degrade to static.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css?v=1">
+<link rel="stylesheet" href="css/base.css?v=1">
+<link rel="stylesheet" href="css/components.css?v=1">
+<link rel="stylesheet" href="css/sections.css?v=1">
+<link rel="stylesheet" href="css/responsive.css?v=1">
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div id="progress"></div>
+
+<header id="header">
+  <div class="wrap bar">
+    <a href="#hero" aria-label="Core Business Consulting"><img src="assets/logo-light.svg" alt="Core Business Consulting" style="height:28px;width:auto"></a>
+    <nav>
+      <a href="#services" data-i18n="navServices">Направления</a>
+      <a href="#approach" data-i18n="navApproach">Подход</a>
+      <a href="#about" data-i18n="navAbout">О компании</a>
+      <a href="#contact" data-i18n="navContact">Контакты</a>
+    </nav>
+    <div class="actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="ru" aria-pressed="true">RU</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-i18n="ctaPrimary">Обсудить задачу</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="mosaic" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <div class="wrap">
+      <span class="hero-eyebrow"><span class="box-mark"></span><span data-i18n="heroEyebrow">Платформа комплексной поддержки бизнеса</span></span>
+      <h1 aria-label="Структурируем, защищаем и развиваем ваш бизнес">
+        <span class="line"><span class="line-in" data-i18n="h1l1">Структурируем,</span></span>
+        <span class="line"><span class="line-in"><span class="accent" data-i18n="h1acc">защищаем</span><span data-i18n="h1l2b"> и развиваем</span></span></span>
+        <span class="line"><span class="line-in" data-i18n="h1l3">ваш бизнес</span></span>
+      </h1>
+      <p class="hero-sub" data-i18n="heroSub">Стратегическое и операционное сопровождение бизнеса в России, СНГ и на Ближнем Востоке: финансы, право, налоги и риски в одной команде.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary btn-lg" id="magnet" data-i18n="heroCta1">Обсудить задачу</a>
+        <a href="#services" class="btn btn-ghost btn-lg" data-i18n="heroCta2">Направления работы</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTORS MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span data-i18n="sec1">Производство</span><span data-i18n="sec2">Торговля</span><span data-i18n="sec3">IT</span><span data-i18n="sec4">Финансовый сектор</span>
+    <span data-i18n="sec1b">Производство</span><span data-i18n="sec2b">Торговля</span><span data-i18n="sec3b">IT</span><span data-i18n="sec4b">Финансовый сектор</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap about">
+    <div class="reveal">
+      <h2 data-i18n="aboutLead">Партнёр, которому доверяют структурирование, защиту и рост бизнеса.</h2>
+    </div>
+    <div class="reveal">
+      <p class="lead" data-i18n="aboutP">Core Business Consulting объединяет локальную экспертизу и международный опыт. Мы выстраиваем индивидуальные решения в управлении, финансах, праве, налогах и рисках: от производства и торговли до IT и финансового сектора.</p>
+      <div class="principles">
+        <div class="principle"><span class="pn">01</span><span class="pv" data-i18n="pr1">Профессионализм</span><p class="pdesc" data-i18n="pr1d">Глубокая экспертиза в каждой задаче.</p></div>
+        <div class="principle"><span class="pn">02</span><span class="pv" data-i18n="pr2">Стабильность</span><p class="pdesc" data-i18n="pr2d">Предсказуемые процессы и результаты.</p></div>
+        <div class="principle"><span class="pn">03</span><span class="pv" data-i18n="pr3">Прозрачность</span><p class="pdesc" data-i18n="pr3d">Понятные решения и честная отчётность.</p></div>
+        <div class="principle"><span class="pn">04</span><span class="pv" data-i18n="pr4">Дальновидность</span><p class="pdesc" data-i18n="pr4d">Решения с расчётом на годы вперёд.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES (sticky stack) -->
+<section id="services">
+  <div class="wrap svc-head reveal">
+    <span class="label" data-i18n="servLabel">Направления работы</span>
+    <h2><span data-i18n="servH1">Шесть направлений. </span><span style="color:var(--faint)" data-i18n="servH2">Одна команда.</span></h2>
+  </div>
+  <div class="wrap stack" id="stack">
+    <article class="stack-card anchor">
+      <div class="top">
+        <span class="pnum">01</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"/><path d="M8 14l0 .01"/><path d="M12 14l0 .01"/><path d="M16 14l0 .01"/><path d="M8 17l0 .01"/><path d="M12 17l0 .01"/><path d="M16 17l0 .01"/></svg></span>
+      </div>
+      <h3 data-i18n="s1t">Бухгалтерское сопровождение</h3>
+      <p class="pd" data-i18n="s1d">Полный цикл бухгалтерских и финансовых процессов: учёт, отчётность по РСБУ и МСФО, казначейство и контроль бюджета.</p>
+      <div class="pt" data-i18n="s1p">РСБУ и МСФО, аудит, налоги</div>
+    </article>
+    <article class="stack-card">
+      <div class="top">
+        <span class="pnum">02</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 3l0 17"/><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0"/></svg></span>
+      </div>
+      <h3 data-i18n="s2t">Право и налоги</h3>
+      <p class="pd" data-i18n="s2d">Юридическое сопровождение от регистрации и структурирования до сделок и споров с оптимальной моделью денежных потоков.</p>
+      <div class="pt" data-i18n="s2p">ОАЭ, Россия, Казахстан, сделки</div>
+    </article>
+    <article class="stack-card">
+      <div class="top">
+        <span class="pnum">03</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/></svg></span>
+      </div>
+      <h3 data-i18n="s3t">Управление человеческим капиталом</h3>
+      <p class="pd" data-i18n="s3d">Весь спектр HR: кадровое администрирование, подбор, HR-политики и системы мотивации. Прозрачные процессы.</p>
+      <div class="pt" data-i18n="s3p">Кадры, подбор, мотивация</div>
+    </article>
+    <article class="stack-card">
+      <div class="top">
+        <span class="pnum">04</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19l16 0"/><path d="M4 15l4 -6l4 2l4 -5l4 4"/></svg></span>
+      </div>
+      <h3 data-i18n="s4t">Оценка инвестиций и консалтинг</h3>
+      <p class="pd" data-i18n="s4d">Независимая оценка компаний, проектов и активов; анализ бизнес-моделей и рекомендации по структуре сделок.</p>
+      <div class="pt" data-i18n="s4p">Активы, бизнес-модели, сделки</div>
+    </article>
+    <article class="stack-card">
+      <div class="top">
+        <span class="pnum">05</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06"/><path d="M15 19l2 2l4 -4"/></svg></span>
+      </div>
+      <h3 data-i18n="s5t">Комплаенс и корпоративные риски</h3>
+      <p class="pd" data-i18n="s5d">Система защиты бизнеса: forensic-расследования, внутренний контроль, предотвращение утечек активов, мониторинг рисков.</p>
+      <div class="pt" data-i18n="s5p">Forensic, контроль, мониторинг</div>
+    </article>
+    <article class="stack-card">
+      <div class="top">
+        <span class="pnum">06</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M15 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1"/><path d="M12 9l0 3"/></svg></span>
+      </div>
+      <h3 data-i18n="s6t">Проектное управление</h3>
+      <p class="pd" data-i18n="s6d">Стратегическое и операционное управление проектами: от корпоративной стратегии до организационных и технологических решений.</p>
+      <div class="pt" data-i18n="s6p">Стратегия, процессы, внедрение</div>
+    </article>
+  </div>
+</section>
+
+<!-- APPROACH (giant swapping numeral) -->
+<section class="sec" id="approach">
+  <div class="wrap appr">
+    <div class="appr-left reveal">
+      <h2 data-i18n="appH">Предсказуемый результат на каждом этапе</h2>
+      <div class="big-num" id="bignum" aria-hidden="true">01</div>
+    </div>
+    <div class="asteps">
+      <div class="astep"><h3 data-i18n="ap1t">Диагностика</h3><p data-i18n="ap1d">Аудит текущей структуры, финансовой модели и рисков. Фиксируем цели и ограничения.</p></div>
+      <div class="astep"><h3 data-i18n="ap2t">Архитектура</h3><p data-i18n="ap2d">Проектируем корпоративную и налоговую структуру под задачи бизнеса и юрисдикции.</p></div>
+      <div class="astep"><h3 data-i18n="ap3t">Внедрение</h3><p data-i18n="ap3d">Регистрация, лицензии, постановка учёта, процессов и контроля.</p></div>
+      <div class="astep"><h3 data-i18n="ap4t">Сопровождение</h3><p data-i18n="ap4d">Текущий учёт, отчётность, комплаенс и аналитика для управленческих решений.</p></div>
+      <div class="astep"><h3 data-i18n="ap5t">Оптимизация</h3><p data-i18n="ap5d">Постоянное улучшение процессов, контроль эффективности и долгосрочная устойчивость бизнеса.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec" id="stats">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="sv" data-count="14" data-suffix="+">14+</div><p data-i18n="st1">лет совокупной экспертизы команды</p></div>
+      <div class="stat"><div class="sv" data-count="3">3</div><p data-i18n="st2">ключевые юрисдикции: ОАЭ, Россия, Казахстан</p></div>
+      <div class="stat"><div class="sv" data-count="6">6</div><p data-i18n="st3">направлений сопровождения бизнеса</p></div>
+      <div class="stat key"><div class="sv" data-count="47.2" data-dec="1" data-suffix="%">47.2%</div><p data-i18n="st4">снижение издержек в проектах реструктуризации</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="reveal" style="max-width:760px;margin-bottom:clamp(34px,6vh,56px)">
+      <h2 data-i18n="tH">Команда, которая говорит на языке цифр</h2>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal" style="margin:0">
+        <blockquote data-i18n="q1">За год Core Business Consulting перестроили нашу группу под две юрисдикции и закрыли давние вопросы по учёту.</blockquote>
+        <figcaption><div class="qn" data-i18n="q1n">Игорь Демидов</div><div class="qr" data-i18n="q1r">Финансовый директор, производственный холдинг, Казань</div></figcaption>
+      </figure>
+      <figure class="quote reveal" style="margin:0">
+        <blockquote data-i18n="q2">Регистрация в ОАЭ и постановка комплаенса заняли меньше времени, чем мы планировали. Команда работает с цифрами.</blockquote>
+        <figcaption><div class="qn" data-i18n="q2n">Лейла Аббас</div><div class="qr" data-i18n="q2r">Операционный директор, торговая группа, Дубай</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap contact">
+    <div class="reveal">
+      <span class="label" data-i18n="contactLabel">Связаться с нами</span>
+      <h2 data-i18n="contactH">Обсудим задачу вашего бизнеса</h2>
+      <p class="lead" style="margin-top:20px" data-i18n="contactP">Мы подготовим индивидуальное предложение под задачи вашего бизнеса.</p>
+      <div class="cdet">
+        <div class="d"><span class="dl" data-i18n="cdEmail">Email</span><a class="dv" href="mailto:info@cbc.com">info@cbc.com</a></div>
+        <div class="d"><span class="dl" data-i18n="cdJur">Юрисдикции</span><span class="dv" data-i18n="cdJurV">ОАЭ, Россия, Казахстан</span></div>
+        <div class="d"><span class="dl" data-i18n="cdReg">Регионы</span><span class="dv" data-i18n="cdRegV">Россия, СНГ, Ближний Восток</span></div>
+      </div>
+    </div>
+    <div class="form-card reveal">
+      <form id="cform" novalidate>
+        <div class="sent" id="sent" data-i18n="sentMsg">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
+        <div class="form-err" id="formErr" data-i18n="formError">Не удалось отправить запрос. Попробуйте ещё раз или напишите на info@cbc.com.</div>
+        <div class="fld">
+          <label for="f_name" data-i18n="fName">Имя</label>
+          <input id="f_name" name="name" type="text" placeholder="Иван Петров" data-ph="Иван Петров">
+          <p class="err" id="e_name" data-i18n="errName">Укажите имя</p>
+        </div>
+        <div class="fld">
+          <label for="f_company" data-i18n="fComp">Компания</label>
+          <input id="f_company" name="company" type="text" placeholder="ООО «Компания»" data-ph="ООО «Компания»">
+          <p class="hint" data-i18n="fCompH">Необязательно</p>
+        </div>
+        <div class="fld">
+          <label for="f_email" data-i18n="fEmail">Email</label>
+          <input id="f_email" name="email" type="email" placeholder="name@company.com" data-ph="name@company.com">
+          <p class="err" id="e_email" data-i18n="errEmail">Укажите корректный email</p>
+        </div>
+        <div class="fld">
+          <label for="f_msg" data-i18n="fMsg">Задача</label>
+          <textarea id="f_msg" name="message" placeholder="Опишите задачу и сроки" data-ph="Опишите задачу и сроки"></textarea>
+          <p class="err" id="e_msg" data-i18n="errMsg">Опишите задачу</p>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px" data-i18n="fSend">Отправить запрос</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img src="assets/logo-light.svg" alt="Core Business Consulting" style="height:34px;width:auto">
+        <p class="ftag" data-i18n="ftTag">Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке.</p>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navServices">Направления</h4>
+        <a href="#services" data-i18n="ftS1">Бухгалтерия</a>
+        <a href="#services" data-i18n="ftS2">Право и налоги</a>
+        <a href="#services" data-i18n="ftS3">HR</a>
+        <a href="#services" data-i18n="ftS4">Инвестиции</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navAbout">Компания</h4>
+        <a href="#about" data-i18n="navAbout">О компании</a>
+        <a href="#approach" data-i18n="navApproach">Подход</a>
+        <a href="#contact" data-i18n="navContact">Контакты</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navContact">Контакты</h4>
+        <a href="mailto:info@cbc.com">info@cbc.com</a>
+        <span data-i18n="ftAddr">Адрес по запросу</span>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>ООО «Core Business Consulting»</span>
+      <div class="flegal">
+        <a href="../core_design_v2/privacy.html" data-i18n="legalPrivacy">Политика конфиденциальности</a>
+        <a href="../core_design_v2/terms.html" data-i18n="legalTerms">Условия использования</a>
+      </div>
+      <span data-i18n="ftRights">© 2026 Core Business Consulting. Все права защищены.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/main.js?v=1"></script>
+</body>
+</html>
