@@ -11,7 +11,7 @@
   var EN = {
     navServices:"Services", navApproach:"Approach", navAbout:"About", navContact:"Contacts",
     ctaPrimary:"Discuss your task",
-    heroEyebrow:"Integrated business support platform",
+    heroEyebrow:"Integrated business support",
     h1l1:"We optimize,", h1acc:"protect", h1l2b:" and grow", h1l3:"your business",
     heroSub:"Core Business Consulting supports companies across the CIS and the Middle East, combining financial, tax, legal and crisis-management expertise.",
     heroCta1:"Discuss your task", heroCta2:"Explore services",

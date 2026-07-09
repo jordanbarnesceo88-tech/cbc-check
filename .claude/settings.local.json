@@ -39,7 +39,10 @@
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" --max-time 25 \"https://jordanbarnesceo88-tech.github.io/cbc-check/core_design_v2/index.html\")",
       "Bash(git commit -q -m 'Add deploy config: netlify.toml \\(publish=core_design_v2\\) + root index.html redirect *)",
       "Bash(git commit -q -m 'fix: services pin overlapping About section on deploy \\(font-reflow stale pin start\\) *)",
-      "Bash(git commit -q -m 'core_v2 refine 12: client feedback round 1 \\(+ synced copy to core_v3\\) *)"
+      "Bash(git commit -q -m 'core_v2 refine 12: client feedback round 1 \\(+ synced copy to core_v3\\) *)",
+      "Bash(printf '%s\\\\n' '| R13 | `core_v2 refine 13: client feedback round 2` | \\(1\\) v2 is the only maintained version \\(v3 stays as an archived experiment\\). \\(2\\) Hero eyebrow: «Комплексное сопровождение бизнеса» \\(dropped «платформа»\\). \\(3\\) Header logo swapped to the new `logo_dark_core.svg` at 36px \\(x1.3\\). \\(4\\) Principles reworked: the lead paragraph sits under the «Наши принципы» heading; the cubes are a full-width 4-across row of true squares \\(270x270 desktop, 2-across below 1024, 1-column on phones\\); ghost numerals padded inside the cube instead of bleeding off the edge. Assets bumped to `?v=9`. |')",
+      "Bash(sed -i '38r /tmp/r13.txt' core_design_v2/CHANGELOG.md)",
+      "Bash(git commit -q -m 'core_v2 refine 13: client feedback round 2 *)"
     ]
   }
 }

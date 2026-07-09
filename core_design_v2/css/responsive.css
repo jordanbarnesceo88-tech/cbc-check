@@ -6,8 +6,13 @@
    ============================================================ */
 
 /* tablet + below: stack 2-col layouts, hide the 3D hero canvas */
+/* principle cubes: 4 across on desktop -> 2 across below 1024 -> 1 column on phones */
+@media(max-width:1024px){
+  .principles{grid-template-columns:1fr 1fr}
+}
+
 @media(max-width:900px){
-  .hero-grid,.about,.appr,.contact{grid-template-columns:1fr}
+  .hero-grid,.appr,.contact{grid-template-columns:1fr}
   .hero-visual{display:none}
   .stats{grid-template-columns:1fr 1fr}
   .quotes{grid-template-columns:1fr}
@@ -23,6 +28,7 @@
 @media(max-width:600px){
   .bar nav{display:none}
   .principles{grid-template-columns:1fr}
+  .principles .principle{aspect-ratio:auto;min-height:190px}
   .hero-inner{padding-top:104px}
   .timeline{padding-left:56px}
   .tdot{left:-56px;width:42px;height:42px}
