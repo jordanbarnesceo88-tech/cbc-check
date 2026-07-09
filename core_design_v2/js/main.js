@@ -12,18 +12,18 @@
     navServices:"Services", navApproach:"Approach", navAbout:"About", navContact:"Contacts",
     ctaPrimary:"Discuss your task",
     heroEyebrow:"Integrated business support platform",
-    h1l1:"We structure,", h1acc:"protect", h1l2b:" and grow", h1l3:"your business",
-    heroSub:"Strategic and operational support for businesses across Russia, the CIS and the Middle East: finance, law, tax and risk in one team.",
+    h1l1:"We optimize,", h1acc:"protect", h1l2b:" and grow", h1l3:"your business",
+    heroSub:"Core Business Consulting supports companies across the CIS and the Middle East, combining financial, tax, legal and crisis-management expertise.",
     heroCta1:"Discuss your task", heroCta2:"Explore services",
     sec1:"Manufacturing", sec2:"Trade", sec3:"IT", sec4:"Financial services",
     sec1b:"Manufacturing", sec2b:"Trade", sec3b:"IT", sec4b:"Financial services",
-    aboutLead:"The partner businesses trust to structure, protect and grow.",
-    aboutP:"Core Business Consulting combines local expertise with international experience. We build tailored solutions across management, finance, law, tax and risk: from manufacturing and trade to IT and financial services.",
+    aboutLead:"Our principles",
+    aboutP:"Our local and international experience allows us to build tailored solutions for companies across different business segments, including trade, logistics and IT.",
     pr1:"Professionalism", pr2:"Stability", pr3:"Transparency", pr4:"Foresight",
     pr1d:"Deep expertise in every engagement.", pr2d:"Predictable processes and outcomes.",
     pr3d:"Clear decisions and honest reporting.", pr4d:"Decisions built for the years ahead.",
     servLabel:"What we do", servH1:"Six disciplines. ", servH2:"One team.",
-    s1t:"Accounting & finance", s1d:"The full cycle of accounting and finance: records, RAS and IFRS reporting, treasury and budget control.", s1p:"RAS & IFRS, audit, tax",
+    s1t:"Accounting & finance", s1d:"The full cycle of accounting and financial services: bookkeeping, RAS and IFRS reporting, tax support, treasury and budget control.", s1p:"RAS & IFRS, audit, tax",
     s2t:"Law & tax", s2d:"Legal support from incorporation and structuring to transactions and disputes, with an optimal cash-flow model.", s2p:"UAE, Russia, Kazakhstan, deals",
     s3t:"Human capital", s3d:"The full HR spectrum: personnel administration, recruitment, HR policy and incentive systems. Transparent processes.", s3p:"Admin, recruitment, incentives",
     s4t:"Investment & valuation", s4d:"Independent valuation of companies, projects and assets; analysis of business models and deal-structure recommendations.", s4p:"Assets, business models, deals",
@@ -35,7 +35,6 @@
     ap2t:"Architecture", ap2d:"We design the corporate and tax structure around the business and its jurisdictions.",
     ap3t:"Implementation", ap3d:"Incorporation, licences, accounting setup, processes and controls.",
     ap4t:"Ongoing support", ap4d:"Day-to-day accounting, reporting, compliance and analytics for management decisions.",
-    ap5t:"Optimization", ap5d:"Continuous process improvement, efficiency control and long-term business sustainability.",
     st1:"years of combined team expertise", st2:"key jurisdictions: UAE, Russia, Kazakhstan", st3:"business-support disciplines", st4:"cost reduction in restructuring projects",
     tH:"A team that speaks the language of numbers",
     q1:"Within a year Core Business Consulting rebuilt our group across two jurisdictions and closed long-standing accounting issues.",
@@ -183,7 +182,8 @@
     if(principleCells.length){
       gsap.set(principleCells,{ opacity:0, y:22 });
       ScrollTrigger.create({ trigger:'.principles', start:'top 85%', once:true,
-        onEnter:function(){ gsap.to(principleCells,{ opacity:1, y:0, duration:.6, ease:'power3.out', stagger:.09 }); } });
+        onEnter:function(){ gsap.to(principleCells,{ opacity:1, y:0, duration:.6, ease:'power3.out', stagger:.09,
+          clearProps:'transform' }); } }); // clear inline transform so the CSS hover lift works afterwards
     }
 
     /* box timeline: red fill box scales down the track + step boxes activate */

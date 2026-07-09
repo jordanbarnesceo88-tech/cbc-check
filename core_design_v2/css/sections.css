@@ -31,8 +31,8 @@ h1 .line-in{display:block;will-change:transform}
 /* section scaffold */
 section{position:relative}
 .sec{padding:clamp(72px,11vh,132px) 0}
-.label{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.label{display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:18px} /* block-level so it always sits ABOVE the heading (the .bxr wrapper is inline-block) */
 .label::before{content:"";width:11px;height:11px;background:var(--red);flex:0 0 auto}
 h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;letter-spacing:-.025em;color:var(--ink)}
 .lead{font-size:clamp(16px,1.25vw,18px);color:var(--muted);line-height:1.62;max-width:60ch}
@@ -43,13 +43,22 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 
 /* about */
 .about{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,72px);align-items:start}
-.principles{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:26px}
-.principles .principle{background:var(--canvas);padding:22px 20px 24px;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.principles .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.principles .picon-sm{width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--hair);color:var(--ink)}
-.principles .picon-sm .aicon{width:20px;height:20px}
-.principles .pn{font-family:var(--mono);font-size:12px;color:var(--faint)}
-.principles .pv{font-weight:700;font-size:17px;letter-spacing:-.01em}
+/* ledger tiles: ghost index numeral + icon box, lift on hover, staggered rhythm */
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:26px}
+.principles .principle{background:var(--canvas);border:1px solid var(--hair);padding:24px 20px;min-height:172px;
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease}
+.principles .principle:hover{transform:translateY(-5px);border-color:var(--ink);box-shadow:0 16px 34px -22px rgba(0,0,0,.45)}
+@media(min-width:901px){ .principles .principle:nth-child(even){margin-top:14px} } /* staggered rhythm without touching transform (GSAP + hover own it) */
+.principles .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto}
+.principles .picon-sm{width:42px;height:42px;display:grid;place-items:center;background:var(--band);border:1px solid var(--hair);color:var(--ink);position:relative;z-index:1}
+.principles .picon-sm .aicon{width:22px;height:22px}
+.principles .pn{position:absolute;top:-14px;right:6px;font-family:var(--sans);font-weight:800;font-size:92px;line-height:1;
+  letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #e3e3e3;pointer-events:none;user-select:none;
+  transition:-webkit-text-stroke-color .35s ease}
+@supports not (-webkit-text-stroke:1px #000){ .principles .pn{color:#efefef} }
+.principles .principle:hover .pn{-webkit-text-stroke-color:var(--red)}
+.principles .pv{font-weight:700;font-size:17px;letter-spacing:-.01em;margin-top:18px;position:relative;z-index:1}
 /* description stays hidden, fades + rises in on hover; always shown where hover is unavailable (touch) */
 .principles .pdesc{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5;opacity:0;transform:translateY(8px);
   transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
