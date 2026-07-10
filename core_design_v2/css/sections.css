@@ -42,27 +42,21 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .bxr-cover{position:absolute;inset:-2px -4px;background:var(--red);transform-origin:left center;transform:scaleX(0);z-index:2;pointer-events:none}
 
 /* about: heading + lead stacked, then a full-width row of principle cubes */
-/* ledger cubes: ghost index numeral (padded inside), icon box, lift on hover, staggered rhythm */
+/* ledger cubes: static cards with descriptions always visible */
 .principles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:clamp(28px,5vh,44px)}
 .principles .principle{background:var(--canvas);border:1px solid var(--hair);padding:26px 24px;aspect-ratio:1;min-height:240px;
-  position:relative;overflow:hidden;display:flex;flex-direction:column;
-  transition:transform .35s cubic-bezier(.16,1,.3,1),box-shadow .35s ease,border-color .35s ease}
-.principles .principle:hover{transform:translateY(-5px);border-color:var(--ink);box-shadow:0 16px 34px -22px rgba(0,0,0,.45)}
-@media(min-width:901px){ .principles .principle:nth-child(even){margin-top:14px} } /* staggered rhythm without touching transform (GSAP + hover own it) */
+  position:relative;overflow:hidden;display:flex;flex-direction:column;transition:none}
+.principles .principle:hover{transform:none;border-color:var(--hair);box-shadow:none}
+.principles .principle:hover .pn{color:transparent;-webkit-text-stroke:1.5px var(--red);transition:color .2s ease, -webkit-text-stroke-color .2s ease}
+@media(min-width:901px){ .principles .principle:nth-child(even){margin-top:14px} }
 .principles .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto}
 .principles .picon-sm{width:52px;height:52px;display:grid;place-items:center;background:var(--band);border:1px solid var(--hair);color:var(--ink);position:relative;z-index:1}
 .principles .picon-sm .aicon{width:26px;height:26px}
 .principles .pn{position:absolute;top:18px;right:20px;font-family:var(--sans);font-weight:800;font-size:clamp(84px,7.6vw,112px);line-height:.82;
-  letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #e3e3e3;pointer-events:none;user-select:none;
-  transition:-webkit-text-stroke-color .35s ease}
+  letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #e3e3e3;pointer-events:none;user-select:none}
 @supports not (-webkit-text-stroke:1px #000){ .principles .pn{color:#efefef} }
-.principles .principle:hover .pn{-webkit-text-stroke-color:var(--red)}
 .principles .pv{font-weight:700;font-size:20px;letter-spacing:-.01em;margin-top:20px;position:relative;z-index:1}
-/* description stays hidden, fades + rises in on hover; always shown where hover is unavailable (touch) */
-.principles .pdesc{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5;opacity:0;transform:translateY(8px);
-  transition:opacity .4s cubic-bezier(.16,1,.3,1),transform .4s cubic-bezier(.16,1,.3,1)}
-.principles .principle:hover .pdesc,.principles .principle:focus-within .pdesc{opacity:1;transform:none}
-@media (hover:none){ .principles .pdesc{opacity:1;transform:none} }
+.principles .pdesc{margin:10px 0 0;font-size:13px;color:var(--muted);line-height:1.5;opacity:1;transform:none}
 
 /* services horizontal */
 #services{background:transparent}
