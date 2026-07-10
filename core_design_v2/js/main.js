@@ -75,6 +75,20 @@
     b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang')); });
   });
 
+  /* Smooth anchor scrolling in JS. CSS scroll-behavior:smooth is intentionally NOT used:
+     it makes ScrollTrigger.refresh() measure mid-animation on a scrolled page, skewing every
+     trigger start by the current scroll offset (services pinned over the principles). */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(ev){
+      var id = a.getAttribute('href').slice(1);
+      var target = id && document.getElementById(id);
+      if(!target) return;
+      ev.preventDefault();
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      if(history.pushState) history.pushState(null, '', '#'+id);
+    });
+  });
+
   var header = document.getElementById('header');
 
   function runCount(el){
