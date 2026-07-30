@@ -9,9 +9,11 @@
   FINAL DESIGN — Corporate Black (from core_design_v2)
   Palette: Black #000 (dominant), Red #F40000 (accent only ~5-8%), White #FFF (canvas), Gray #D4D4D4 (hairlines/bands).
   Graphic language: red/black BOXES as highlights (not lines).
-  Hero 3D: eight parts that lock into ONE 2x2x2 cube ("structuring"), with a slow open/assemble
-           cycle; hovering the composition snaps it together; it flies apart as the hero scrolls away.
-  Icons: two-tone line icons (black/white base + one red accent element), drawn on when in view.
+  Hero 3D: a three-act loop — CHAOS (parts scattered) -> STRUCTURE (eight parts lock into one
+           2x2x2 cube) -> GROWTH (a further tier builds on top, the red accent rising with it).
+           Hovering builds the whole thing at once and holds it; it flies apart as the hero scrolls away.
+  Icons: isometric box-glyphs in the hero cube's language — no container, one solid red face each,
+         bodies filled with the card colour so parts occlude; parts fly in and lock on hover.
   Motion: GSAP + ScrollTrigger (horizontal services hijack, box-wipe heading reveals, box timeline fill,
           scrub counters, magnetic CTA) + Three.js in the hero.
   Files split: css/*.css, js/main.js, assets/.  RU default + EN toggle. prefers-reduced-motion respected.
@@ -20,11 +22,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Stylesheet split into cascade-ordered partials -->
-<link rel="stylesheet" href="css/tokens.css?v=12">
-<link rel="stylesheet" href="css/base.css?v=12">
-<link rel="stylesheet" href="css/components.css?v=12">
-<link rel="stylesheet" href="css/sections.css?v=12">
-<link rel="stylesheet" href="css/responsive.css?v=12">
+<link rel="stylesheet" href="css/tokens.css?v=13">
+<link rel="stylesheet" href="css/base.css?v=13">
+<link rel="stylesheet" href="css/components.css?v=13">
+<link rel="stylesheet" href="css/sections.css?v=13">
+<link rel="stylesheet" href="css/responsive.css?v=13">
 <!-- no-JS fallback: reveal-on-scroll content is opacity:0 by default; show it when JS is unavailable -->
 <noscript><style>.reveal,.principles .pdesc{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -91,22 +93,22 @@
     </div>
     <div class="principles">
         <div class="principle">
-          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M12 15l3.4 5.89l1.598 -3.233l3.598 .232l-3.4 -5.889"/><path d="M6.802 12l-3.4 5.89l3.598 -.233l1.598 3.232l3.4 -5.889"/></g><g class="ic-acc"><path d="M12 9m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/></g></svg></span><span class="pn">01</span></div>
+          <div class="ptop"><span class="picon-sm"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:7px"><path class="ig-b" d="M16 7 L25 11.5 L25 19.5 L16 24 L7 19.5 L7 11.5 Z"/><path d="M16 16 L16 24"/></g><g class="ig-p" style="--dx:0px;--dy:-9px"><path class="ig-face" d="M16 7 L25 11.5 L16 16 L7 11.5 Z"/></g></svg></span><span class="pn">01</span></div>
           <div class="pv" data-i18n="pr1">Профессионализм</div>
           <p class="pdesc" data-i18n="pr1d">Глубокая экспертиза в каждой задаче.</p>
         </div>
         <div class="principle">
-          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M12 9v12m-8 -8a8 8 0 0 0 16 0m1 0h-2m-14 0h-2"/></g><g class="ic-acc"><path d="M12 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></svg></span><span class="pn">02</span></div>
+          <div class="ptop"><span class="picon-sm"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:9px"><path class="ig-b" d="M16 10 L26 15 L26 18 L16 23 L6 18 L6 15 Z"/><path d="M16 10 L26 15 L16 20 L6 15 Z"/><path d="M16 20 L16 23"/></g><g class="ig-p" style="--dx:0px;--dy:-9px"><path class="ig-b" d="M16 11 L21 13.5 L21 17.5 L16 20 L11 17.5 L11 13.5 Z"/><path class="ig-face" d="M16 11 L21 13.5 L16 16 L11 13.5 Z"/><path d="M16 16 L16 20"/></g></svg></span><span class="pn">02</span></div>
           <div class="pv" data-i18n="pr2">Стабильность</div>
           <p class="pdesc" data-i18n="pr2d">Предсказуемые процессы и результаты.</p>
         </div>
         <div class="principle">
-          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/></g><g class="ic-acc"><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/></g></svg></span><span class="pn">03</span></div>
+          <div class="ptop"><span class="picon-sm"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:8px"><path d="M16 8 L24 12 L24 19 L16 23 L8 19 L8 12 Z"/><path d="M16 8 L24 12 L16 16 L8 12 Z"/><path d="M16 16 L16 23"/></g><g class="ig-p" style="--dx:0px;--dy:-8px"><path class="ig-accl" d="M8 19 L16 15 L24 19"/><path class="ig-accl" d="M16 8 L16 15"/></g></svg></span><span class="pn">03</span></div>
           <div class="pv" data-i18n="pr3">Прозрачность</div>
           <p class="pdesc" data-i18n="pr3d">Понятные решения и честная отчётность.</p>
         </div>
         <div class="principle">
-          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M16.346 9.17l-.729 -1.261c-.16 -.248 -1.056 -.203 -1.117 .091l-.177 1.38"/><path d="M19.761 14.813l-2.84 -5.133c-.189 -.31 -.592 -.68 -1.421 -.68c-.828 0 -1.5 .448 -1.5 1v6"/><path d="M7.654 9.17l.729 -1.261c.16 -.249 1.056 -.203 1.117 .091l.177 1.38"/><path d="M4.239 14.813l2.84 -5.133c.189 -.31 .592 -.68 1.421 -.68c.828 0 1.5 .448 1.5 1v6"/><rect width="4" height="2" x="10" y="12"/></g><g class="ic-acc"><path d="M7 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M17 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></svg></span><span class="pn">04</span></div>
+          <div class="ptop"><span class="picon-sm"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:9px;--dy:-8px"><path class="ig-b" d="M25 7 L28 8.5 L28 11 L25 12.5 L22 11 L22 8.5 Z"/><path class="ig-face" d="M25 7 L28 8.5 L25 10 L22 8.5 Z"/><path d="M25 10 L25 12.5"/></g><g class="ig-p" style="--dx:0px;--dy:-4px"><path class="ig-b" d="M18 11 L22.5 13.25 L22.5 17 L18 19.25 L13.5 17 L13.5 13.25 Z"/><path d="M18 11 L22.5 13.25 L18 15.5 L13.5 13.25 Z"/><path d="M18 15.5 L18 19.25"/></g><g class="ig-p" style="--dx:-9px;--dy:7px"><path class="ig-b" d="M10 15 L16 18 L16 23 L10 26 L4 23 L4 18 Z"/><path d="M10 15 L16 18 L10 21 L4 18 Z"/><path d="M10 21 L10 26"/></g></svg></span><span class="pn">04</span></div>
           <div class="pv" data-i18n="pr4">Дальновидность</div>
           <p class="pdesc" data-i18n="pr4d">Решения с расчётом на годы вперёд.</p>
         </div>
@@ -128,42 +130,42 @@
     <div class="htrack" id="htrack">
       <article class="panel flagship">
         <span class="pnum">01</span>
-        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:-9px;--dy:8px"><path d="M7 18.5 L7 22.5 L16 27 L25 22.5 L25 18.5"/><path d="M16 23 L16 27"/></g><g class="ig-p" style="--dx:9px;--dy:4px"><path d="M7 14.5 L7 18.5 L16 23 L25 18.5 L25 14.5"/><path d="M16 19 L16 23"/></g><g class="ig-p" style="--dx:0px;--dy:-11px"><path d="M7 10.5 L7 14.5 L16 19 L25 14.5 L25 10.5"/><path d="M16 15 L16 19"/><path class="ig-face" d="M16 6 L25 10.5 L16 15 L7 10.5 Z"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:-7px;--dy:8px"><path class="ig-b" d="M16 13.5 L25 18 L25 21.5 L16 26 L7 21.5 L7 18 Z"/><path d="M16 13.5 L25 18 L16 22.5 L7 18 Z"/><path d="M16 22.5 L16 26"/></g><g class="ig-p" style="--dx:7px;--dy:5px"><path class="ig-b" d="M16 10 L25 14.5 L25 18 L16 22.5 L7 18 L7 14.5 Z"/><path d="M16 10 L25 14.5 L16 19 L7 14.5 Z"/><path d="M16 19 L16 22.5"/></g><g class="ig-p" style="--dx:0px;--dy:-8px"><path class="ig-b" d="M16 6.5 L25 11 L25 14.5 L16 19 L7 14.5 L7 11 Z"/><path class="ig-face" d="M16 6.5 L25 11 L16 15.5 L7 11 Z"/><path d="M16 15.5 L16 19"/></g></svg></span>
         <h3 data-i18n="s1t">Бухгалтерское сопровождение</h3>
         <p class="pd" data-i18n="s1d">Полный цикл бухгалтерских и финансовых услуг: ведение учёта, подготовка отчётности по РСБУ и МСФО, налоговое сопровождение, казначейство и контроль бюджета.</p>
         <div class="pt" data-i18n="s1p">РСБУ и МСФО, аудит, налоги</div>
       </article>
       <article class="panel">
         <span class="pnum">02</span>
-        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 3l0 17"/></g><g class="ic-acc"><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:8px"><path class="ig-b" d="M16 20 L20.5 22.25 L20.5 25.25 L16 27.5 L11.5 25.25 L11.5 22.25 Z"/><path class="ig-face" d="M16 20 L20.5 22.25 L16 24.5 L11.5 22.25 Z"/><path d="M16 24.5 L16 27.5"/></g><g class="ig-p" style="--dx:0px;--dy:-6px"><path d="M8.5 15 L23.5 10"/><path d="M16 12.5 L16 20"/></g><g class="ig-p" style="--dx:-8px;--dy:4px"><path class="ig-b" d="M8.5 15 L12.5 17 L12.5 20 L8.5 22 L4.5 20 L4.5 17 Z"/><path d="M8.5 15 L12.5 17 L8.5 19 L4.5 17 Z"/><path d="M8.5 19 L8.5 22"/></g><g class="ig-p" style="--dx:8px;--dy:-4px"><path class="ig-b" d="M23.5 10 L27.5 12 L27.5 15 L23.5 17 L19.5 15 L19.5 12 Z"/><path d="M23.5 10 L27.5 12 L23.5 14 L19.5 12 Z"/><path d="M23.5 14 L23.5 17"/></g></svg></span>
         <h3 data-i18n="s2t">Право и налоги</h3>
         <p class="pd" data-i18n="s2d">Юридическое сопровождение от регистрации и структурирования до сделок и споров с оптимальной моделью денежных потоков.</p>
         <div class="pt" data-i18n="s2p">ОАЭ, Россия, Казахстан, сделки</div>
       </article>
       <article class="panel">
         <span class="pnum">03</span>
-        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/></g><g class="ic-acc"><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:-8px;--dy:5px"><path class="ig-b" d="M11 12 L15.5 14.25 L15.5 18.25 L11 20.5 L6.5 18.25 L6.5 14.25 Z"/><path d="M11 12 L15.5 14.25 L11 16.5 L6.5 14.25 Z"/><path d="M11 16.5 L11 20.5"/></g><g class="ig-p" style="--dx:0px;--dy:-9px"><path class="ig-b" d="M15.5 10.25 L20 12.5 L20 16.5 L15.5 18.75 L11 16.5 L11 12.5 Z"/><path class="ig-face" d="M15.5 10.25 L20 12.5 L15.5 14.75 L11 12.5 Z"/><path d="M15.5 14.75 L15.5 18.75"/></g><g class="ig-p" style="--dx:8px;--dy:5px"><path class="ig-b" d="M20 16.5 L24.5 18.75 L24.5 22.75 L20 25 L15.5 22.75 L15.5 18.75 Z"/><path d="M20 16.5 L24.5 18.75 L20 21 L15.5 18.75 Z"/><path d="M20 21 L20 25"/></g></svg></span>
         <h3 data-i18n="s3t">Управление человеческим капиталом</h3>
         <p class="pd" data-i18n="s3d">Весь спектр HR: кадровое администрирование, подбор, HR-политики и системы мотивации. Прозрачные процессы.</p>
         <div class="pt" data-i18n="s3p">Кадры, подбор, мотивация</div>
       </article>
       <article class="panel">
         <span class="pnum">04</span>
-        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M4 19l16 0"/></g><g class="ic-acc"><path d="M4 15l4 -6l4 2l4 -5l4 4"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:-8px;--dy:6px"><path class="ig-b" d="M12 14 L16 16 L16 20 L12 22 L8 20 L8 16 Z"/><path d="M12 14 L16 16 L12 18 L8 16 Z"/><path d="M12 18 L12 22"/></g><g class="ig-p" style="--dx:0px;--dy:8px"><path class="ig-b" d="M16 12 L20 14 L20 22 L16 24 L12 22 L12 14 Z"/><path d="M16 12 L20 14 L16 16 L12 14 Z"/><path d="M16 16 L16 24"/></g><g class="ig-p" style="--dx:8px;--dy:-8px"><path class="ig-b" d="M20 10 L24 12 L24 24 L20 26 L16 24 L16 12 Z"/><path class="ig-face" d="M20 10 L24 12 L20 14 L16 12 Z"/><path d="M20 14 L20 26"/></g></svg></span>
         <h3 data-i18n="s4t">Оценка инвестиций и консалтинг</h3>
         <p class="pd" data-i18n="s4d">Независимая оценка компаний, проектов и активов; анализ бизнес-моделей и рекомендации по структуре сделок.</p>
         <div class="pt" data-i18n="s4p">Активы, бизнес-модели, сделки</div>
       </article>
       <article class="panel">
         <span class="pnum">05</span>
-        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:11px"><path d="M16 11 L25 15.5 L25 22.5 L16 27 L7 22.5 L7 15.5 Z"/><path d="M16 20 L16 27"/><path class="ig-face" d="M16 11 L25 15.5 L16 20 L7 15.5 Z"/></g><g class="ig-p" style="--dx:10px;--dy:-10px"><path d="M23 3 L27 5 L27 8 L23 10 L19 8 L19 5 Z"/><path d="M19 5 L23 7 L27 5"/><path d="M23 7 L23 10"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:9px"><path class="ig-b" d="M16 11 L25 15.5 L25 22.5 L16 27 L7 22.5 L7 15.5 Z"/><path class="ig-face" d="M16 11 L25 15.5 L16 20 L7 15.5 Z"/><path d="M16 20 L16 27"/></g><g class="ig-p" style="--dx:9px;--dy:-9px"><path class="ig-b" d="M23 3 L27 5 L27 8 L23 10 L19 8 L19 5 Z"/><path d="M23 3 L27 5 L23 7 L19 5 Z"/><path d="M23 7 L23 10"/></g></svg></span>
         <h3 data-i18n="s5t">Комплаенс и корпоративные риски</h3>
         <p class="pd" data-i18n="s5d">Система защиты бизнеса: forensic-расследования, внутренний контроль, предотвращение утечек активов, мониторинг рисков.</p>
         <div class="pt" data-i18n="s5p">Forensic, контроль, мониторинг</div>
       </article>
       <article class="panel">
         <span class="pnum">06</span>
-        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M3 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M15 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1"/><path d="M12 9l0 3"/></g><g class="ic-acc"><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/></g></svg></span>
+        <span class="picon"><svg class="aicon iso" viewBox="0 0 32 32" aria-hidden="true"><g class="ig-p" style="--dx:0px;--dy:9px"><path class="ig-b" d="M16 18 L21 20.5 L21 24.5 L16 27 L11 24.5 L11 20.5 Z"/><path class="ig-face" d="M16 18 L21 20.5 L16 23 L11 20.5 Z"/><path d="M16 23 L16 27"/></g><g class="ig-p" style="--dx:0px;--dy:-4px"><path d="M16 18 L8 15"/><path d="M16 18 L24 15"/></g><g class="ig-p" style="--dx:-9px;--dy:-7px"><path class="ig-b" d="M8 8 L12 10 L12 13 L8 15 L4 13 L4 10 Z"/><path d="M8 8 L12 10 L8 12 L4 10 Z"/><path d="M8 12 L8 15"/></g><g class="ig-p" style="--dx:9px;--dy:-7px"><path class="ig-b" d="M24 8 L28 10 L28 13 L24 15 L20 13 L20 10 Z"/><path d="M24 8 L28 10 L24 12 L20 10 Z"/><path d="M24 12 L24 15"/></g></svg></span>
         <h3 data-i18n="s6t">Проектное управление</h3>
         <p class="pd" data-i18n="s6d">Стратегическое и операционное управление проектами: от корпоративной стратегии до организационных и технологических решений.</p>
         <div class="pt" data-i18n="s6p">Стратегия, процессы, внедрение</div>
@@ -310,6 +312,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="js/main.js?v=12"></script>
+<script src="js/main.js?v=13"></script>
 </body>
 </html>

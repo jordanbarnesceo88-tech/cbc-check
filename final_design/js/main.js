@@ -285,52 +285,64 @@
 
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(38, W/H, 0.1, 100);
-    camera.position.set(0,0,11);
+    camera.position.set(0,0,11.4); // fits the grown structure, not just the cube
     scene.add(new THREE.AmbientLight(0xffffff, 0.80));
     var key = new THREE.DirectionalLight(0xffffff, 0.5); key.position.set(3,5,4); scene.add(key);
 
     var group = new THREE.Group(); scene.add(group);
 
-    /* Eight parts that lock into ONE 2x2x2 cube: "structuring" made literal.
-       Assembled = a single axis-aligned cube. Dispersed = parts pushed out and rotated.
-       Faces are lit white (they occlude, so the cube reads solid); edges are the black
-       line language of the site; one part is the red accent. */
-    var S = 1.45, OFF = S/2 + 0.03, RED = 0xf40000, ACCENT = 5;
+    /* Three acts: CHAOS (parts scattered and rotated) -> STRUCTURE (they lock into one
+       2x2x2 cube) -> GROWTH (a further tier builds on top and the structure rises).
+       Faces are lit white so they occlude and the structure reads solid; edges are the
+       black line language of the site; the red accent rises with the growth. */
+    var S = 1.45, OFF = S/2 + 0.03, RED = 0xf40000;
     var boxGeo = new THREE.BoxGeometry(S,S,S);
     var edgeGeo = new THREE.EdgesGeometry(boxGeo);
-    var n = 0;
-    for(var xi=0; xi<2; xi++) for(var yi=0; yi<2; yi++) for(var zi=0; zi<2; zi++){
-      var isAccent = (n === ACCENT);
+    function makePiece(hx, hy, hz, isAccent, isGrowth){
       var piece = new THREE.Group();
       piece.add(new THREE.Mesh(boxGeo, new THREE.MeshLambertMaterial({
         color: isAccent ? RED : 0xffffff,
         polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1 })));
       piece.add(new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: isAccent ? RED : 0x000000 })));
-      var hx=(xi-0.5)*2*OFF, hy=(yi-0.5)*2*OFF, hz=(zi-0.5)*2*OFF;
-      piece.userData.home = { x:hx, y:hy, z:hz };                       // locked into the cube
-      piece.userData.away = { x:hx*2.0 + (Math.random()-0.5)*0.8,        // pushed apart
+      piece.userData.home = { x:hx, y:hy, z:hz };                       // locked into the structure
+      piece.userData.away = { x:hx*2.0 + (Math.random()-0.5)*0.8,       // scattered / unstructured
                               y:hy*2.0 + (Math.random()-0.5)*0.8,
                               z:hz*2.0 + (Math.random()-0.5)*0.8 };
       piece.userData.spin = { x:(Math.random()-0.5)*1.4, y:(Math.random()-0.5)*1.4, z:(Math.random()-0.5)*0.7 };
-      group.add(piece); n++;
+      piece.userData.growth = !!isGrowth;
+      if(isGrowth) piece.scale.setScalar(0.0001);                       // absent until the growth act
+      group.add(piece);
+    }
+    var n = 0;
+    for(var xi=0; xi<2; xi++) for(var yi=0; yi<2; yi++) for(var zi=0; zi<2; zi++){
+      makePiece((xi-0.5)*2*OFF, (yi-0.5)*2*OFF, (zi-0.5)*2*OFF, n === 5, false); n++;
+    }
+    var TIER = 3*OFF, gi = 0;                                            // the tier that grows on top
+    for(var gx=0; gx<2; gx++) for(var gz=0; gz<2; gz++){
+      makePiece((gx-0.5)*2*OFF, TIER, (gz-0.5)*2*OFF, gi === 3, true); gi++;
     }
 
     var spin=0, mx=0, my=0, tx=0, ty=0, cycle=null;
-    // a = assembly (0 = parts apart, 1 = one solid cube); d = disperse as the hero scrolls away
-    var state = { a: (reduce || !window.gsap) ? 1 : 0, d: 0 };
+    // a = assembly (0 = parts scattered, 1 = one solid cube)
+    // g = growth   (0 = no upper tier, 1 = the structure has grown)
+    // d = disperse as the hero scrolls away
+    var state = { a: (reduce || !window.gsap) ? 1 : 0, g: (reduce || !window.gsap) ? 1 : 0, d: 0 };
     window.addEventListener('pointermove', function(e){
       tx = (e.clientX/window.innerWidth - 0.5);
       ty = (e.clientY/window.innerHeight - 0.5);
     });
     function applyState(){
-      var net = state.a * (1 - state.d), open = 1 - net;
+      var net = state.a * (1 - state.d), gnet = state.g * (1 - state.d);
       for(var k=0;k<group.children.length;k++){
-        var o=group.children[k], h=o.userData.home, a=o.userData.away, s=o.userData.spin;
-        o.position.x = a.x + (h.x-a.x)*net;
-        o.position.y = a.y + (h.y-a.y)*net;
-        o.position.z = a.z + (h.z-a.z)*net;
+        var o=group.children[k], u=o.userData, h=u.home, a=u.away, s=u.spin;
+        var t = u.growth ? gnet : net, open = 1 - t;
+        o.position.x = a.x + (h.x-a.x)*t;
+        o.position.y = a.y + (h.y-a.y)*t;
+        o.position.z = a.z + (h.z-a.z)*t;
         o.rotation.set(s.x*open, s.y*open, s.z*open); // parts align as they lock together
+        if(u.growth) o.scale.setScalar(Math.max(0.0001, t)); // the new tier grows into being
       }
+      group.position.y = -0.6 * gnet; // ease the frame down as the structure rises
     }
     function frame(){
       spin += 0.0011; // one slow, deliberate group rotation
@@ -352,20 +364,22 @@
       frame();
       if(window.gsap){
         gsap.to(state,{ a:1, duration:1.5, ease:'power3.out', delay:0.25 }); // parts fly in and lock on load
-        // structuring cycle: the cube opens up to show its parts, then snaps back into one
-        var HOLD = 2.8;
+        /* CHAOS -> STRUCTURE -> GROWTH, on a slow loop with long holds on the two "money" frames */
         cycle = gsap.timeline({ repeat:-1, delay:2.6 })
-          .to(state,{ a:0.34, duration:1.9, ease:'power2.inOut' })
-          .to(state,{ a:0.34, duration:0.7 })
-          .to(state,{ a:1,    duration:1.4, ease:'power3.inOut' })
-          .to(state,{ a:1,    duration:HOLD });
-        var holdStart = cycle.duration() - HOLD;
-        // hover: assemble immediately and hold it together
+          .to(state,{ a:1,    duration:1.4, ease:'power3.inOut' })  // lock into the cube
+          .to(state,{ a:1,    duration:1.6 })                       // hold: STRUCTURE
+          .to(state,{ g:1,    duration:1.5, ease:'power3.out' })    // the structure grows a tier
+          .addLabel('grown')
+          .to(state,{ g:1,    duration:2.2 })                       // hold: GROWTH
+          .to(state,{ g:0,    duration:1.0, ease:'power2.inOut' })
+          .to(state,{ a:0.22, duration:1.4, ease:'power2.inOut' })  // back to CHAOS
+          .to(state,{ a:0.22, duration:0.8 });
+        // hover: build the whole thing at once and hold it (structure + growth)
         wrap.addEventListener('pointerenter', function(){
           cycle.pause();
-          gsap.to(state,{ a:1, duration:.55, ease:'power3.out', overwrite:'auto' });
+          gsap.to(state,{ a:1, g:1, duration:.7, ease:'power3.out', overwrite:'auto' });
         });
-        wrap.addEventListener('pointerleave', function(){ cycle.seek(holdStart).play(); });
+        wrap.addEventListener('pointerleave', function(){ cycle.seek('grown').play(); });
         if(window.ScrollTrigger){
           gsap.to(state,{ d:1, ease:'none',                                    // fly apart as the hero leaves
             scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });

@@ -46,7 +46,9 @@
       "Bash(git commit -q -m 'core_v2 refine 14: static principle descriptions *)",
       "Bash(git commit -q -m 'core_v2 fix: remove CSS scroll-behavior:smooth \\(pin overlap root cause\\) *)",
       "Bash(git commit -q -m 'final_design: assembling cube hero + two-tone red-accent icons *)",
-      "Bash(git commit -q -m 'final_design: two test isometric box-glyphs \\(option A + hover assembly\\) *)"
+      "Bash(git commit -q -m 'final_design: two test isometric box-glyphs \\(option A + hover assembly\\) *)",
+      "Bash(node genglyphs.js)",
+      "Bash(git commit -q -m 'final_design: icon set completed \\(no containers, larger\\) + three-act hero *)"
     ]
   }
 }

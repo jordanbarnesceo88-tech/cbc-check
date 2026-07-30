@@ -50,8 +50,9 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .principles .principle:hover .pn{color:transparent;-webkit-text-stroke:1.5px var(--red);transition:color .2s ease, -webkit-text-stroke-color .2s ease}
 @media(min-width:901px){ .principles .principle:nth-child(even){margin-top:14px} }
 .principles .ptop{display:flex;align-items:center;justify-content:space-between;margin-bottom:auto}
-.principles .picon-sm{width:58px;height:58px;display:grid;place-items:center;background:var(--band);border:1px solid var(--hair);color:var(--ink);position:relative;z-index:1}
-.principles .picon-sm .aicon{width:30px;height:30px}
+/* no container: the glyph is the object, like the hero cube. The ledger grid stays visible behind it. */
+.principles .picon-sm{display:block;background:none;border:0;color:var(--ink);position:relative;z-index:1}
+.principles .picon-sm .aicon{width:52px;height:52px}
 .principles .pn{position:absolute;top:18px;right:20px;font-family:var(--sans);font-weight:800;font-size:clamp(84px,7.6vw,112px);line-height:.82;
   letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #e3e3e3;pointer-events:none;user-select:none}
 @supports not (-webkit-text-stroke:1px #000){ .principles .pn{color:#efefef} }
@@ -71,17 +72,16 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel:hover{border-color:var(--ink);transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(0,0,0,.4)}
 .panel:hover::after{width:16px;height:16px}
 .panel .pnum{font-family:var(--mono);font-size:13px;color:var(--red);font-weight:500}
-.panel .picon{width:54px;height:54px;display:grid;place-items:center;margin:20px 0 22px;background:var(--band);border:1px solid var(--hair);color:var(--ink)}
-/* two-tone line icons: black (or white on the flagship) base + one red accent element per icon.
-   Library geometry, drawn on by JS — the accent layer draws last for emphasis. */
-.aicon{display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.aicon .ic-acc{stroke:var(--red)}
-
-/* ISOMETRIC BOX-GLYPHS — the icon system speaks the hero cube's language:
-   isometric parts, sharp mitred corners, one solid red face per glyph.
+.panel .picon{display:block;margin:24px 0 26px;background:none;border:0;color:var(--ink)}
+/* ISOMETRIC BOX-GLYPHS — the icon system speaks the hero cube's language: isometric parts,
+   sharp mitred corners, one solid red face per glyph, bodies filled with the card colour so
+   stacked parts occlude cleanly (the same trick the hero cube uses).
    On hover the parts fly in and lock together (the same "structuring" gesture as the cube). */
-.aicon.iso{stroke-width:2.1;stroke-linejoin:miter;stroke-linecap:square}
+.aicon{display:block;fill:none;stroke:currentColor}
+.aicon.iso{--icon-bg:var(--canvas);stroke-width:1.35;stroke-linejoin:miter;stroke-linecap:square}
+.aicon.iso .ig-b{fill:var(--icon-bg)}
 .aicon.iso .ig-face{fill:var(--red);stroke:none}
+.aicon.iso .ig-accl{stroke:var(--red)}
 @media (prefers-reduced-motion:no-preference){
   .panel:hover .aicon.iso .ig-p,
   .principles .principle:hover .aicon.iso .ig-p{animation:igAssemble .55s cubic-bezier(.16,1,.3,1) both}
@@ -92,7 +92,7 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
   from{ transform:translate(var(--dx,0px),var(--dy,-10px)); opacity:.25 }
   to{ transform:translate(0,0); opacity:1 }
 }
-.panel .picon .aicon{width:28px;height:28px}
+.panel .picon .aicon{width:70px;height:70px}
 .panel h3{margin:0;font-size:clamp(20px,1.9vw,25px);font-weight:700;letter-spacing:-.015em;line-height:1.14}
 .panel .pd{margin:14px 0 0;font-size:14.5px;color:var(--muted);line-height:1.55}
 .panel .pt{margin:auto 0 0;padding-top:18px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.02em;border-top:1px solid var(--hair)}
@@ -101,7 +101,8 @@ h2{margin:0;font-weight:700;font-size:clamp(30px,4.2vw,54px);line-height:1.05;le
 .panel.flagship h3{color:#fff}
 .panel.flagship .pd{color:var(--on-dark-muted)}
 .panel.flagship .pt{color:var(--on-dark-faint);border-top-color:var(--on-dark-line)}
-.panel.flagship .picon{background:rgba(255,255,255,.08);border-color:var(--on-dark-line);color:#fff}
+.panel.flagship .picon{background:none;border:0;color:#fff}
+.panel.flagship .aicon.iso{--icon-bg:var(--ink)} /* bodies occlude against the black card */
 .panel.flagship:hover{border-color:var(--red);box-shadow:0 18px 40px -22px rgba(0,0,0,.7)}
 .htrack .end{flex:0 0 clamp(220px,24vw,320px);display:flex;flex-direction:column;justify-content:center;gap:20px;padding:30px}
 .htrack .end h3{font-size:clamp(22px,2vw,28px);font-weight:700;letter-spacing:-.02em;margin:0;color:var(--ink)}
