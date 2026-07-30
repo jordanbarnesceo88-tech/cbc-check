@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Core Business Consulting</title>
+<meta name="description" content="Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке: финансы, право, налоги и риски в одной команде.">
+<!--
+  FINAL DESIGN — Corporate Black (from core_design_v2)
+  Palette: Black #000 (dominant), Red #F40000 (accent only ~5-8%), White #FFF (canvas), Gray #D4D4D4 (hairlines/bands).
+  Graphic language: red/black BOXES as highlights (not lines).
+  Hero 3D: eight parts that lock into ONE 2x2x2 cube ("structuring"), with a slow open/assemble
+           cycle; hovering the composition snaps it together; it flies apart as the hero scrolls away.
+  Icons: two-tone line icons (black/white base + one red accent element), drawn on when in view.
+  Motion: GSAP + ScrollTrigger (horizontal services hijack, box-wipe heading reveals, box timeline fill,
+          scrub counters, magnetic CTA) + Three.js in the hero.
+  Files split: css/*.css, js/main.js, assets/.  RU default + EN toggle. prefers-reduced-motion respected.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Stylesheet split into cascade-ordered partials -->
+<link rel="stylesheet" href="css/tokens.css?v=11">
+<link rel="stylesheet" href="css/base.css?v=11">
+<link rel="stylesheet" href="css/components.css?v=11">
+<link rel="stylesheet" href="css/sections.css?v=11">
+<link rel="stylesheet" href="css/responsive.css?v=11">
+<!-- no-JS fallback: reveal-on-scroll content is opacity:0 by default; show it when JS is unavailable -->
+<noscript><style>.reveal,.principles .pdesc{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+<div id="progress"></div>
+
+<header id="header">
+  <div class="wrap bar">
+    <a href="#hero" aria-label="Core Business Consulting"><img src="assets/logo_dark_core.svg" alt="Core Business Consulting" style="height:28px;width:auto"></a>
+    <nav>
+      <a href="#services" data-i18n="navServices">Направления</a>
+      <a href="#about" data-i18n="navAbout">О компании</a>
+      <a href="#contact" data-i18n="navContact">Контакты</a>
+    </nav>
+    <div class="actions">
+      <div class="lang" role="group" aria-label="Language">
+        <button data-lang="ru" aria-pressed="true">RU</button>
+        <button data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="#contact" class="btn btn-primary" data-i18n="ctaPrimary">Обсудить задачу</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="hero-eyebrow"><span class="box-mark"></span><span data-i18n="heroEyebrow">Комплексное сопровождение бизнеса</span></span>
+        <h1 aria-label="Оптимизируем, защищаем и развиваем ваш бизнес">
+          <span class="line"><span class="line-in" data-i18n="h1l1">Оптимизируем,</span></span>
+          <span class="line"><span class="line-in"><span class="accent" data-i18n="h1acc">защищаем</span><span data-i18n="h1l2b"> и развиваем</span></span></span>
+          <span class="line"><span class="line-in" data-i18n="h1l3">ваш бизнес</span></span>
+        </h1>
+        <p class="hero-sub" data-i18n="heroSub">Core Business Consulting сопровождает компании в СНГ и на Ближнем Востоке, объединяя финансовую, налоговую, юридическую и антикризисную экспертизу.</p>
+        <div class="hero-cta">
+          <a href="#contact" class="btn btn-primary btn-lg" id="magnet" data-i18n="heroCta1">Обсудить задачу</a>
+          <a href="#services" class="btn btn-ghost btn-lg" data-i18n="heroCta2">Направления работы</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <canvas id="boxes"></canvas>
+        <div class="fallback"><div class="fb-box"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span data-i18n="sec1">Производство</span><span data-i18n="sec2">Торговля</span><span data-i18n="sec3">IT</span><span data-i18n="sec4">Финансовый сектор</span>
+    <span data-i18n="sec1b">Производство</span><span data-i18n="sec2b">Торговля</span><span data-i18n="sec3b">IT</span><span data-i18n="sec4b">Финансовый сектор</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="bxr"><h2 data-i18n="aboutLead">Наши принципы</h2><span class="bxr-cover"></span></span>
+      <p class="lead" style="margin-top:20px" data-i18n="aboutP">Наш локальный и международный опыт позволяет нам выстраивать индивидуальные решения для компаний, задействованных в разных сегментах бизнеса, включая торговлю, логистику и IT.</p>
+    </div>
+    <div class="principles">
+        <div class="principle">
+          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M12 15l3.4 5.89l1.598 -3.233l3.598 .232l-3.4 -5.889"/><path d="M6.802 12l-3.4 5.89l3.598 -.233l1.598 3.232l3.4 -5.889"/></g><g class="ic-acc"><path d="M12 9m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0"/></g></svg></span><span class="pn">01</span></div>
+          <div class="pv" data-i18n="pr1">Профессионализм</div>
+          <p class="pdesc" data-i18n="pr1d">Глубокая экспертиза в каждой задаче.</p>
+        </div>
+        <div class="principle">
+          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M12 9v12m-8 -8a8 8 0 0 0 16 0m1 0h-2m-14 0h-2"/></g><g class="ic-acc"><path d="M12 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></svg></span><span class="pn">02</span></div>
+          <div class="pv" data-i18n="pr2">Стабильность</div>
+          <p class="pdesc" data-i18n="pr2d">Предсказуемые процессы и результаты.</p>
+        </div>
+        <div class="principle">
+          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"/></g><g class="ic-acc"><path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/></g></svg></span><span class="pn">03</span></div>
+          <div class="pv" data-i18n="pr3">Прозрачность</div>
+          <p class="pdesc" data-i18n="pr3d">Понятные решения и честная отчётность.</p>
+        </div>
+        <div class="principle">
+          <div class="ptop"><span class="picon-sm"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M16.346 9.17l-.729 -1.261c-.16 -.248 -1.056 -.203 -1.117 .091l-.177 1.38"/><path d="M19.761 14.813l-2.84 -5.133c-.189 -.31 -.592 -.68 -1.421 -.68c-.828 0 -1.5 .448 -1.5 1v6"/><path d="M7.654 9.17l.729 -1.261c.16 -.249 1.056 -.203 1.117 .091l.177 1.38"/><path d="M4.239 14.813l2.84 -5.133c.189 -.31 .592 -.68 1.421 -.68c.828 0 1.5 .448 1.5 1v6"/><rect width="4" height="2" x="10" y="12"/></g><g class="ic-acc"><path d="M7 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/><path d="M17 16m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"/></g></svg></span><span class="pn">04</span></div>
+          <div class="pv" data-i18n="pr4">Дальновидность</div>
+          <p class="pdesc" data-i18n="pr4d">Решения с расчётом на годы вперёд.</p>
+        </div>
+      </div>
+  </div>
+</section>
+
+<!-- SERVICES (horizontal scroll-hijack) -->
+<section id="services">
+  <div class="svc-head">
+    <div class="wrap">
+      <div>
+        <span class="label" data-i18n="servLabel">Направления работы</span>
+        <span class="bxr"><h2><span data-i18n="servH1">Шесть направлений. </span><span style="color:var(--faint)" data-i18n="servH2">Одна команда.</span></h2><span class="bxr-cover"></span></span>
+      </div>
+    </div>
+  </div>
+  <div class="htrack-wrap">
+    <div class="htrack" id="htrack">
+      <article class="panel flagship">
+        <span class="pnum">01</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M4 3m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"/><path d="M8 14l0 .01"/><path d="M12 14l0 .01"/><path d="M16 14l0 .01"/><path d="M8 17l0 .01"/><path d="M12 17l0 .01"/><path d="M16 17l0 .01"/></g><g class="ic-acc"><path d="M8 7m0 1a1 1 0 0 1 1 -1h6a1 1 0 0 1 1 1v1a1 1 0 0 1 -1 1h-6a1 1 0 0 1 -1 -1z"/></g></svg></span>
+        <h3 data-i18n="s1t">Бухгалтерское сопровождение</h3>
+        <p class="pd" data-i18n="s1d">Полный цикл бухгалтерских и финансовых услуг: ведение учёта, подготовка отчётности по РСБУ и МСФО, налоговое сопровождение, казначейство и контроль бюджета.</p>
+        <div class="pt" data-i18n="s1p">РСБУ и МСФО, аудит, налоги</div>
+      </article>
+      <article class="panel">
+        <span class="pnum">02</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M7 20l10 0"/><path d="M6 6l6 -1l6 1"/><path d="M12 3l0 17"/></g><g class="ic-acc"><path d="M9 12l-3 -6l-3 6a3 3 0 0 0 6 0"/><path d="M21 12l-3 -6l-3 6a3 3 0 0 0 6 0"/></g></svg></span>
+        <h3 data-i18n="s2t">Право и налоги</h3>
+        <p class="pd" data-i18n="s2d">Юридическое сопровождение от регистрации и структурирования до сделок и споров с оптимальной моделью денежных потоков.</p>
+        <div class="pt" data-i18n="s2p">ОАЭ, Россия, Казахстан, сделки</div>
+      </article>
+      <article class="panel">
+        <span class="pnum">03</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M17 10h2a2 2 0 0 1 2 2v1"/><path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M3 13v-1a2 2 0 0 1 2 -2h2"/></g><g class="ic-acc"><path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"/><path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"/></g></svg></span>
+        <h3 data-i18n="s3t">Управление человеческим капиталом</h3>
+        <p class="pd" data-i18n="s3d">Весь спектр HR: кадровое администрирование, подбор, HR-политики и системы мотивации. Прозрачные процессы.</p>
+        <div class="pt" data-i18n="s3p">Кадры, подбор, мотивация</div>
+      </article>
+      <article class="panel">
+        <span class="pnum">04</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M4 19l16 0"/></g><g class="ic-acc"><path d="M4 15l4 -6l4 2l4 -5l4 4"/></g></svg></span>
+        <h3 data-i18n="s4t">Оценка инвестиций и консалтинг</h3>
+        <p class="pd" data-i18n="s4d">Независимая оценка компаний, проектов и активов; анализ бизнес-моделей и рекомендации по структуре сделок.</p>
+        <div class="pt" data-i18n="s4p">Активы, бизнес-модели, сделки</div>
+      </article>
+      <article class="panel">
+        <span class="pnum">05</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M11.46 20.846a12 12 0 0 1 -7.96 -14.846a12 12 0 0 0 8.5 -3a12 12 0 0 0 8.5 3a12 12 0 0 1 -.09 7.06"/></g><g class="ic-acc"><path d="M15 19l2 2l4 -4"/></g></svg></span>
+        <h3 data-i18n="s5t">Комплаенс и корпоративные риски</h3>
+        <p class="pd" data-i18n="s5d">Система защиты бизнеса: forensic-расследования, внутренний контроль, предотвращение утечек активов, мониторинг рисков.</p>
+        <div class="pt" data-i18n="s5p">Forensic, контроль, мониторинг</div>
+      </article>
+      <article class="panel">
+        <span class="pnum">06</span>
+        <span class="picon"><svg class="aicon" viewBox="0 0 24 24" aria-hidden="true"><g class="ic-base"><path d="M3 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M15 15m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/><path d="M6 15v-1a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v1"/><path d="M12 9l0 3"/></g><g class="ic-acc"><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v2a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z"/></g></svg></span>
+        <h3 data-i18n="s6t">Проектное управление</h3>
+        <p class="pd" data-i18n="s6d">Стратегическое и операционное управление проектами: от корпоративной стратегии до организационных и технологических решений.</p>
+        <div class="pt" data-i18n="s6p">Стратегия, процессы, внедрение</div>
+      </article>
+      <div class="end">
+        <h3 data-i18n="svcEndH">Шесть направлений, одна команда и один контакт.</h3>
+        <a href="#contact" class="btn btn-primary" data-i18n="svcEndCta">Обсудить задачу</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="sec" id="approach">
+  <div class="wrap appr">
+    <div class="reveal">
+      <span class="bxr"><h2 data-i18n="appH">Предсказуемый результат на каждом этапе</h2><span class="bxr-cover"></span></span>
+      <p class="lead" style="margin-top:20px" data-i18n="appSub">Проверенные методологии проектного управления: от диагностики до сопровождения.</p>
+    </div>
+    <div class="timeline" id="timeline">
+      <div class="tl-track"><div class="tl-fill" id="tlfill"></div></div>
+      <div class="tstep"><div class="tdot">01</div><h3 data-i18n="ap1t">Диагностика</h3><p data-i18n="ap1d">Аудит текущей структуры, финансовой модели и рисков. Фиксируем цели и ограничения.</p></div>
+      <div class="tstep"><div class="tdot">02</div><h3 data-i18n="ap2t">Архитектура</h3><p data-i18n="ap2d">Проектируем корпоративную и налоговую структуру под задачи бизнеса и юрисдикции.</p></div>
+      <div class="tstep"><div class="tdot">03</div><h3 data-i18n="ap3t">Внедрение</h3><p data-i18n="ap3d">Регистрация, лицензии, постановка учёта, процессов и контроля.</p></div>
+      <div class="tstep"><div class="tdot">04</div><h3 data-i18n="ap4t">Сопровождение</h3><p data-i18n="ap4d">Текущий учёт, отчётность, комплаенс и аналитика для управленческих решений.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="sv" data-count="14" data-suffix="+">14+</div><p data-i18n="st1">лет совокупной экспертизы команды</p></div>
+      <div class="stat"><div class="sv" data-count="3">3</div><p data-i18n="st2">ключевые юрисдикции: ОАЭ, Россия, Казахстан</p></div>
+      <div class="stat"><div class="sv" data-count="6">6</div><p data-i18n="st3">направлений сопровождения бизнеса</p></div>
+      <div class="stat key"><div class="sv" data-count="47.2" data-dec="1" data-suffix="%">47.2%</div><p data-i18n="st4">снижение издержек в проектах реструктуризации</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec">
+  <div class="wrap">
+    <div class="reveal" style="max-width:680px;margin-bottom:clamp(34px,6vh,56px)">
+      <span class="bxr"><h2 data-i18n="tH">Команда, которая говорит на языке цифр</h2><span class="bxr-cover"></span></span>
+    </div>
+    <div class="quotes">
+      <figure class="quote reveal">
+        <div class="qm">&ldquo;</div>
+        <blockquote data-i18n="q1">За год Core Business Consulting перестроили нашу группу под две юрисдикции и закрыли давние вопросы по учёту.</blockquote>
+        <figcaption><div class="qn" data-i18n="q1n">Игорь Демидов</div><div class="qr" data-i18n="q1r">Финансовый директор, производственный холдинг, Казань</div></figcaption>
+      </figure>
+      <figure class="quote reveal">
+        <div class="qm">&ldquo;</div>
+        <blockquote data-i18n="q2">Регистрация в ОАЭ и постановка комплаенса заняли меньше времени, чем мы планировали. Команда работает с цифрами.</blockquote>
+        <figcaption><div class="qn" data-i18n="q2n">Лейла Аббас</div><div class="qr" data-i18n="q2r">Операционный директор, торговая группа, Дубай</div></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap contact">
+    <div class="reveal">
+      <span class="label" data-i18n="contactLabel">Связаться с нами</span>
+      <span class="bxr"><h2 data-i18n="contactH">Обсудим задачу вашего бизнеса</h2><span class="bxr-cover"></span></span>
+      <p class="lead" style="margin-top:20px" data-i18n="contactP">Мы подготовим индивидуальное предложение под задачи вашего бизнеса.</p>
+      <div class="cdet">
+        <div class="d"><span class="dl" data-i18n="cdEmail">Email</span><a class="dv" href="mailto:info@cbc.com">info@cbc.com</a></div>
+        <div class="d"><span class="dl" data-i18n="cdJur">Юрисдикции</span><span class="dv" data-i18n="cdJurV">ОАЭ, Россия, Казахстан</span></div>
+        <div class="d"><span class="dl" data-i18n="cdReg">Регионы</span><span class="dv" data-i18n="cdRegV">Россия, СНГ, Ближний Восток</span></div>
+      </div>
+    </div>
+    <div class="form-card reveal">
+      <form id="cform" novalidate>
+        <div class="sent" id="sent" data-i18n="sentMsg">Спасибо! Мы свяжемся с вами в ближайшее время.</div>
+        <div class="form-err" id="formErr" data-i18n="formError">Не удалось отправить запрос. Попробуйте ещё раз или напишите на info@cbc.com.</div>
+        <div class="fld">
+          <label for="f_name" data-i18n="fName">Имя</label>
+          <input id="f_name" name="name" type="text" placeholder="Иван Петров" data-ph="Иван Петров">
+          <p class="err" id="e_name" data-i18n="errName">Укажите имя</p>
+        </div>
+        <div class="fld">
+          <label for="f_company" data-i18n="fComp">Компания</label>
+          <input id="f_company" name="company" type="text" placeholder="ООО «Компания»" data-ph="ООО «Компания»">
+          <p class="hint" data-i18n="fCompH">Необязательно</p>
+        </div>
+        <div class="fld">
+          <label for="f_email" data-i18n="fEmail">Email</label>
+          <input id="f_email" name="email" type="email" placeholder="name@company.com" data-ph="name@company.com">
+          <p class="err" id="e_email" data-i18n="errEmail">Укажите корректный email</p>
+        </div>
+        <div class="fld">
+          <label for="f_msg" data-i18n="fMsg">Задача</label>
+          <textarea id="f_msg" name="message" placeholder="Опишите задачу и сроки" data-ph="Опишите задачу и сроки"></textarea>
+          <p class="err" id="e_msg" data-i18n="errMsg">Опишите задачу</p>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:16px" data-i18n="fSend">Отправить запрос</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <img src="assets/logo-light.svg" alt="Core Business Consulting" style="height:34px;width:auto">
+        <p class="ftag" data-i18n="ftTag">Комплексное сопровождение бизнеса в России, СНГ и на Ближнем Востоке.</p>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navServices">Направления</h4>
+        <a href="#services" data-i18n="ftS1">Бухгалтерия</a>
+        <a href="#services" data-i18n="ftS2">Право и налоги</a>
+        <a href="#services" data-i18n="ftS3">HR</a>
+        <a href="#services" data-i18n="ftS4">Инвестиции</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navAbout">Компания</h4>
+        <a href="#about" data-i18n="navAbout">О компании</a>
+        <a href="#approach" data-i18n="navApproach">Подход</a>
+        <a href="#contact" data-i18n="navContact">Контакты</a>
+      </div>
+      <div class="fcol">
+        <h4 data-i18n="navContact">Контакты</h4>
+        <a href="mailto:info@cbc.com">info@cbc.com</a>
+        <span data-i18n="ftAddr">Адрес по запросу</span>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>ООО «Core Business Consulting»</span>
+      <div class="flegal">
+        <a href="privacy.html" data-i18n="legalPrivacy">Политика конфиденциальности</a>
+        <a href="terms.html" data-i18n="legalTerms">Условия использования</a>
+      </div>
+      <span data-i18n="ftRights">© 2026 Core Business Consulting. Все права защищены.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/main.js?v=11"></script>
+</body>
+</html>
