@@ -291,60 +291,69 @@
 
     var group = new THREE.Group(); scene.add(group);
 
-    /* Three acts: CHAOS (parts scattered and rotated) -> STRUCTURE (they lock into one
-       2x2x2 cube) -> GROWTH (a further tier builds on top and the structure rises).
-       Faces are lit white so they occlude and the structure reads solid; edges are the
-       black line language of the site; the red accent rises with the growth. */
-    var S = 1.45, OFF = S/2 + 0.03, RED = 0xf40000;
-    var boxGeo = new THREE.BoxGeometry(S,S,S);
+    /* ABSORPTION, driven by the hero scroll.
+       At rest: scattered cubes of random size tumbling slowly (the unstructured business).
+       As you scroll: they are drawn in one by one and absorbed, while a single core grows
+       out of them, turning solid red. Once united, the structure elevates.
+       Faces are lit and opaque so everything occludes properly; edges keep the site's line language. */
+    var RED = 0xf40000;
+    var boxGeo = new THREE.BoxGeometry(1,1,1);
     var edgeGeo = new THREE.EdgesGeometry(boxGeo);
-    function makePiece(hx, hy, hz, isAccent, isGrowth){
-      var piece = new THREE.Group();
-      piece.add(new THREE.Mesh(boxGeo, new THREE.MeshLambertMaterial({
-        color: isAccent ? RED : 0xffffff,
-        polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1 })));
-      piece.add(new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color: isAccent ? RED : 0x000000 })));
-      piece.userData.home = { x:hx, y:hy, z:hz };                       // locked into the structure
-      piece.userData.away = { x:hx*2.0 + (Math.random()-0.5)*0.8,       // scattered / unstructured
-                              y:hy*2.0 + (Math.random()-0.5)*0.8,
-                              z:hz*2.0 + (Math.random()-0.5)*0.8 };
-      piece.userData.spin = { x:(Math.random()-0.5)*1.4, y:(Math.random()-0.5)*1.4, z:(Math.random()-0.5)*0.7 };
-      piece.userData.growth = !!isGrowth;
-      if(isGrowth) piece.scale.setScalar(0.0001);                       // absent until the growth act
-      group.add(piece);
-    }
-    var n = 0;
-    for(var xi=0; xi<2; xi++) for(var yi=0; yi<2; yi++) for(var zi=0; zi<2; zi++){
-      makePiece((xi-0.5)*2*OFF, (yi-0.5)*2*OFF, (zi-0.5)*2*OFF, n === 5, false); n++;
-    }
-    var TIER = 3*OFF, gi = 0;                                            // the tier that grows on top
-    for(var gx=0; gx<2; gx++) for(var gz=0; gz<2; gz++){
-      makePiece((gx-0.5)*2*OFF, TIER, (gz-0.5)*2*OFF, gi === 3, true); gi++;
+    function boxMesh(color){
+      var g = new THREE.Group();
+      g.add(new THREE.Mesh(boxGeo, new THREE.MeshLambertMaterial({
+        color:color, polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1 })));
+      g.add(new THREE.LineSegments(edgeGeo, new THREE.LineBasicMaterial({ color:0x000000 })));
+      return g;
     }
 
-    var spin=0, mx=0, my=0, tx=0, ty=0, cycle=null;
-    // a = assembly (0 = parts scattered, 1 = one solid cube)
-    // g = growth   (0 = no upper tier, 1 = the structure has grown)
-    // d = disperse as the hero scrolls away
-    var state = { a: (reduce || !window.gsap) ? 1 : 0, g: (reduce || !window.gsap) ? 1 : 0, d: 0 };
+    var shards = [], SHARD_N = 16;
+    for(var i=0;i<SHARD_N;i++){
+      var sh = boxMesh(0xffffff);
+      var ang = Math.random()*Math.PI*2, rad = 1.75 + Math.random()*1.05;   // kept inside the frustum
+      sh.userData.from = { x:Math.cos(ang)*rad, y:(Math.random()-0.5)*4.2, z:Math.sin(ang)*rad*0.6 - Math.random()*1.2 };
+      sh.userData.rot  = { x:Math.random()*Math.PI, y:Math.random()*Math.PI, z:Math.random()*Math.PI };
+      sh.userData.size = 0.36 + Math.random()*0.44;
+      sh.userData.t0 = (i/SHARD_N)*0.40;                    // staggered: they are taken in one by one
+      sh.userData.drift = 0.3 + Math.random()*0.6;
+      group.add(sh); shards.push(sh);
+    }
+
+    var CORE = 2.5;                                          // the united structure
+    var core = boxMesh(RED);
+    core.scale.setScalar(0.0001);
+    group.add(core);
+
+    var spin=0, mx=0, my=0, tx=0, ty=0, clock=0;
+    // p = absorption (0 = scattered, 1 = one red cube); e = elevation of the united structure
+    var solved = (reduce || !window.gsap);
+    var state = { p: solved ? 1 : 0, e: solved ? 0.35 : 0, boot: solved ? 1 : 0 };
     window.addEventListener('pointermove', function(e){
       tx = (e.clientX/window.innerWidth - 0.5);
       ty = (e.clientY/window.innerHeight - 0.5);
     });
+    function smooth(t){ t = t<0?0:(t>1?1:t); return t*t*(3-2*t); }
     function applyState(){
-      var net = state.a * (1 - state.d), gnet = state.g * (1 - state.d);
-      for(var k=0;k<group.children.length;k++){
-        var o=group.children[k], u=o.userData, h=u.home, a=u.away, s=u.spin;
-        var t = u.growth ? gnet : net, open = 1 - t;
-        o.position.x = a.x + (h.x-a.x)*t;
-        o.position.y = a.y + (h.y-a.y)*t;
-        o.position.z = a.z + (h.z-a.z)*t;
-        o.rotation.set(s.x*open, s.y*open, s.z*open); // parts align as they lock together
-        if(u.growth) o.scale.setScalar(Math.max(0.0001, t)); // the new tier grows into being
+      var p = state.p, e = state.e;
+      for(var k=0;k<shards.length;k++){
+        var o=shards[k], u=o.userData;
+        var t = smooth((p - u.t0) / (1 - u.t0 - 0.10));      // this shard's own absorption
+        var inv = 1 - t;
+        o.position.set(u.from.x*inv, u.from.y*inv, u.from.z*inv);   // drawn in to the centre
+        o.rotation.set(u.rot.x + clock*u.drift*0.25*inv,            // tumbling settles as it is taken in
+                       u.rot.y + clock*u.drift*0.3*inv,
+                       u.rot.z);
+        o.scale.setScalar(Math.max(0.0001, u.size*inv*state.boot)); // swallowed by the core
+        o.visible = inv > 0.02;
       }
-      group.position.y = -0.6 * gnet; // ease the frame down as the structure rises
+      var cs = smooth((p - 0.10) / 0.85);                    // the core grows out of what it absorbs
+      core.scale.setScalar(Math.max(0.0001, CORE*cs*(1 + e*0.06)));
+      core.visible = cs > 0.01;
+      core.position.y = e * 2.0;                             // ...and elevates
+      group.position.y = -e * 0.5;
     }
     function frame(){
+      clock += 0.016;
       spin += 0.0011; // one slow, deliberate group rotation
       mx += (tx-mx)*0.04; my += (ty-my)*0.04;
       group.rotation.y = spin + mx*0.5;
@@ -363,26 +372,16 @@
     else {
       frame();
       if(window.gsap){
-        gsap.to(state,{ a:1, duration:1.5, ease:'power3.out', delay:0.25 }); // parts fly in and lock on load
-        /* CHAOS -> STRUCTURE -> GROWTH, on a slow loop with long holds on the two "money" frames */
-        cycle = gsap.timeline({ repeat:-1, delay:2.6 })
-          .to(state,{ a:1,    duration:1.4, ease:'power3.inOut' })  // lock into the cube
-          .to(state,{ a:1,    duration:1.6 })                       // hold: STRUCTURE
-          .to(state,{ g:1,    duration:1.5, ease:'power3.out' })    // the structure grows a tier
-          .addLabel('grown')
-          .to(state,{ g:1,    duration:2.2 })                       // hold: GROWTH
-          .to(state,{ g:0,    duration:1.0, ease:'power2.inOut' })
-          .to(state,{ a:0.22, duration:1.4, ease:'power2.inOut' })  // back to CHAOS
-          .to(state,{ a:0.22, duration:0.8 });
-        // hover: build the whole thing at once and hold it (structure + growth)
-        wrap.addEventListener('pointerenter', function(){
-          cycle.pause();
-          gsap.to(state,{ a:1, g:1, duration:.7, ease:'power3.out', overwrite:'auto' });
-        });
-        wrap.addEventListener('pointerleave', function(){ cycle.seek('grown').play(); });
+        gsap.to(state,{ boot:1, duration:1.1, ease:'power2.out', delay:0.2 }); // shards fade up on load
         if(window.ScrollTrigger){
-          gsap.to(state,{ d:1, ease:'none',                                    // fly apart as the hero leaves
-            scrollTrigger:{ trigger:'#hero', start:'top top', end:'bottom top', scrub:true } });
+          // absorption happens through the first two thirds of the hero...
+          gsap.to(state,{ p:1, ease:'none',
+            scrollTrigger:{ trigger:'#hero', start:'top top', end:'66% top', scrub:0.6 } });
+          // ...then the united structure elevates as the hero leaves
+          gsap.to(state,{ e:1, ease:'none',
+            scrollTrigger:{ trigger:'#hero', start:'56% top', end:'bottom top', scrub:0.6 } });
+        } else {
+          gsap.to(state,{ p:1, duration:2.4, ease:'power2.inOut', delay:1.2 });
         }
       }
     }
