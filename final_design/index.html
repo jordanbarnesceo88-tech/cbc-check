@@ -9,9 +9,11 @@
   FINAL DESIGN — Corporate Black (from core_design_v2)
   Palette: Black #000 (dominant), Red #F40000 (accent only ~5-8%), White #FFF (canvas), Gray #D4D4D4 (hairlines/bands).
   Graphic language: red/black BOXES as highlights (not lines).
-  Hero 3D: ABSORPTION, driven by the hero scroll. At rest, scattered cubes of random size tumble
-           slowly. As you scroll they are drawn in and absorbed one by one while a single core grows
-           out of them and turns solid red; once united, the structure elevates.
+  Hero 3D: a loose group of boxes of different sizes (some solid, some wireframe) turning slowly on
+           its axis all the time. HOVER pulls every part into one solid RED cube — they align, even
+           out to the same size and take the accent colour; leaving lets it fall back open. The
+           assembly also plays once on load so the interaction is discoverable. Scroll only
+           parallaxes it, so the wow moment always happens where you can see it.
   Icons: isometric box-glyphs in the hero cube's language — no container, one solid red face each,
          bodies filled with the card colour so parts occlude; parts fly in and lock on hover.
   Motion: GSAP + ScrollTrigger (horizontal services hijack, box-wipe heading reveals, box timeline fill,
@@ -22,11 +24,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <!-- Stylesheet split into cascade-ordered partials -->
-<link rel="stylesheet" href="css/tokens.css?v=14">
-<link rel="stylesheet" href="css/base.css?v=14">
-<link rel="stylesheet" href="css/components.css?v=14">
-<link rel="stylesheet" href="css/sections.css?v=14">
-<link rel="stylesheet" href="css/responsive.css?v=14">
+<link rel="stylesheet" href="css/tokens.css?v=15">
+<link rel="stylesheet" href="css/base.css?v=15">
+<link rel="stylesheet" href="css/components.css?v=15">
+<link rel="stylesheet" href="css/sections.css?v=15">
+<link rel="stylesheet" href="css/responsive.css?v=15">
 <!-- no-JS fallback: reveal-on-scroll content is opacity:0 by default; show it when JS is unavailable -->
 <noscript><style>.reveal,.principles .pdesc{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -312,6 +314,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="js/main.js?v=14"></script>
+<script src="js/main.js?v=15"></script>
 </body>
 </html>
